@@ -8,6 +8,7 @@ namespace NFTM {
         Request(class Text *url);
         ~Request();
         
+        void Dump(class OutputStream *os);
         void ExtractQueryStrings(void);
         void RequestToPath(void);
         
