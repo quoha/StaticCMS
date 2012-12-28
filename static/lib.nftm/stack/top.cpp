@@ -1,19 +1,19 @@
 #include "local.hpp"
 
 //============================================================================
-// Top(word)
-//   pushes word on top of the stack
+// Top(variable)
+//   pushes variable on top of the stack
 //
-NFTM::Word *NFTM::Stack::Top(NFTM::Word *word) {
-	// StackNode is a wrapper for every word that we push
+NFTM::Variable *NFTM::Stack::Top(NFTM::Variable *variable) {
+	// StackNode is a wrapper for every variable that we push
 	//
 	struct StackNode *last = new StackNode();
 
 	// link the new node to the top of the list
 	//
-	last->prev = top;
-	last->word = word;
-	last->next = 0;
+	last->prev     = top;
+	last->variable = variable;
+	last->next     = 0;
 
 	// we're really a double ended queue, so fix up the top and bottom
 	// pointers as needed.
@@ -25,17 +25,17 @@ NFTM::Word *NFTM::Stack::Top(NFTM::Word *word) {
 		top = last;
 	}
 
-	return word;
+	return variable;
 }
 
 //============================================================================
 // Top()
-//   removes word on top of the stack
-//   returns that word or null if the stack is empty
+//   removes variable on top of the stack
+//   returns that variable or null if the stack is empty
 //
-NFTM::Word *NFTM::Stack::Top(void) {
-	struct StackNode *last = top;
-	NFTM::Word       *word = last ? last->word : 0;
+NFTM::Variable *NFTM::Stack::Top(void) {
+	struct StackNode *last     = top;
+	NFTM::Variable   *variable = last ? last->variable : 0;
 
 	// unlink the last node from the list
 	//
@@ -61,5 +61,5 @@ NFTM::Word *NFTM::Stack::Top(void) {
 		delete last;
 	}
 
-	return word;
+	return variable;
 }
