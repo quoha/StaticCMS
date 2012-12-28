@@ -1,6 +1,7 @@
 #ifndef   NFTM_static_src_bin_static_post_local_HPP
 #define   NFTM_static_src_bin_static_post_local_HPP
 
+#include "../lib.nftm/Variable.hpp"
 #include "../lib.nftm/SymbolTable.hpp"
 #include "../lib.nftm/Stream.hpp"
 #include "../lib.nftm/Text.hpp"
@@ -15,7 +16,8 @@ namespace NFTM {
     public:
         PostModel(class SymbolTable *symtab);
         ~PostModel();
-        
+
+        bool Pull(class Request *request);
         bool Push(class Stack *stack, const char *word);
     }; // class PostModel
     

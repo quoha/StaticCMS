@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8878168E502D00B7E4D8 /* pull.cpp */; };
+		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
 		2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1863168E2CE500C3ACCC /* dump.cpp */; };
 		2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1866168E31B100C3ACCC /* dump.cpp */; };
 		2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */; };
@@ -96,6 +98,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D4C8878168E502D00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
+		2D4C887B168E516B00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2DEE1863168E2CE500C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1866168E31B100C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -331,6 +335,7 @@
 				2DF6586D168D21F900C198D3 /* dtor.cpp */,
 				2DF6586E168D21F900C198D3 /* local.hpp */,
 				2DF6586F168D21F900C198D3 /* push.cpp */,
+				2D4C887B168E516B00B7E4D8 /* pull.cpp */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 				2DF658C7168D21F900C198D3 /* ctor.cpp */,
 				2DF658C8168D21F900C198D3 /* dtor.cpp */,
 				2DF658C9168D21F900C198D3 /* push.cpp */,
+				2D4C8878168E502D00B7E4D8 /* pull.cpp */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -624,6 +630,8 @@
 				2DF65923168E03AB00C198D3 /* remove.cpp in Sources */,
 				2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */,
 				2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */,
+				2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */,
+				2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
