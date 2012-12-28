@@ -18,11 +18,12 @@ namespace NFTM {
         class Controller *defaultController;
         
         struct Route {
+            struct Route     *prev;
+            struct Route     *next;
             const char       *path;
             const char       *action;
             class Controller *controller;
-            struct Route     *next;
-        } *routes;
+        } *routeTop, *routeBottom;
     }; // class Router
     
 } // namespace NFTM
