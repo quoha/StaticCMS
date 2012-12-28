@@ -107,9 +107,6 @@ int main(int argc, char *argv[]) {
 
     NFTM::Variable   *pathInfo = cgi->PATH_INFO();
 	NFTM::Request    *request = new NFTM::Request(pathInfo ? pathInfo->AsText() : 0);
-
-    symtab->Dump(os, false, true);
-
 	NFTM::Controller *c       = router.Route(request);
 	if (c) {
 		// now handle it
