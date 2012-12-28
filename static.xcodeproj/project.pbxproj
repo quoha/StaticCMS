@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1863168E2CE500C3ACCC /* dump.cpp */; };
+		2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1866168E31B100C3ACCC /* dump.cpp */; };
+		2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */; };
 		2DF65848168D1E7600C198D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65847168D1E7600C198D3 /* main.cpp */; };
 		2DF6584A168D1E7600C198D3 /* static.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DF65849168D1E7600C198D3 /* static.1 */; };
 		2DF658CA168D21F900C198D3 /* canHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65852168D21F900C198D3 /* canHandle.cpp */; };
@@ -76,6 +79,7 @@
 		2DF6591D168D76DC00C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6591C168D76DC00C198D3 /* dtor.cpp */; };
 		2DF6591F168D771400C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6591E168D771400C198D3 /* dtor.cpp */; };
 		2DF65921168D776800C198D3 /* strcopy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65920168D776800C198D3 /* strcopy.cpp */; };
+		2DF65923168E03AB00C198D3 /* remove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65922168E03AB00C198D3 /* remove.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,6 +96,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2DEE1863168E2CE500C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
+		2DEE1866168E31B100C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
+		2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		2DF65843168D1E7600C198D3 /* static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = static; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF65847168D1E7600C198D3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2DF65849168D1E7600C198D3 /* static.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = static.1; sourceTree = "<group>"; };
@@ -193,6 +200,7 @@
 		2DF6591C168D76DC00C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2DF6591E168D771400C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2DF65920168D776800C198D3 /* strcopy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strcopy.cpp; sourceTree = "<group>"; };
+		2DF65922168E03AB00C198D3 /* remove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remove.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +218,7 @@
 		2DF65838168D1E7600C198D3 = {
 			isa = PBXGroup;
 			children = (
+				2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */,
 				2DF65846168D1E7600C198D3 /* static */,
 				2DF65844168D1E7600C198D3 /* Products */,
 			);
@@ -342,6 +352,7 @@
 				2DF65877168D21F900C198D3 /* extractQueryStrings.cpp */,
 				2DF65878168D21F900C198D3 /* local.hpp */,
 				2DF65879168D21F900C198D3 /* requestToPath.cpp */,
+				2DEE1866168E31B100C3ACCC /* dump.cpp */,
 			);
 			path = request;
 			sourceTree = "<group>";
@@ -414,6 +425,7 @@
 				2DF6589C168D21F900C198D3 /* hash.cpp */,
 				2DF6589D168D21F900C198D3 /* local.hpp */,
 				2DF6589E168D21F900C198D3 /* lookup.cpp */,
+				2DF65922168E03AB00C198D3 /* remove.cpp */,
 			);
 			path = symbolTable;
 			sourceTree = "<group>";
@@ -454,6 +466,7 @@
 				2DF65916168D5F0100C198D3 /* init.cpp */,
 				2DF65918168D5F6C00C198D3 /* clearValues.cpp */,
 				2DF6591A168D6ABE00C198D3 /* kind.cpp */,
+				2DEE1863168E2CE500C3ACCC /* dump.cpp */,
 			);
 			path = variable;
 			sourceTree = "<group>";
@@ -608,6 +621,9 @@
 				2DF6591D168D76DC00C198D3 /* dtor.cpp in Sources */,
 				2DF6591F168D771400C198D3 /* dtor.cpp in Sources */,
 				2DF65921168D776800C198D3 /* strcopy.cpp in Sources */,
+				2DF65923168E03AB00C198D3 /* remove.cpp in Sources */,
+				2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */,
+				2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +714,7 @@
 				2DF6584F168D1E7600C198D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

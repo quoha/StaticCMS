@@ -14,6 +14,7 @@
 
 #include "local.hpp"
 #include <stdio.h>
+#include <sqlite3.h>
 
 #define DNL fprintf(stderr, "%s: %d\n", __FILE__, __LINE__);
 
@@ -107,6 +108,7 @@ int main(int argc, char *argv[]) {
 
     NFTM::Variable   *pathInfo = cgi->PATH_INFO();
 	NFTM::Request    *request = new NFTM::Request(pathInfo ? pathInfo->AsText() : 0);
+    request->Dump(os);
 	NFTM::Controller *c       = router.Route(request);
 	if (c) {
 		// now handle it
@@ -114,6 +116,10 @@ int main(int argc, char *argv[]) {
 	} else {
 		printf("  hey:\tno controller found?\n");
 	}
+
+    sqlite3 *db = 0;
+    sqlite3_open(":memory:", &db);
+    sqlite3_close(db);
 
 	if (os) {
 		delete os;
