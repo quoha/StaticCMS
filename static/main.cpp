@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
 	NFTM::Controller *c       = router.Route(request);
 	if (c) {
 		// now handle it
-		c->Handle(cgi, request, os);
+		c->Handle(symtab, request, os);
 	} else {
 		printf("  hey:\tno controller found?\n");
 	}
