@@ -1,0 +1,56 @@
+#include "local.hpp"
+#include "../Util.hpp"
+#include <stdio.h>
+
+//============================================================================
+// Route(request)
+//
+NFTM::Controller *NFTM::Router::Route(NFTM::Request *request) {
+	// pull out the parts
+	//
+	char *part = uri;
+
+	while (*part && *part == '/') {
+		*(part++) = 0;
+	}
+	resource = *part ? part : 0;
+	while (*part && *part != '/') {
+		part++;
+	}
+
+	for (int idx = 0; idx < 31; idx++) {
+		while (*part && *part == '/') {
+			*(part++) = 0;
+		}
+		parameter[idx] = *part ? part : 0;
+		while (*part && *part != '/') {
+			part++;
+		}
+	}
+	parameter[31] = 0;
+
+	// last parameter is really the action
+	//
+	for (int idx = 31; !action && idx >= 0; idx--) {
+		if (parameter[idx]) {
+			action = parameter[idx];
+			parameter[idx] = 0;
+		}
+	}
+
+	if (!resource) {
+		// assign default resource?
+	}
+
+printf("route:\tresource %s\n", resource ? resource : "(null)");
+printf("     :\taction   %s\n", action   ? action   : "(null)");
+for (int idx = 0; parameter[idx]; idx++) {
+	printf("  %3d:\tparm     %s\n", idx, parameter[idx]);
+}
+
+	NFTM::Controller *c = defaultController;
+
+	// first match on path + action wins
+
+	return c;
+}

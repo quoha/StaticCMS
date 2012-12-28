@@ -1,0 +1,51 @@
+*	Something
+	*	Initializes the CGI
+	*	All controllers register themselves
+		*	/area/parameters/action
+		*	Pattern matching
+			/post/YYYY/MM => show posts for year/month with action SHOW
+			/post/YYYY => show posts for year with action SHOW
+			/post/TEXT => show posts for article with title TITLE, with action SHOW
+			/post => show most recent post, with action SHOW
+	*	Initializes the Stack
+		*	Push parameters
+	*	Calls the Router
+		*	Determine controller
+		*	Push action
+		*	Call controller
+
+*	The router
+	*	Accepts the URI
+	*	Extracts parameters from the URI
+	*	Determines which controller to call
+		*	Not very smart
+		*	Passes URI (sans parameters) to each in turn
+		*	First to return "sure" gets to handle the URI
+
+*	The controller
+	*	Accepts a URI request from the router
+		*	If we can handle, return true
+		*	If we can't, return false
+	*	Accepts a URI to process from the router
+	*	Determines which model to invoke
+	*	Invokes the model
+	*	Determines which view to invoke
+	*	Invokes the view
+
+*	The model
+	*	Interacts directly with the database
+	*	Logic is done by sub-classing NFTM::Model
+
+*	The view takes data from the model
+	*	Has a template
+	*	Does not manipulate the stack directly
+	*	Pushes text on to the stack
+	*	Calls functions to operate on the stack
+
+*	The stack
+	*	Takes cells as items
+
+*	A cell
+	*	Can be a number
+	*	Can be a stack
+	*	Can be text
