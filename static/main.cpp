@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 		if (NFTM::StrCmp(opt, "--help")) {
 			return 2;
 		} else if (NFTM::StrCmp(opt, "--dump-env")) {
-			symtab->Dump(os);
+			symtab->Dump(os, true, true);
 		} else if (NFTM::StrCmp(opt, "--output") && val && *val) {
 			os->Redirect(val);
 			if (os->ErrorMessage()) {
@@ -107,6 +107,8 @@ int main(int argc, char *argv[]) {
 
     NFTM::Variable   *pathInfo = cgi->PATH_INFO();
 	NFTM::Request    *request = new NFTM::Request(pathInfo ? pathInfo->AsText() : 0);
+
+    symtab->Dump(os, false, true);
 
 	NFTM::Controller *c       = router.Route(request);
 	if (c) {

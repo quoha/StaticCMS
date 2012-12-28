@@ -68,6 +68,7 @@ namespace NFTM {
             return kind == vtTEXT ? val.text : 0;
         }
 
+        void Dump(class OutputStream *os);
     private:
         void ClearValues(void);
         void Init(void);
@@ -88,7 +89,7 @@ namespace NFTM {
         // initialized when created, never changed
         //
         static const int maxNameLength = 64;
-        char name[maxNameLength];
+        char name[maxNameLength + 1];
     }; // class Variable
     
 } // namespace NFTM

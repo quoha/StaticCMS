@@ -34,7 +34,7 @@ namespace NFTM {
         
         // miscellaneous
         //
-        void Dump(class OutputStream *os) const;
+        void Dump(class OutputStream *os, bool showHash, bool showVar) const;
         bool Remove(class Variable *variable);
         
     private:
