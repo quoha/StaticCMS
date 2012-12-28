@@ -58,7 +58,7 @@ bool NFTM::Variable::Value(NFTM::Text *text) {
     ClearValues();
 
     val.text  = text;
-    isNull    = val.text ? false : true;
+    isNull    = (val.text && !val.text->IsNull()) ? false : true;
     isTainted = false;
     kind      = vtTEXT;
     
@@ -71,7 +71,7 @@ bool NFTM::Variable::Value(NFTM::Text *text_, int length) {
     ClearValues();
 
     val.text  = new NFTM::Text(text_, length);
-    isNull    = val.text ? false : true;
+    isNull    = (val.text && !val.text->IsNull()) ? false : true;
     isTainted = false;
     kind      = vtTEXT;
     
@@ -84,10 +84,10 @@ bool NFTM::Variable::Value(const char *text_) {
     ClearValues();
 
     val.text  = new NFTM::Text(text_);
-    isNull    = val.text ? false : true;
+    isNull    = (val.text && !val.text->IsNull()) ? false : true;
     isTainted = false;
     kind      = vtTEXT;
-    
+
     return true;
 }
 
@@ -97,7 +97,7 @@ bool NFTM::Variable::Value(const char *text_, int length) {
     ClearValues();
 
     val.text  = new NFTM::Text(text_, length);
-    isNull    = val.text ? false : true;
+    isNull    = (val.text && !val.text->IsNull()) ? false : true;
     isTainted = false;
     kind      = vtTEXT;
     

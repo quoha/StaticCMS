@@ -29,6 +29,7 @@ bool NFTM::CGI::GetEnv(const char *defaultPath, const char *defaultScriptName) {
 	if (pathInfo->IsNull()) {
 		pathInfo->Value(defaultPath);
 	}
+
 	if (scriptName->IsNull()) {
 		scriptName->Value(defaultScriptName);
 	}

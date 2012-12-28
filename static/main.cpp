@@ -106,7 +106,10 @@ int main(int argc, char *argv[]) {
 	router.AddRoute("/post", &post);
 
     NFTM::Variable   *pathInfo = cgi->PATH_INFO();
+    printf("main - cgi->PATH_INFO() returned %s\n", pathInfo->Kind());
+    printf("main - cgi->PATH_INFO() returned %s\n", pathInfo->AsText()->IsNull() ? "is null" : "is not null");
 	NFTM::Request    *request = new NFTM::Request(pathInfo->AsText());
+
 	NFTM::Controller *c       = router.Route(request);
 	if (c) {
 		// now handle it
