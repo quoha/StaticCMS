@@ -34,7 +34,8 @@ namespace NFTM {
         
         // miscellaneous
         //
-        void            Dump(class OutputStream *os) const;
+        void Dump(class OutputStream *os) const;
+        bool Remove(class Variable *variable);
         
     private:
         static const int hashSize = 1024;
