@@ -110,16 +110,16 @@ NFTM::Variable::Variable(const char *name_, const char *text) {
 
 //============================================================================
 //
-NFTM::Variable::Variable(const char *name_, const char *text_, int length) {
+NFTM::Variable::Variable(const char *name_, const char *text, int length) {
     Init();
     
     if (name_) {
         StrCopy(name, name_, maxNameLength);
     } else if (text) {
-        StrCopy(name, text->AsCString(), maxNameLength);
+        StrCopy(name, text, maxNameLength);
     } else {
         sprintf(name, ".%p", this);
     }
 
-    Value(text_, length);
+    Value(text, length);
 }

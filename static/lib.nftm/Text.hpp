@@ -16,6 +16,9 @@ namespace NFTM {
         
         bool FromCString(const char *str);
         bool FromFile(const char *fileName, bool forceNewLine);
+        bool IsNull(void) const {
+            return isNull;
+        }
         
         bool Copy(Text *q);
         void Release(void);

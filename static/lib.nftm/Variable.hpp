@@ -21,6 +21,8 @@ namespace NFTM {
         Variable(const char *name, const char     *text, int length);
         ~Variable();
 
+        const char *Kind(void) const;
+
         const char *Name(void) const {
             return name;
         }

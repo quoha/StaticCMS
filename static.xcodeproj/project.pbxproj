@@ -65,9 +65,6 @@
 		2DF658FF168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658B1168D21F900C198D3 /* ctor.cpp */; };
 		2DF65900168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658B2168D21F900C198D3 /* dtor.cpp */; };
 		2DF65903168D21F900C198D3 /* value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658B6168D21F900C198D3 /* value.cpp */; };
-		2DF65904168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658B9168D21F900C198D3 /* ctor.cpp */; };
-		2DF65905168D21F900C198D3 /* kind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658BA168D21F900C198D3 /* kind.cpp */; };
-		2DF65906168D21F900C198D3 /* name.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658BC168D21F900C198D3 /* name.cpp */; };
 		2DF65907168D21F900C198D3 /* canHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C1168D21F900C198D3 /* canHandle.cpp */; };
 		2DF65908168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C2168D21F900C198D3 /* ctor.cpp */; };
 		2DF65909168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C3168D21F900C198D3 /* dtor.cpp */; };
@@ -80,6 +77,7 @@
 		2DF65913168D2B9000C198D3 /* replace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65912168D2B9000C198D3 /* replace.cpp */; };
 		2DF65917168D5F0100C198D3 /* init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65916168D5F0100C198D3 /* init.cpp */; };
 		2DF65919168D5F6C00C198D3 /* clearValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65918168D5F6C00C198D3 /* clearValues.cpp */; };
+		2DF6591B168D6ABE00C198D3 /* kind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6591A168D6ABE00C198D3 /* kind.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -184,11 +182,6 @@
 		2DF658B4168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF658B6168D21F900C198D3 /* value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = value.cpp; sourceTree = "<group>"; };
 		2DF658B7168D21F900C198D3 /* Variable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Variable.hpp; sourceTree = "<group>"; };
-		2DF658B9168D21F900C198D3 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
-		2DF658BA168D21F900C198D3 /* kind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kind.cpp; sourceTree = "<group>"; };
-		2DF658BB168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
-		2DF658BC168D21F900C198D3 /* name.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = name.cpp; sourceTree = "<group>"; };
-		2DF658BD168D21F900C198D3 /* Word.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Word.hpp; sourceTree = "<group>"; };
 		2DF658BE168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF658C1168D21F900C198D3 /* canHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canHandle.cpp; sourceTree = "<group>"; };
 		2DF658C2168D21F900C198D3 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
@@ -203,6 +196,7 @@
 		2DF65912168D2B9000C198D3 /* replace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = replace.cpp; sourceTree = "<group>"; };
 		2DF65916168D5F0100C198D3 /* init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = init.cpp; sourceTree = "<group>"; };
 		2DF65918168D5F6C00C198D3 /* clearValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clearValues.cpp; sourceTree = "<group>"; };
+		2DF6591A168D6ABE00C198D3 /* kind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kind.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,8 +288,6 @@
 				2DF658AF168D21F900C198D3 /* Util.hpp */,
 				2DF658B0168D21F900C198D3 /* variable */,
 				2DF658B7168D21F900C198D3 /* Variable.hpp */,
-				2DF658B8168D21F900C198D3 /* word */,
-				2DF658BD168D21F900C198D3 /* Word.hpp */,
 			);
 			path = lib.nftm;
 			sourceTree = "<group>";
@@ -467,19 +459,9 @@
 				2DF658B6168D21F900C198D3 /* value.cpp */,
 				2DF65916168D5F0100C198D3 /* init.cpp */,
 				2DF65918168D5F6C00C198D3 /* clearValues.cpp */,
+				2DF6591A168D6ABE00C198D3 /* kind.cpp */,
 			);
 			path = variable;
-			sourceTree = "<group>";
-		};
-		2DF658B8168D21F900C198D3 /* word */ = {
-			isa = PBXGroup;
-			children = (
-				2DF658B9168D21F900C198D3 /* ctor.cpp */,
-				2DF658BA168D21F900C198D3 /* kind.cpp */,
-				2DF658BB168D21F900C198D3 /* local.hpp */,
-				2DF658BC168D21F900C198D3 /* name.cpp */,
-			);
-			path = word;
 			sourceTree = "<group>";
 		};
 		2DF658BF168D21F900C198D3 /* post */ = {
@@ -621,9 +603,6 @@
 				2DF658FF168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF65900168D21F900C198D3 /* dtor.cpp in Sources */,
 				2DF65903168D21F900C198D3 /* value.cpp in Sources */,
-				2DF65904168D21F900C198D3 /* ctor.cpp in Sources */,
-				2DF65905168D21F900C198D3 /* kind.cpp in Sources */,
-				2DF65906168D21F900C198D3 /* name.cpp in Sources */,
 				2DF65907168D21F900C198D3 /* canHandle.cpp in Sources */,
 				2DF65908168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF65909168D21F900C198D3 /* dtor.cpp in Sources */,
@@ -636,6 +615,7 @@
 				2DF65913168D2B9000C198D3 /* replace.cpp in Sources */,
 				2DF65917168D5F0100C198D3 /* init.cpp in Sources */,
 				2DF65919168D5F6C00C198D3 /* clearValues.cpp in Sources */,
+				2DF6591B168D6ABE00C198D3 /* kind.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

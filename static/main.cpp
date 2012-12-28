@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
 	router.AddRoute("/"    , &post);
 	router.AddRoute("/post", &post);
 
-	NFTM::Request    *request = new NFTM::Request(cgi->GetVar("PATH_INFO")->Value());
+	NFTM::Request    *request = new NFTM::Request(cgi->GetVar("PATH_INFO")->AsText());
 	NFTM::Controller *c       = router.Route(request);
 	if (c) {
 		// now handle it
