@@ -3,8 +3,7 @@
 //============================================================================
 // ExportToSymTab(symtab)
 //
-bool NFTM::CGI::ExportToSymTab(NFTM::SymbolTable *symtab_) {
-	symtab           = symtab_;
+bool NFTM::CGI::ExportToSymTab(NFTM::SymbolTable *symtab) {
     if (!symtab) {
         return false;
     }

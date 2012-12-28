@@ -8,12 +8,9 @@ namespace NFTM {
         CGI(void);
         ~CGI();
         
-        bool            AddArgs(char **argv);
         void            DumpEnv(class OutputStream *os) const;
         bool            ExportToSymTab(class SymbolTable *symtab);
         bool            GetEnv(const char *defaultPath, const char *defaultScriptName);
-        class Variable *GetVar(const char *var);
-        bool            SetVar(const char *var, const char *val);
         
         class Variable *AUTH_TYPE        (void) const;
         class Variable *CONTENT_LENGTH   (void) const;
@@ -33,8 +30,6 @@ namespace NFTM {
         class Variable *SERVER_PORT      (void) const;
         class Variable *SERVER_PROTOCOL  (void) const;
         class Variable *SERVER_SOFTWARE  (void) const;
-        
-        class SymbolTable *symtab;
         
         class Variable *authType;
         class Variable *contentLength;

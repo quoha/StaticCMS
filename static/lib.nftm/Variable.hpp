@@ -27,14 +27,14 @@ namespace NFTM {
             return name;
         }
 
-        void Value(void);
-        void Value(class Function *function);
-        void Value(class Number   *function);
-        void Value(class Stack    *stack);
-        void Value(class Text     *text);
-        void Value(class Text     *text, int length);
-        void Value(const char     *text);
-        void Value(const char     *text, int length);
+        bool Value(void);
+        bool Value(class Function *function);
+        bool Value(class Number   *function);
+        bool Value(class Stack    *stack);
+        bool Value(class Text     *text);
+        bool Value(class Text     *text, int length);
+        bool Value(const char     *text);
+        bool Value(const char     *text, int length);
 
         bool IsFunction(void) const {
             return kind == vtFUNCTION;

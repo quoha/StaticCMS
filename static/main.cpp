@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
 
 	NFTM::CGI *cgi = new NFTM::CGI();
     cgi->GetEnv("/", argv[0]);
-    cgi->AddArgs(argv);
     cgi->ExportToSymTab(symtab);
 
 	for (int idx = 1; idx < argc; idx++) {
@@ -70,7 +69,24 @@ int main(int argc, char *argv[]) {
 			if (*value == '=') {
 				*(value++) = 0;
 			}
-			symtab->Update(name, value);
+            NFTM::Variable *variable = symtab->Lookup(name);
+            if (variable) {
+                if (!variable->Value(value)) {
+                    printf("\nerror:\tunable to update variable in symbol table\n");
+                    printf("\t%-20s == '%s'\n", "name", name);
+                    printf("\t%-20s == '%s'\n\n", "value", value);
+                    return 2;
+                }
+            } else {
+                if (!symtab->Add(name, value)) {
+                    printf("\nerror:\tunable to add variable to symbol table\n");
+                    printf("\t%-20s == '%s'\n", "name", name);
+                    printf("\t%-20s == '%s'\n\n", "value", value);
+                    return 2;
+                }
+            }
+            printf(" info:\t%-20s == '%s'\n", "name", name);
+            printf("\t%-20s == '%s'\n", "value", value);
 		} else {
 			fprintf(stderr, "\nerror:\tinvalid option '%s%s%s'\n", opt, val ? "=" : "", val ? val : "");
 			fprintf(stderr, "\ttry --help if you're stuck\n\n");
@@ -89,7 +105,8 @@ int main(int argc, char *argv[]) {
 	router.AddRoute("/"    , &post);
 	router.AddRoute("/post", &post);
 
-	NFTM::Request    *request = new NFTM::Request(cgi->GetVar("PATH_INFO")->AsText());
+    NFTM::Variable   *pathInfo = cgi->PATH_INFO();
+	NFTM::Request    *request = new NFTM::Request(pathInfo->AsText());
 	NFTM::Controller *c       = router.Route(request);
 	if (c) {
 		// now handle it

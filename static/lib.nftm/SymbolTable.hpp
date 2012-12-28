@@ -15,14 +15,18 @@ namespace NFTM {
         SymbolTable(void);
         ~SymbolTable();
         
-        // add various items to the table
+        // add various items to the table. note the convenience function
+        // for c-strings. i hope that by this point, we're ready to stop
+        // using them. and maybe sometime soon i'll step up to real strings.
         //
-        class Variable *Add(class Function *function);
-        class Variable *Add(class Number   *number);
-        class Variable *Add(class Stack    *stack);
-        class Variable *Add(class Text     *text);
         class Variable *Add(class Variable *variable);
-        class Variable *Add(const char *name, const char *value);
+        class Variable *Add(const char *name, class Function *function);
+        class Variable *Add(const char *name, class Number   *number);
+        class Variable *Add(const char *name, class Stack    *stack);
+        class Variable *Add(const char *name, class Text     *text);
+        class Variable *Add(const char *name, class Text     *text, int length);
+        class Variable *Add(const char *name, const char     *text);
+        class Variable *Add(const char *name, const char     *text, int length);
         
         // find items in the table
         //

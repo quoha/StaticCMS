@@ -1,37 +1,65 @@
 #include "local.hpp"
 
 //============================================================================
-// Add(function)
+// Add(name, function)
 //
-NFTM::Word *NFTM::SymbolTable::Add(NFTM::Function *function) {
-	return Add(new NFTM::Word(function));
+NFTM::Variable *NFTM::SymbolTable::Add(const char *name, NFTM::Function *function) {
+	return Add(new NFTM::Variable(name, function));
 }
 
 //============================================================================
-// Add(var)
+// Add(name, number)
 //
-NFTM::Word *NFTM::SymbolTable::Add(NFTM::Variable *var) {
-	return Add(new NFTM::Word(var));
+NFTM::Variable *NFTM::SymbolTable::Add(const char *name, NFTM::Number *number) {
+	return Add(new NFTM::Variable(name, number));
 }
 
 //============================================================================
-// Add(var)
+// Add(name, stack)
 //
-NFTM::Word *NFTM::SymbolTable::Add(const char *name, const char *value) {
-	return Add(new NFTM::Variable(name, value));
+NFTM::Variable *NFTM::SymbolTable::Add(const char *name, NFTM::Stack *stack) {
+	return Add(new NFTM::Variable(name, stack));
 }
 
 //============================================================================
-// Add(word)
+// Add(name, text)
 //
-NFTM::Word *NFTM::SymbolTable::Add(NFTM::Word *word) {
-	Bucket     *b    = new Bucket();
+NFTM::Variable *NFTM::SymbolTable::Add(const char *name, NFTM::Text *text) {
+	return Add(new NFTM::Variable(name, text));
+}
 
-	b->word      = word;
-	b->hashValue = Hash(word->Name());
+//============================================================================
+// Add(name, text, length)
+//
+NFTM::Variable *NFTM::SymbolTable::Add(const char *name, NFTM::Text *text, int length) {
+	return Add(new NFTM::Variable(name, text, length));
+}
+
+//============================================================================
+// Add(name, cstring)
+//
+NFTM::Variable *NFTM::SymbolTable::Add(const char *name, const char *text) {
+	return Add(new NFTM::Variable(name, text));
+}
+
+//============================================================================
+// Add(name, cstring, length)
+//
+NFTM::Variable *NFTM::SymbolTable::Add(const char *name, const char *text, int length) {
+	return Add(new NFTM::Variable(name, text, length));
+}
+
+//============================================================================
+// Add(variable)
+//
+NFTM::Variable *NFTM::SymbolTable::Add(NFTM::Variable *variable) {
+	Bucket *b = new Bucket();
+
+	b->variable  = variable;
+	b->hashValue = Hash(variable->Name());
 	b->next      = hash[b->hashValue % hashSize];
 
 	hash[b->hashValue % hashSize] = b;
 
-	return word;
+	return variable;
 }

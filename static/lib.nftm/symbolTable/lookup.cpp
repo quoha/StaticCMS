@@ -11,15 +11,15 @@
 //    NULL      no item found
 //    not-NULL  the address of the first item with the same name
 //
-NFTM::Word *NFTM::SymbolTable::Lookup(const char *name) const {
+NFTM::Variable *NFTM::SymbolTable::Lookup(const char *name) const {
 	unsigned int hashValue = Hash(name);
 
 	Bucket *b = hash[hashValue % hashSize];
 
 	while (b) {
 		if (b->hashValue == hashValue) {
-			if (std::strcmp(name, b->word->Name()) == 0) {
-				return b->word;
+			if (std::strcmp(name, b->variable->Name()) == 0) {
+				return b->variable;
 			}
 		}
 

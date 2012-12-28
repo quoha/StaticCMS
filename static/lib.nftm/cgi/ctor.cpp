@@ -5,7 +5,6 @@
 //   creates CGI environment
 //
 NFTM::CGI::CGI(void) {
-	symtab           = 0;
 	authType         = 0;
 	contentLength    = 0;
 	contentType      = 0;
