@@ -13,8 +13,17 @@ namespace NFTM {
         View(const char *templateFile);
         ~View();
 
-        class Stack *DoIt(class Stack *stack);
+        // factory to spew out chunks. note that it updates the pointer to
+        // the text to point to the character after the end of the chunk
+        // that was returned. replace with your own chunk factory if you
+        // need to change the chunk delimiters. i have no reasonable excuse
+        // as to why this is a function rather than an class. none. at. all.
+        //
+        class Chunk *ChunkFactory(void);
 
+        class Stack *Execute(class Stack *stack);
+
+        char *data;
         char *path;
         char *name;
 

@@ -44,14 +44,6 @@ namespace NFTM {
         class Stack *Execute(class Stack *stack);
     }; // class TextChunk
 
-    // factory to spew out chunks. note that it updates the pointer to
-    // the text to point to the character after the end of the chunk
-    // that was returned. replace with your own chunk factory if you
-    // need to change the chunk delimiters. i have no reasonable excuse
-    // as to why this is a function rather than an class. none. at. all.
-    //
-    Chunk *ChunkFactory(char * & text);
-
 } // namespace NFTM
 
 #endif // NFTM_static_src_bin_static_Chunk_HPP
