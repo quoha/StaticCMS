@@ -2,32 +2,40 @@
 #define   NFTM_static_src_bin_static_Function_HPP
 
 namespace NFTM {
+    
+    //----------------------------------------------------------------------------
+    // Function
+    //   the Function class manipulates the stack.
+    //
+    //   it's an abstract base class, so inherit and extend, please.
+    //
+    //   btw, please be sure to set the name.
+    //
+    class Function {
+    public:
+        Function(class SymbolTable *symtab) { name = ""; }
+        virtual ~Function() { }
+        
+        const char *Name(void) const {
+            return name;
+        }
+        
+        virtual class Stack *Execute(class SymbolTable *symtab, class Stack *stack) = 0;
+        
+        const char *name;
+        
+    }; // class Function
 
-//----------------------------------------------------------------------------
-// Function
-//   the Function class manipulates the stack.
-//
-//   it's an abstract base class, so inherit and extend, please.
-//
-//   btw, please be sure to set the name.
-//
-class Function {
-public:
-	virtual ~Function() = 0;
-	Function(void) {
-		name = "";
-	}
+    //----------------------------------------------------------------------------
+    // F_Include
+    class F_Include : public Function {
+    public:
+        F_Include(class SymbolTable *symtab);
+        ~F_Include() { }
+        class Stack *Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class F_Include
 
-	const char *Name(void) const {
-		return name;
-	}
-
-	virtual bool Execute(class Stack *stack) = 0;
-
-	const char *name;
-
-}; // class Function
-
+    bool LoadAllFunctions(class SymbolTable *symtab);
 } // namespace NFTM
 
 #endif // NFTM_static_src_bin_static_Function_HPP

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2D2E19E0168F4E9B00BCB6BA /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */; };
 		2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */; };
+		2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */; };
+		2D2E19E8168F739100BCB6BA /* include.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E7168F739000BCB6BA /* include.cpp */; };
 		2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8878168E502D00B7E4D8 /* pull.cpp */; };
 		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
 		2D4C8882168E5A8000B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887F168E5A8000B7E4D8 /* ctor.cpp */; };
@@ -111,6 +113,9 @@
 /* Begin PBXFileReference section */
 		2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
+		2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadAllFunctions.cpp; sourceTree = "<group>"; };
+		2D2E19E6168F724B00BCB6BA /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
+		2D2E19E7168F739000BCB6BA /* include.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = include.cpp; sourceTree = "<group>"; };
 		2D4C8878168E502D00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887B168E516B00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887D168E591800B7E4D8 /* Render.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Render.hpp; sourceTree = "<group>"; };
@@ -249,6 +254,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D2E19E3168F6EDF00BCB6BA /* function */ = {
+			isa = PBXGroup;
+			children = (
+				2D2E19E6168F724B00BCB6BA /* local.hpp */,
+				2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */,
+				2D2E19E7168F739000BCB6BA /* include.cpp */,
+			);
+			path = function;
+			sourceTree = "<group>";
+		};
 		2D4C887E168E5A8000B7E4D8 /* render */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +377,7 @@
 				2D4C8889168EB5EC00B7E4D8 /* Chunk.hpp */,
 				2DF65862168D21F900C198D3 /* controller */,
 				2DF65868168D21F900C198D3 /* Controller.hpp */,
+				2D2E19E3168F6EDF00BCB6BA /* function */,
 				2DF65869168D21F900C198D3 /* Function.hpp */,
 				2DF6586A168D21F900C198D3 /* local.hpp */,
 				2DF6586B168D21F900C198D3 /* model */,
@@ -733,6 +749,8 @@
 				2D523E30168ED0B600E9817B /* execute.cpp in Sources */,
 				2D2E19E0168F4E9B00BCB6BA /* dtor.cpp in Sources */,
 				2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */,
+				2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */,
+				2D2E19E8168F739100BCB6BA /* include.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

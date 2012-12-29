@@ -25,8 +25,7 @@ NFTM::Stack *NFTM::CodeChunk::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *st
                 if (v->IsText()) {
                     stack->Push(v);
                 } else if (v->IsFunction()) {
-                    stack->Push(new NFTM::Variable("~code", "***need to implement CodeChunk::Execute()"));
-                    stack->Push(new NFTM::Variable("~function", word));
+                    v->AsFunction()->Execute(symtab, stack);
                 } else {
                     // raise an error
                     stack->Push(new NFTM::Variable("~error", "CodeChunk does not know how to handle "));

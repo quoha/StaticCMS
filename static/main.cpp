@@ -34,6 +34,8 @@ int main(int argc, char *argv[]) {
     cgi->GetEnv("/", argv[0]);
     cgi->ExportToSymTab(symtab);
 
+    LoadAllFunctions(symtab);
+
 	for (int idx = 1; idx < argc; idx++) {
 		char *opt = argv[idx];
 		char *val = opt;
