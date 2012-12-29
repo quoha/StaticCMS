@@ -1,8 +1,7 @@
 #include "local.hpp"
 
 //============================================================================
-// Chunk(text)
+// CodeChunk(text)
 //
-NFTM::Chunk::Chunk(char *text_) {
-    text = text_;
+NFTM::CodeChunk::CodeChunk(char *text_) : Chunk(text_) {
 }
