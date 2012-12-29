@@ -18,6 +18,8 @@ void NFTM::Variable::ClearValues(void) {
         case vtTEXT:
             delete val.text;
             break;
+        case vtOTHER:
+            break;
     }
     val.null  = 0;
     isNull    = true;

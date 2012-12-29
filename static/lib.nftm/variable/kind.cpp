@@ -16,6 +16,8 @@ const char *NFTM::Variable::Kind(void) const {
             return "stack";
         case vtTEXT:
             return "text";
+        case vtOTHER:
+            return "other";
 	}
 	return "unknown";
 }

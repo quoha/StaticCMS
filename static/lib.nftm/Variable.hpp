@@ -22,12 +22,20 @@ namespace NFTM {
         Variable(const char *name, class Text     *text, int length);
         Variable(const char *name, const char     *text);
         Variable(const char *name, const char     *text, int length);
-        ~Variable();
+        virtual ~Variable();
 
-        const char *Kind(void) const;
+        virtual bool Execute(class SymbolTable *symtab, class Stack *stack) {
+            return false;
+        }
+
+        virtual const char *Kind(void) const;
 
         const char *Name(void) const {
             return name;
+        }
+
+        virtual bool Render(class OutputStream *os) const {
+            return false;
         }
 
         bool Value(void);
@@ -72,14 +80,14 @@ namespace NFTM {
         }
 
         void Dump(class OutputStream *os);
-    private:
+
         void ClearValues(void);
         void Init(void);
 
         bool isNull;
         bool isTainted;
 
-        enum { vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
+        enum { vtOTHER, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
 
         union {
             class Function *function;
@@ -94,7 +102,82 @@ namespace NFTM {
         static const int maxNameLength = 64;
         char name[maxNameLength + 1];
     }; // class Variable
+
+    // VarFunction
+    class VarFunction : public Variable {
+    public:
+        VarFunction(void);
+        ~VarFunction();
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const {
+            return "var.function";
+        }
+    }; // class VarFunc_Include
+
+    // VarFunc_Include
+    class VarFunc_Include : public VarFunction {
+    public:
+        VarFunc_Include(void);
+        ~VarFunc_Include();
+
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_Include
     
+    // VarNull
+    class VarNull : public Variable {
+    public:
+        VarNull(const char *name);
+        ~VarNull();
+
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const {
+            return "var.null";
+        }
+    }; // class VarNull
+
+    // VarNumber
+    class VarNumber : public Variable {
+    public:
+        VarNumber(const char *name, int value);
+        ~VarNumber();
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const {
+            return "var.number";
+        }
+        
+        int value;
+    }; // class VarNumber
+
+    // VarStack
+    class VarStack : public Variable {
+    public:
+        VarStack(class Stack *stack);
+        ~VarStack();
+
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const {
+            return "var.stack";
+        }
+
+        class Stack *value;
+    }; // class VarStack
+
+    // VarText
+    class VarText : public Variable {
+    public:
+        VarText(const char *name, const char *text);
+        ~VarText();
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const {
+            return "var.text";
+        }
+        
+        char *value;
+    }; // class VarText
+
 } // namespace NFTM
 
 #endif // NFTM_static_src_bin_static_Variable_HPP

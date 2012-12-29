@@ -11,6 +11,10 @@
 		2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */; };
 		2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */; };
 		2D2E19E8168F739100BCB6BA /* include.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E7168F739000BCB6BA /* include.cpp */; };
+		2D2E19EC168F7F7100BCB6BA /* varText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19EB168F7F7100BCB6BA /* varText.cpp */; };
+		2D2E19EE168F847000BCB6BA /* varNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19ED168F847000BCB6BA /* varNumber.cpp */; };
+		2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F1168F928800BCB6BA /* templateFile.cpp */; };
+		2D2E19F4168F979400BCB6BA /* templateText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F3168F979400BCB6BA /* templateText.cpp */; };
 		2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8878168E502D00B7E4D8 /* pull.cpp */; };
 		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
 		2D4C8882168E5A8000B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887F168E5A8000B7E4D8 /* ctor.cpp */; };
@@ -116,6 +120,11 @@
 		2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadAllFunctions.cpp; sourceTree = "<group>"; };
 		2D2E19E6168F724B00BCB6BA /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2D2E19E7168F739000BCB6BA /* include.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = include.cpp; sourceTree = "<group>"; };
+		2D2E19EB168F7F7100BCB6BA /* varText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = varText.cpp; sourceTree = "<group>"; };
+		2D2E19ED168F847000BCB6BA /* varNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = varNumber.cpp; sourceTree = "<group>"; };
+		2D2E19EF168F90FC00BCB6BA /* Template.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Template.hpp; sourceTree = "<group>"; };
+		2D2E19F1168F928800BCB6BA /* templateFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = templateFile.cpp; sourceTree = "<group>"; };
+		2D2E19F3168F979400BCB6BA /* templateText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = templateText.cpp; sourceTree = "<group>"; };
 		2D4C8878168E502D00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887B168E516B00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887D168E591800B7E4D8 /* Render.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Render.hpp; sourceTree = "<group>"; };
@@ -264,6 +273,15 @@
 			path = function;
 			sourceTree = "<group>";
 		};
+		2D2E19F0168F91BA00BCB6BA /* template */ = {
+			isa = PBXGroup;
+			children = (
+				2D2E19F1168F928800BCB6BA /* templateFile.cpp */,
+				2D2E19F3168F979400BCB6BA /* templateText.cpp */,
+			);
+			path = template;
+			sourceTree = "<group>";
+		};
 		2D4C887E168E5A8000B7E4D8 /* render */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +414,8 @@
 				2DF65896168D21F900C198D3 /* Stream.hpp */,
 				2DF65897168D21F900C198D3 /* symbolTable */,
 				2DF658A0168D21F900C198D3 /* SymbolTable.hpp */,
+				2D2E19F0168F91BA00BCB6BA /* template */,
+				2D2E19EF168F90FC00BCB6BA /* Template.hpp */,
 				2DF658A1168D21F900C198D3 /* text */,
 				2DF658A8168D21F900C198D3 /* Text.hpp */,
 				2DF658A9168D21F900C198D3 /* util */,
@@ -570,14 +590,16 @@
 		2DF658B0168D21F900C198D3 /* variable */ = {
 			isa = PBXGroup;
 			children = (
+				2DF658B4168D21F900C198D3 /* local.hpp */,
 				2DF658B1168D21F900C198D3 /* ctor.cpp */,
 				2DF658B2168D21F900C198D3 /* dtor.cpp */,
-				2DF658B4168D21F900C198D3 /* local.hpp */,
 				2DF658B6168D21F900C198D3 /* value.cpp */,
 				2DF65916168D5F0100C198D3 /* init.cpp */,
 				2DF65918168D5F6C00C198D3 /* clearValues.cpp */,
 				2DF6591A168D6ABE00C198D3 /* kind.cpp */,
 				2DEE1863168E2CE500C3ACCC /* dump.cpp */,
+				2D2E19EB168F7F7100BCB6BA /* varText.cpp */,
+				2D2E19ED168F847000BCB6BA /* varNumber.cpp */,
 			);
 			path = variable;
 			sourceTree = "<group>";
@@ -751,6 +773,10 @@
 				2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */,
 				2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */,
 				2D2E19E8168F739100BCB6BA /* include.cpp in Sources */,
+				2D2E19EC168F7F7100BCB6BA /* varText.cpp in Sources */,
+				2D2E19EE168F847000BCB6BA /* varNumber.cpp in Sources */,
+				2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */,
+				2D2E19F4168F979400BCB6BA /* templateText.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

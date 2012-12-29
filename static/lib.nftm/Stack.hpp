@@ -5,7 +5,10 @@ namespace NFTM {
     
     //----------------------------------------------------------------------------
     // Stack
-    //   manage a stack of pointers to Variable objects
+    //   manage a stack of pointers to three types of objects:
+    //      * tainted text
+    //      * untainted text
+    //      * stack
     //
     class Stack {
     public:
@@ -35,9 +38,10 @@ namespace NFTM {
         
         struct StackNode {
             struct StackNode *prev;  // towards bottom of stack
-            class  Variable  *variable;
             struct StackNode *next;  // towards top    of stack
+            class  Variable  *variable;
         } *bottom, *top;
+
     }; // class Stack
     
 } // namespace NFTM
