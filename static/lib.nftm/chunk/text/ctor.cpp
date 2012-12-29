@@ -3,5 +3,5 @@
 //============================================================================
 // TextChunk(text)
 //
-NFTM::TextChunk::TextChunk(char *text_) : Chunk(text_) {
+NFTM::TextChunk::TextChunk(char *text_, int length_) : Chunk(text_, length_) {
 }

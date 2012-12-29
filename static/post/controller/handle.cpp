@@ -15,12 +15,18 @@ NFTM::Stack *NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Reque
 
 	delete model;
 
-    // load view
     stack->Push(new NFTM::Variable(".", "Hello, World!"));
     NFTM::Stack *st = new NFTM::Stack();
     st->Push(new NFTM::Variable("01", "aStack01"));
     st->Push(new NFTM::Variable("02", "aStack02"));
     stack->Push(new NFTM::Variable("aStack", st));
+
+    // load view
+    NFTM::View *view = new NFTM::View("/tmp/", "header.tpl");
+
+    view->Execute(stack);
+
+    delete view;
 
 	return stack;
 }

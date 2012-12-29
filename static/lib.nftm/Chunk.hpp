@@ -12,7 +12,7 @@ namespace NFTM {
     //
     class Chunk {
     public:
-        Chunk(char *text);
+        Chunk(char *text, int length);
         ~Chunk();
 
         virtual class Stack *Execute(class Stack *stack) = 0;
@@ -26,7 +26,7 @@ namespace NFTM {
     //
     class CodeChunk : public Chunk {
     public:
-        CodeChunk(char *text);
+        CodeChunk(char *text, int length);
         ~CodeChunk();
 
         class Stack *Execute(class Stack *stack);
@@ -38,7 +38,7 @@ namespace NFTM {
     //
     class TextChunk : public Chunk {
     public:
-        TextChunk(char *text);
+        TextChunk(char *text, int length);
         ~TextChunk();
 
         class Stack *Execute(class Stack *stack);

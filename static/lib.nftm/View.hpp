@@ -11,6 +11,7 @@ namespace NFTM {
     class View {
     public:
         View(const char *templateFile);
+        View(const char *templatePath, const char *templateFile);
         ~View();
 
         // factory to spew out chunks. note that it updates the pointer to
@@ -24,12 +25,13 @@ namespace NFTM {
         class Stack *Execute(class Stack *stack);
 
         char *path;
+        char *file;
         char *name;
 
         char *data;
         char *text;
 
-        std::vector<Chunk> chunks;
+        std::vector<Chunk *> chunks;
     }; // class View
 
 } // namespace NFTM

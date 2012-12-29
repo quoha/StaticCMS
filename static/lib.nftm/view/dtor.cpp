@@ -1,7 +1,11 @@
 #include "local.hpp"
 
 //============================================================================
-// CodeChunk(text)
+// ~View()
 //
-NFTM::CodeChunk::CodeChunk(char *text_, int length_) : Chunk(text_, length_) {
+NFTM::View::~View() {
+    delete name;
+    delete path;
+    delete file;
+    delete data;
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D2E19E0168F4E9B00BCB6BA /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */; };
+		2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */; };
 		2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8878168E502D00B7E4D8 /* pull.cpp */; };
 		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
 		2D4C8882168E5A8000B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887F168E5A8000B7E4D8 /* ctor.cpp */; };
@@ -107,6 +109,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
+		2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2D4C8878168E502D00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887B168E516B00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887D168E591800B7E4D8 /* Render.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Render.hpp; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 			children = (
 				2D4C8888168EB55500B7E4D8 /* local.hpp */,
 				2D4C8886168EB52400B7E4D8 /* ctor.cpp */,
+				2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */,
 				2D523E2D168ED0AB00E9817B /* chunkFactory.cpp */,
 				2D523E2F168ED0B600E9817B /* execute.cpp */,
 			);
@@ -269,10 +274,11 @@
 		2D4C888A168EC7D500B7E4D8 /* chunk */ = {
 			isa = PBXGroup;
 			children = (
+				2D4C888D168EC80E00B7E4D8 /* ctor.cpp */,
+				2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */,
+				2D4C888F168EC83C00B7E4D8 /* local.hpp */,
 				2D4C888B168EC7D500B7E4D8 /* code */,
 				2D4C888C168EC7D500B7E4D8 /* text */,
-				2D4C888D168EC80E00B7E4D8 /* ctor.cpp */,
-				2D4C888F168EC83C00B7E4D8 /* local.hpp */,
 			);
 			name = chunk;
 			path = static/lib.nftm/chunk;
@@ -318,10 +324,10 @@
 		2DF65846168D1E7600C198D3 /* static */ = {
 			isa = PBXGroup;
 			children = (
-				2DF65850168D21F900C198D3 /* controller */,
 				2DF65856168D21F900C198D3 /* lib.nftm */,
 				2DF658BE168D21F900C198D3 /* local.hpp */,
 				2DF65847168D1E7600C198D3 /* main.cpp */,
+				2DF65850168D21F900C198D3 /* controller */,
 				2DF658BF168D21F900C198D3 /* post */,
 				2DF65849168D1E7600C198D3 /* static.1 */,
 			);
@@ -725,6 +731,8 @@
 				2D4C889A168ECE0C00B7E4D8 /* execute.cpp in Sources */,
 				2D523E2E168ED0AB00E9817B /* chunkFactory.cpp in Sources */,
 				2D523E30168ED0B600E9817B /* execute.cpp in Sources */,
+				2D2E19E0168F4E9B00BCB6BA /* dtor.cpp in Sources */,
+				2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
