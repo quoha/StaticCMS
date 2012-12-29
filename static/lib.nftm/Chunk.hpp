@@ -1,6 +1,8 @@
 #ifndef   NFTM_static_src_bin_static_Chunk_HPP
 #define   NFTM_static_src_bin_static_Chunk_HPP
 
+#include <vector>
+
 namespace NFTM {
 
     //---------------------------------------------------------------------------
@@ -30,6 +32,8 @@ namespace NFTM {
         ~CodeChunk();
 
         class Stack *Execute(class Stack *stack);
+
+        std::vector<char *> words;
     }; // class CodeChunk
 
     //---------------------------------------------------------------------------

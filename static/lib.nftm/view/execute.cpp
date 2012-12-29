@@ -3,6 +3,7 @@
 
 static const char *sSiteName = "<p>Site_Name is <billy site_name /></p>";
 static const char *sPageTitle = "<p>Page_Title is <billy page_title /></p>";
+static const char *sIncludeFile = "<billy 'filename.tpl' include />";
 
 //============================================================================
 // Execute(stack)
@@ -11,7 +12,7 @@ static const char *sPageTitle = "<p>Page_Title is <billy page_title /></p>";
 NFTM::Stack *NFTM::View::Execute(NFTM::Stack *stack) {
     if (!data) {
         // open the file
-        data = NFTM::StrCat(sSiteName, sPageTitle);
+        data = NFTM::StrCat(sSiteName, sPageTitle, sIncludeFile);
 
         if (data) {
             NFTM::Chunk *chunk = ChunkFactory();
