@@ -3,19 +3,18 @@
 //============================================================================
 // Route(request)
 //
+//    ask all controllers to handle the request. first once to accept
+//    gets it. controllers are queried FIFO. if no controller accepts,
+//    then return the default controller.
+//
 NFTM::Controller *NFTM::Router::Route(NFTM::Request *request) {
-	NFTM::Controller *c = defaultController;
-
-	// first match on request wins. LIFO, so start at top
+	// first match on request wins. FIFO, so start at bottom
     //
-	struct Route *route = routeTop;
-	while (route) {
+    for (struct Route *route = routeBottom; route; route = route->next) {
 		if (route->controller->CanHandle(request)) {
-			c = route->controller;
-			break;
+			return route->controller;
 		}
-		route = route->prev;
 	}
 
-	return c;
+	return defaultController;
 }

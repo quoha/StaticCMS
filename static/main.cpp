@@ -23,6 +23,7 @@
 int main(int argc, char *argv[]) {
 	stderr = stdout;
 
+    NFTM::Render render;
 	NFTM::OutputStream *os = new NFTM::OutputStream("stdout");
 
 	FILE *fpOutput = stdout;
@@ -100,29 +101,31 @@ int main(int argc, char *argv[]) {
 	NFTM::Router         router;
 	NFTM::PostController post;
 
-	// first controller is the default. it is used if no other
-	// controllers take action. list the remaining controllers
-	// in LIFO order
+	// default is used if no other controllers accept the route
 	//
 	router.DefaultRoute(new NFTM::DefaultController);
-	router.AddRoute("/"    , &post);
+
+	// add the controllers in FIFO order
+	//
 	router.AddRoute("/post", &post);
+	router.AddRoute("/"    , &post);
 
     NFTM::Variable   *pathInfo = cgi->PATH_INFO();
 	NFTM::Request    *request = new NFTM::Request(pathInfo ? pathInfo->AsText() : 0);
 	NFTM::Controller *c       = router.Route(request);
-    NFTM::Stack      *stack   = 0;
 
-	if (c) {
-		// now handle it
-		stack = c->Handle(symtab, request, os);
-	}
+    if (!c) {
+        printf("\nerror:\tunable to find controller for route\n");
+        printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo ? pathInfo->AsText()->AsCString() : "");
+        printf("\n");
+        return 2;
+    }
 
-    if (!stack) {
-		printf("  hey:\ti don't have a stack to process\n");
-	}
+    // Handle processes the view and returns a Stack with
+    // the output
+    //
+    NFTM::Stack *stack = c->Handle(symtab, request, os);
 
-    NFTM::Render render;
     render.DoIt(os, stack);
 
 	if (os) {

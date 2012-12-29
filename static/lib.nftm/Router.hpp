@@ -2,7 +2,11 @@
 #define   NFTM_static_src_bin_static_Router_HPP
 
 namespace NFTM {
-    
+
+    //----------------------------------------------------------------------------
+    // Router
+    //    Routes should be added FIFO
+    //
     class Router {
     public:
         Router(void);

@@ -11,6 +11,10 @@ bool NFTM::Router::AddRoute(const char *path_, NFTM::Controller *controller) {
 //============================================================================
 // AddRoute(path, action, controller)
 //
+//    we're going to process routes FIFO, so more specific controllers
+//    should be added before more general (for example, add "/post" before
+//    adding "/"
+//
 bool NFTM::Router::AddRoute(const char *path_, const char *action_, NFTM::Controller *controller) {
 	struct Route *route = new struct Route;
 	route->path         = path_   ? StrDup(path_  ) : 0;
