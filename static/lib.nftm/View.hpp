@@ -28,7 +28,9 @@ namespace NFTM {
         char *file;
         char *name;
 
-        char *data;
+        // convenience variables for loading the template
+        //
+        bool  loadTemplate;
         char *text;
 
         std::vector<Chunk *> chunks;

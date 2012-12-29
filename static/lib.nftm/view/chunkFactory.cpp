@@ -5,10 +5,6 @@
 // ChunkFactory()
 //
 NFTM::Chunk *NFTM::View::ChunkFactory(void) {
-    if (!text) {
-        text = data;
-    }
-
     if (!text || !*text) {
         return 0;
     }

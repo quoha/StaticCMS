@@ -4,8 +4,7 @@
 // ~View()
 //
 NFTM::View::~View() {
-    delete name;
-    delete path;
-    delete file;
-    delete data;
+    delete [] name;
+    delete [] path;
+    delete [] file;
 }
