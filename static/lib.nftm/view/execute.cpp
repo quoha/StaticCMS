@@ -9,7 +9,7 @@ static const char *sIncludeFile = "<billy 'filename.tpl' include />";
 // Execute(stack)
 //    loads the template if needed, then executes the chunks in the template.
 //
-NFTM::Stack *NFTM::View::Execute(NFTM::Stack *stack) {
+NFTM::Stack *NFTM::View::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (loadTemplate) {
         // open the file
         //
@@ -43,7 +43,7 @@ NFTM::Stack *NFTM::View::Execute(NFTM::Stack *stack) {
         for (i = chunks.begin(); i != chunks.end(); ++i) {
             // execute the chunk
             //
-            if (!(*i)->Execute(stack)) {
+            if (!(*i)->Execute(symtab, stack)) {
                 return 0;
             }
         }

@@ -22,7 +22,7 @@ namespace NFTM {
         //
         class Chunk *ChunkFactory(void);
 
-        class Stack *Execute(class Stack *stack);
+        class Stack *Execute(class SymbolTable *symtab, class Stack *stack);
 
         char *path;
         char *file;

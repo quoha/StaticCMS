@@ -17,7 +17,7 @@ namespace NFTM {
         Chunk(char *text, int length);
         ~Chunk();
 
-        virtual class Stack *Execute(class Stack *stack) = 0;
+        virtual class Stack *Execute(class SymbolTable *symtab, class Stack *stack) = 0;
 
         char *text;
     }; // class Chunk
@@ -31,7 +31,7 @@ namespace NFTM {
         CodeChunk(char *text, int length);
         ~CodeChunk();
 
-        class Stack *Execute(class Stack *stack);
+        class Stack *Execute(class SymbolTable *symtab, class Stack *stack);
 
         std::vector<char *> words;
     }; // class CodeChunk
@@ -45,7 +45,7 @@ namespace NFTM {
         TextChunk(char *text, int length);
         ~TextChunk();
 
-        class Stack *Execute(class Stack *stack);
+        class Stack *Execute(class SymbolTable *symtab, class Stack *stack);
     }; // class TextChunk
 
 } // namespace NFTM
