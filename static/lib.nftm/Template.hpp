@@ -14,7 +14,7 @@ namespace NFTM {
         Template(void) { data = 0; }
         virtual ~Template() { delete [] data; };
 
-        char *Data(void) { return data; }
+        bool  Execute(class SymbolTable *symtab, class Stack *stack);
 
         virtual bool Load(void) = 0;
 

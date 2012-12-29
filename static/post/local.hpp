@@ -10,6 +10,7 @@
 #include "../lib.nftm/Controller.hpp"
 #include "../lib.nftm/View.hpp"
 #include "../lib.nftm/Model.hpp"
+#include "../lib.nftm/Template.hpp"
 
 namespace NFTM {
     
