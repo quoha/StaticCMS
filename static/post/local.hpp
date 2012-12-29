@@ -26,9 +26,8 @@ namespace NFTM {
         PostController(void);
         ~PostController();
         
-        bool CanHandle(class Request *request);
-        bool Handle(class SymbolTable *symtab, class Request *request, class OutputStream *os);
-        bool View(class OutputStream *os);
+        bool         CanHandle(class Request *request);
+        class Stack *Handle(class SymbolTable *symtab, class Request *request, class OutputStream *os);
     }; // class PostController
     
 } // namespace NFTM

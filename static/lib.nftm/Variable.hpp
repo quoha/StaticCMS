@@ -9,6 +9,9 @@ namespace NFTM {
     //    the infamous null value. the only thing that a variable can't hold is
     //    a reference to another variable.
     //
+    // TODO - ponder subclassing for the individual types
+    //        all should have name
+    //
     class Variable {
     public:
         Variable(const char *name);

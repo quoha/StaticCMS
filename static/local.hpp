@@ -13,6 +13,7 @@ const char *StrDup(const char *str);
 #include "lib.nftm/Controller.hpp"
 #include "lib.nftm/Router.hpp"
 #include "lib.nftm/Model.hpp"
+#include "lib.nftm/Render.hpp"
 
 #include "controller/Default.hpp"
 #include "post/local.hpp"

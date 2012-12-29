@@ -3,7 +3,9 @@
 //============================================================================
 // Handle(cgi, request, outputStream)
 //
-bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::OutputStream *os) {
+NFTM::Stack *NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::OutputStream *os) {
+	os->Write("<!-- PostController::Handle(symtab, request, os) -- controller %s -->\n", request->argv[0]);
+
 	// create the stack
 	NFTM::Stack *stack = new NFTM::Stack();
 
@@ -11,10 +13,14 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
 	NFTM::PostModel *model = new NFTM::PostModel(symtab);
     model->Pull(request);
 
-	// load view
-	os->Write("<!-- PostController::Handle(symtab, request, os) -- controller %s -->\n", request->argv[0]);
-
 	delete model;
 
-	return stack ? false : true;
+    // load view
+    stack->Push(new NFTM::Variable(".", "Hello, World!"));
+    NFTM::Stack *st = new NFTM::Stack();
+    st->Push(new NFTM::Variable("01", "aStack01"));
+    st->Push(new NFTM::Variable("02", "aStack02"));
+    stack->Push(new NFTM::Variable("aStack", st));
+
+	return stack;
 }

@@ -8,8 +8,8 @@ public:
 	Controller(void);
 	~Controller();
 
-	virtual bool CanHandle(class Request *request);
-	virtual bool Handle(class SymbolTable *symtab, class Request *request, class OutputStream *os);
+	virtual bool         CanHandle(class Request *request);
+	virtual class Stack *Handle(class SymbolTable *symtab, class Request *request, class OutputStream *os);
 }; // class Controller
 
 } // namespace NFTM

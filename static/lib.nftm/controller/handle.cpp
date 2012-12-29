@@ -3,10 +3,12 @@
 //============================================================================
 // Handle(cgi, request, outputStream)
 //
-bool NFTM::Controller::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::OutputStream *os) {
+NFTM::Stack *NFTM::Controller::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::OutputStream *os) {
+    NFTM::Stack *stack = 0;
+
 	// load model
 
 	// load view
 
-	return false;
+	return stack;
 }
