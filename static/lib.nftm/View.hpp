@@ -23,9 +23,11 @@ namespace NFTM {
 
         class Stack *Execute(class Stack *stack);
 
-        char *data;
         char *path;
         char *name;
+
+        char *data;
+        char *text;
 
         std::vector<Chunk> chunks;
     }; // class View

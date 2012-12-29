@@ -17,6 +17,8 @@
 		2D4C8895168ECCD300B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8894168ECCD300B7E4D8 /* ctor.cpp */; };
 		2D4C8898168ECD8100B7E4D8 /* execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8897168ECD8100B7E4D8 /* execute.cpp */; };
 		2D4C889A168ECE0C00B7E4D8 /* execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8899168ECE0C00B7E4D8 /* execute.cpp */; };
+		2D523E2E168ED0AB00E9817B /* chunkFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D523E2D168ED0AB00E9817B /* chunkFactory.cpp */; };
+		2D523E30168ED0B600E9817B /* execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D523E2F168ED0B600E9817B /* execute.cpp */; };
 		2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1863168E2CE500C3ACCC /* dump.cpp */; };
 		2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1866168E31B100C3ACCC /* dump.cpp */; };
 		2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */; };
@@ -123,6 +125,8 @@
 		2D4C8896168ECCDC00B7E4D8 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2D4C8897168ECD8100B7E4D8 /* execute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = execute.cpp; sourceTree = "<group>"; };
 		2D4C8899168ECE0C00B7E4D8 /* execute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = execute.cpp; sourceTree = "<group>"; };
+		2D523E2D168ED0AB00E9817B /* chunkFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunkFactory.cpp; sourceTree = "<group>"; };
+		2D523E2F168ED0B600E9817B /* execute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = execute.cpp; sourceTree = "<group>"; };
 		2DEE1863168E2CE500C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1866168E31B100C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -254,8 +258,10 @@
 		2D4C8885168EB50A00B7E4D8 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				2D4C8886168EB52400B7E4D8 /* ctor.cpp */,
 				2D4C8888168EB55500B7E4D8 /* local.hpp */,
+				2D4C8886168EB52400B7E4D8 /* ctor.cpp */,
+				2D523E2D168ED0AB00E9817B /* chunkFactory.cpp */,
+				2D523E2F168ED0B600E9817B /* execute.cpp */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -315,8 +321,8 @@
 				2DF65850168D21F900C198D3 /* controller */,
 				2DF65856168D21F900C198D3 /* lib.nftm */,
 				2DF658BE168D21F900C198D3 /* local.hpp */,
-				2DF658BF168D21F900C198D3 /* post */,
 				2DF65847168D1E7600C198D3 /* main.cpp */,
+				2DF658BF168D21F900C198D3 /* post */,
 				2DF65849168D1E7600C198D3 /* static.1 */,
 			);
 			path = static;
@@ -717,6 +723,8 @@
 				2D4C8895168ECCD300B7E4D8 /* ctor.cpp in Sources */,
 				2D4C8898168ECD8100B7E4D8 /* execute.cpp in Sources */,
 				2D4C889A168ECE0C00B7E4D8 /* execute.cpp in Sources */,
+				2D523E2E168ED0AB00E9817B /* chunkFactory.cpp in Sources */,
+				2D523E30168ED0B600E9817B /* execute.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
