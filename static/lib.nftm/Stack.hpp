@@ -1,6 +1,8 @@
 #ifndef   NFTM_static_src_bin_static_Stack_HPP
 #define   NFTM_static_src_bin_static_Stack_HPP
 
+#include <list>
+
 namespace NFTM {
     
     //----------------------------------------------------------------------------
@@ -42,6 +44,55 @@ namespace NFTM {
             class  Variable  *variable;
         } *bottom, *top;
 
+        struct Item {
+            enum {siText, siTaintedText, siStack, siVarReference} kind;
+            union {
+                const char     *text;
+                Stack          *stack;
+                class Variable *var;
+            } u;
+        };
+
+        std::list<struct Item *> items;
+
+        Item *PopItem(void) {
+            Item *i = 0;
+            if (!items.empty()) {
+                i = items.front();
+                items.pop_front();
+            }
+            return i;
+        }
+
+        void PushStack(Stack *stack) {
+            Item *i    = new Item;
+            i->kind    = Item::siStack;
+            i->u.stack = stack;
+            items.push_front(i);
+        }
+        
+        void PushText(const char *text) {
+            Item *i   = new Item;
+            i->kind   = Item::siText;
+            i->u.text = text;
+            items.push_front(i);
+        }
+        
+        void PushTaintedText(const char *text) {
+            Item *i   = new Item;
+            i->kind   = Item::siTaintedText;
+            i->u.text = text;
+            items.push_front(i);
+        }
+
+        void PushVarReference(class Variable *var) {
+            Item *i  = new Item;
+            i->kind  = Item::siText;
+            i->u.var = var;
+            items.push_front(i);
+        }
+
+        bool Render(class OutputStream *os);
     }; // class Stack
     
 } // namespace NFTM

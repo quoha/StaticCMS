@@ -127,7 +127,10 @@ int main(int argc, char *argv[]) {
     // the output
     //
     NFTM::Stack *stack = c->Handle(symtab, request, os);
-
+    if (!stack->Render(os)) {
+        printf("\nerror:\tunable to render the stack\n\n");
+        return 2;
+    }
     render.DoIt(os, stack);
 
 	if (os) {
