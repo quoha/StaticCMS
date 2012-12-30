@@ -15,19 +15,6 @@ bool NFTM::Variable::Value(void) {
 
 //============================================================================
 //
-bool NFTM::Variable::Value(NFTM::Number *number) {
-    ClearValues();
-
-    val.number = number;
-    isNull     = val.number ? true : false;
-    isTainted  = false;
-    kind       = vtNUMBER;
-    
-    return true;
-}
-
-//============================================================================
-//
 bool NFTM::Variable::Value(NFTM::Stack *stack) {
     ClearValues();
 

@@ -18,20 +18,6 @@ NFTM::Variable::Variable(const char *name_) {
 
 //============================================================================
 //
-NFTM::Variable::Variable(const char *name_, NFTM::Number *number) {
-    Init();
-    
-    if (name_) {
-        StrCopy(name, name_, maxNameLength);
-    } else {
-        sprintf(name, ".%p", this);
-    }
-
-    Value(number);
-}
-
-//============================================================================
-//
 NFTM::Variable::Variable(const char *name_, NFTM::Stack *stack) {
     Init();
     

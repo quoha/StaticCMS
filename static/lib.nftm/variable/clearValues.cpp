@@ -9,7 +9,6 @@ void NFTM::Variable::ClearValues(void) {
         case vtNULL:
             break;
         case vtNUMBER:
-            delete val.number;
             break;
         case vtSTACK:
             delete val.stack;

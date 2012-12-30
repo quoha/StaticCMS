@@ -17,7 +17,6 @@ namespace NFTM {
     class Variable {
     public:
         Variable(const char *name);
-        Variable(const char *name, class Number   *number);
         Variable(const char *name, class Stack    *stack);
         Variable(const char *name, class Text     *text);
         Variable(const char *name, class Text     *text, int length);
@@ -40,8 +39,6 @@ namespace NFTM {
         }
 
         bool Value(void);
-        bool Value(class Function *function);
-        bool Value(class Number   *function);
         bool Value(class Stack    *stack);
         bool Value(class Text     *text);
         bool Value(class Text     *text, int length);
@@ -67,9 +64,6 @@ namespace NFTM {
             return kind == vtTEXT;
         }
 
-        class Number   *AsNumber(void) {
-            return kind == vtNUMBER ? val.number : 0;
-        }
         class Stack    *AsStack(void) {
             return kind == vtSTACK ? val.stack : 0;
         }
