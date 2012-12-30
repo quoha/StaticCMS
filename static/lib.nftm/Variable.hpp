@@ -45,7 +45,7 @@ namespace NFTM {
         bool Value(const char     *text);
         bool Value(const char     *text, int length);
 
-        virtual bool IsFunction(void) const {
+        bool IsFunction(void) const {
             return kind == vtFUNCTION;
         }
         bool IsNull(void) const {
@@ -82,7 +82,6 @@ namespace NFTM {
         enum { vtOTHER, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
 
         union {
-            class Number   *number;
             class Stack    *stack;
             class Text     *text;
             void           *null;
@@ -97,13 +96,10 @@ namespace NFTM {
     // VarFunction
     class VarFunction : public Variable {
     public:
-        VarFunction(const char *functionName) : Variable(functionName) { }
+        VarFunction(const char *functionName) : Variable(functionName) { kind = vtFUNCTION; }
         ~VarFunction() { }
         
         virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
-        bool        IsFunction(void) const {
-            return true;
-        }
         const char *Kind(void) const {
             return "var.function";
         }
