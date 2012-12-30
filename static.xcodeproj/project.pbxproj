@@ -40,7 +40,6 @@
 		2DF658E1168D21F900C198D3 /* defaultController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6587F168D21F900C198D3 /* defaultController.cpp */; };
 		2DF658E2168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65880168D21F900C198D3 /* dtor.cpp */; };
 		2DF658E3168D21F900C198D3 /* route.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65882168D21F900C198D3 /* route.cpp */; };
-		2DF658E5168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65886168D21F900C198D3 /* ctor.cpp */; };
 		2DF658E7168D21F900C198D3 /* close.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6588E168D21F900C198D3 /* close.cpp */; };
 		2DF658E8168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6588F168D21F900C198D3 /* ctor.cpp */; };
 		2DF658E9168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65890168D21F900C198D3 /* dtor.cpp */; };
@@ -75,7 +74,6 @@
 		2DF6590D168D21F900C198D3 /* push.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C9168D21F900C198D3 /* push.cpp */; };
 		2DF65911168D24C900C198D3 /* exportToSymTab.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65910168D24C900C198D3 /* exportToSymTab.cpp */; };
 		2DF6591B168D6ABE00C198D3 /* kind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6591A168D6ABE00C198D3 /* kind.cpp */; };
-		2DF6591D168D76DC00C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6591C168D76DC00C198D3 /* dtor.cpp */; };
 		2DF65921168D776800C198D3 /* strcopy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65920168D776800C198D3 /* strcopy.cpp */; };
 		2DF65923168E03AB00C198D3 /* remove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65922168E03AB00C198D3 /* remove.cpp */; };
 /* End PBXBuildFile section */
@@ -142,7 +140,6 @@
 		2DF65881168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF65882168D21F900C198D3 /* route.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route.cpp; sourceTree = "<group>"; };
 		2DF65883168D21F900C198D3 /* Router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Router.hpp; sourceTree = "<group>"; };
-		2DF65886168D21F900C198D3 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
 		2DF65887168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF65889168D21F900C198D3 /* Stack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Stack.hpp; sourceTree = "<group>"; };
 		2DF6588C168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
@@ -191,7 +188,6 @@
 		2DF658C9168D21F900C198D3 /* push.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = push.cpp; sourceTree = "<group>"; };
 		2DF65910168D24C900C198D3 /* exportToSymTab.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exportToSymTab.cpp; sourceTree = "<group>"; };
 		2DF6591A168D6ABE00C198D3 /* kind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kind.cpp; sourceTree = "<group>"; };
-		2DF6591C168D76DC00C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2DF65920168D776800C198D3 /* strcopy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strcopy.cpp; sourceTree = "<group>"; };
 		2DF65922168E03AB00C198D3 /* remove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remove.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -363,8 +359,6 @@
 			isa = PBXGroup;
 			children = (
 				2DF65887168D21F900C198D3 /* local.hpp */,
-				2DF65886168D21F900C198D3 /* ctor.cpp */,
-				2DF6591C168D76DC00C198D3 /* dtor.cpp */,
 				2DEE6CEB168FCD0700BC9A00 /* stack.cpp */,
 			);
 			path = stack;
@@ -560,7 +554,6 @@
 				2DF658E1168D21F900C198D3 /* defaultController.cpp in Sources */,
 				2DF658E2168D21F900C198D3 /* dtor.cpp in Sources */,
 				2DF658E3168D21F900C198D3 /* route.cpp in Sources */,
-				2DF658E5168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF658E7168D21F900C198D3 /* close.cpp in Sources */,
 				2DF658E8168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF658E9168D21F900C198D3 /* dtor.cpp in Sources */,
@@ -595,7 +588,6 @@
 				2DF6590D168D21F900C198D3 /* push.cpp in Sources */,
 				2DF65911168D24C900C198D3 /* exportToSymTab.cpp in Sources */,
 				2DF6591B168D6ABE00C198D3 /* kind.cpp in Sources */,
-				2DF6591D168D76DC00C198D3 /* dtor.cpp in Sources */,
 				2DF65921168D776800C198D3 /* strcopy.cpp in Sources */,
 				2DF65923168E03AB00C198D3 /* remove.cpp in Sources */,
 				2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */,

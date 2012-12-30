@@ -129,7 +129,7 @@ namespace NFTM {
     // VarFunc_PopStack
     class VarFunc_PopStack : public VarFunction {
     public:
-        VarFunc_PopStack(void) : VarFunction("{") { }
+        VarFunc_PopStack(void) : VarFunction("}") { }
         ~VarFunc_PopStack() { }
 
         bool Execute(class SymbolTable *symtab, class Stack *stack);

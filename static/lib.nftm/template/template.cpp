@@ -1,5 +1,6 @@
 #include "../Template.hpp"
 #include "../Stack.hpp"
+#include "../Stream.hpp"
 #include "../SymbolTable.hpp"
 #include "../Util.hpp"
 #include "../Variable.hpp"
@@ -105,6 +106,11 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                         stack->PushVarReference(v);
                     } else {
                         if (!v->Execute(symtab, stack)) {
+                            NFTM::OutputStream *errlog = symtab->ErrorLog();
+                            if (errlog) {
+                                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                                errlog->Write("\tfailed to execute word '%s'\n", word);
+                            }
                             return false;
                         }
                     }
@@ -126,7 +132,11 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                     *tgt = 0;
                     stack->PushText(dst);
                 } else {
-                    // should raise error here
+                    NFTM::OutputStream *errlog = symtab->ErrorLog();
+                    if (errlog) {
+                        errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                        errlog->Write("\tclueless on how to execute '%s'\n", word);
+                    }
                     return false;
                 }
             }
