@@ -1,6 +1,8 @@
 #include "../Stack.hpp"
 #include "../Variable.hpp"
 #include "../Stream.hpp"
+#include <stdio.h>
+#include <stdarg.h>
 
 //============================================================================
 //
@@ -11,6 +13,22 @@ NFTM::Stack::Item *NFTM::Stack::PopItem(void) {
         items.pop_front();
     }
     return i;
+}
+
+//============================================================================
+// PushFormatted(fmt, ...)
+//
+void NFTM::Stack::PushFormatted(const char *fmt, ...) {
+    char data[256];
+    
+	if (fmt && *fmt) {
+		va_list ap;
+		va_start(ap, fmt);
+		vsnprintf(data, 256, fmt, ap);
+        data[255] = 0;
+		va_end(ap);
+        PushText(data);
+	}
 }
 
 //============================================================================
@@ -58,7 +76,7 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os) {
     }
     
     while (!items.empty()) {
-        Item *i = items.front();
+        Item *i = items.back();
         switch (i->kind) {
             case Item::siTaintedText:
                 os->Write("%s", i->u.text);
@@ -78,7 +96,7 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os) {
                 break;
         }
         delete i;
-        items.pop_front();
+        items.pop_back();
     }
     
     return true;

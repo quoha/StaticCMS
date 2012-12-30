@@ -56,6 +56,7 @@ namespace NFTM {
         std::list<struct Item *> items;
         
         Item *PopItem(void);
+        void  PushFormatted(const char *fmt, ...);
         void  PushStack(Stack *stack);
         void  PushText(const char *text);
         void  PushTaintedText(const char *text);

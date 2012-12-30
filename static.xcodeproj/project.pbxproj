@@ -515,8 +515,8 @@
 		2DF6588A168D21F900C198D3 /* stream */ = {
 			isa = PBXGroup;
 			children = (
-				2DF6588B168D21F900C198D3 /* input */,
 				2DF6588C168D21F900C198D3 /* local.hpp */,
+				2DF6588B168D21F900C198D3 /* input */,
 				2DF6588D168D21F900C198D3 /* output */,
 			);
 			path = stream;
