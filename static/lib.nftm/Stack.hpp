@@ -55,6 +55,12 @@ namespace NFTM {
         
         std::list<struct Item *> items;
         
+        int   Height(void) const {
+            return (int)(items.size());
+        }
+        bool  IsText(Item *i) const {
+            return i->kind == Item::siText;
+        }
         Item *PopItem(void);
         void  PushFormatted(const char *fmt, ...);
         void  PushStack(Stack *stack);

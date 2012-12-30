@@ -2,18 +2,6 @@
 #include "../Util.hpp"
 
 //============================================================================
-// VarFunction(name, value)
-//
-NFTM::VarFunction::VarFunction(const char *name_) : Variable(name_) {
-}
-
-//============================================================================
-// ~VarFunction()
-//
-NFTM::VarFunction::~VarFunction() {
-}
-
-//============================================================================
 // Execute(stack)
 //
 bool NFTM::VarFunction::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
@@ -24,15 +12,24 @@ bool NFTM::VarFunction::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 }
 
 //============================================================================
-// VarFunc_Include()
+// Execute(stack)
+//   a b -- ba
 //
-NFTM::VarFunc_Include::VarFunc_Include(void) : VarFunction("include") {
-}
-
-//============================================================================
-// ~VarFunc_Include()
-//
-NFTM::VarFunc_Include::~VarFunc_Include() {
+bool NFTM::VarFunc_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        if (stack->Height() < 2) {
+            stack->PushText("\n*** error: concat requires two text items on the stack **\n\n");
+            return false;
+        }
+        NFTM::Stack::Item *b = stack->PopItem();
+        NFTM::Stack::Item *a = stack->PopItem();
+        if (!stack->IsText(a) || !stack->IsText(b)) {
+            stack->PushText("\n*** error: concat requires two text items on the stack **\n\n");
+            return false;
+        }
+        stack->PushText(NFTM::StrCat(b->u.text, a->u.text));
+    }
+    return true;
 }
 
 //============================================================================

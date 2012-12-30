@@ -22,7 +22,7 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     //
     NFTM::Template *t = new NFTM::TemplateText("<p>Site_Name is <billy site_name /></p>"
                                                "<p>Page_Title is <billy page_title /></p>"
-                                               "<billy 'filename.tpl' include />");
+                                               "<billy 'tpl' '.' 'filename' concat concat include />");
 
     // load and execute the template
     //

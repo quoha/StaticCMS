@@ -108,8 +108,8 @@ namespace NFTM {
     // VarFunction
     class VarFunction : public Variable {
     public:
-        VarFunction(const char *name);
-        ~VarFunction();
+        VarFunction(const char *functionName) : Variable(functionName) { }
+        ~VarFunction() { }
         
         virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
         bool        IsFunction(void) const {
@@ -120,11 +120,20 @@ namespace NFTM {
         }
     }; // class VarFunction
 
+    // VarFunc_Concat
+    class VarFunc_Concat : public VarFunction {
+    public:
+        VarFunc_Concat(void) : VarFunction("concat") { }
+        ~VarFunc_Concat() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_Concat
+
     // VarFunc_Include
     class VarFunc_Include : public VarFunction {
     public:
-        VarFunc_Include(void);
-        ~VarFunc_Include();
+        VarFunc_Include(void) : VarFunction("include") { }
+        ~VarFunc_Include() { }
 
         bool Execute(class SymbolTable *symtab, class Stack *stack);
     }; // class VarFunc_Include
