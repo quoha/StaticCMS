@@ -63,13 +63,34 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 
             char *word = s;
 
-            // the word lasts until the next whitespace
-            //
-            while (*s && !isspace(*s)) {
-                s++;
+            // is it quoted?
+            if (*word == '"' || *word == '\'') {
+                // the word lasts until the next quote followed by a space
+                // note that quote-quote inside a string is considered an
+                // escaped quote
+                //
+                char quote = *word;
+                while (*s) {
+                    if (*s == quote && *(s+1) == quote) {
+                        s += 2;
+                        continue;
+                    }
+                    if (*s == quote && (*(s+1) == 0 || isspace(*(s+1)))) {
+                        s++;
+                        break;
+                    }
+                    s++;
+                }
+            } else {
+                // the word lasts until the next whitespace
+                //
+                while (*s && !isspace(*s)) {
+                    s++;
+                }
             }
 
-            // nil-terminate the word
+            // word must be nil-terminate for the push functions to
+            // work properly.
             //
             while (*s && isspace(*s)) {
                 *(s++) = 0;
@@ -81,7 +102,22 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                 if (v) {
                     stack->PushVarReference(v);
                 } else if (*word == '"' || *word == '\'') {
-                    stack->PushFormatted("\n>>> %s <<<\n", word);
+                    // strip the quotes before pushing the text
+                    //
+                    char  quote = *word;
+                    char *dst = NFTM::StrDup(word);
+                    char *src = word + 1; // skip the leading quote
+                    char *tgt = dst;
+                    while (*src) {
+                        if (*src == quote && *(src+1) == 0) {
+                            break;
+                        } else if (*src == quote && *(src+1) == quote) {
+                            src++;
+                        }
+                        *(tgt++) = *(src++);
+                    }
+                    *tgt = 0;
+                    stack->PushText(dst);
                 } else {
                     // should raise error here
                     return false;
