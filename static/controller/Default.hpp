@@ -14,8 +14,8 @@ public:
 
 class DefaultController : public Controller {
 public:
-	bool         CanHandle(class Request *request);
-	class Stack *Handle(class SymbolTable *symtab, class Request *request, class OutputStream *os);
+	bool CanHandle(class Request *request);
+	bool Handle(class SymbolTable *symtab, class Request *request, class Stack *stack);
 }; // class DefaultController
 
 } // namespace NFTM

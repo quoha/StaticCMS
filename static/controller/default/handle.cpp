@@ -1,12 +1,16 @@
 #include "../Default.hpp"
+#include "../../lib.nftm/Variable.hpp"
+#include "../../lib.nftm/Stack.hpp"
 
 //============================================================================
-// Handle(cgi, request, outputStream)
+// Handle(cgi, request, os)
 //
-NFTM::Stack *NFTM::DefaultController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::OutputStream *os) {
-    NFTM::Stack *stack = 0;
+bool NFTM::DefaultController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::Stack *stack) {
+    if (!symtab || !request || !stack) {
+        return false;
+    }
 
-	os->Write("<!-- Controller::Handle(cgi, request, os) -- default controller -->\n");
+    stack->Push(new NFTM::Variable("<!-- Controller::Handle(cgi, request, os) -- default controller -->\n"));
 
 	return stack;
 }

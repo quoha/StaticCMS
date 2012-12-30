@@ -1,14 +1,16 @@
 #include "../local.hpp"
 
 //============================================================================
-// Handle(cgi, request, outputStream)
+// Handle(cgi, request, stack)
 //
-NFTM::Stack *NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::OutputStream *os) {
-	os->Write("<!-- PostController::Handle(symtab, request, os) -- controller %s -->\n", request->argv[0]);
-    
-	// create the stack
-	NFTM::Stack *stack = new NFTM::Stack();
-    
+bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *request, NFTM::Stack *stack) {
+    if (!symtab || !request || !stack) {
+        return false;
+    }
+
+    stack->PushText("<!-- PostController::Handle(symtab, request, os)\n");
+    stack->PushText(request->argv[0]);
+
 	// load model
 	NFTM::PostModel *model = new NFTM::PostModel(symtab);
     model->Pull(request);

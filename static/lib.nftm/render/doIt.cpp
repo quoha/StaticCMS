@@ -4,6 +4,9 @@
 // DoIt(stream, stack)
 //
 bool NFTM::Render::DoIt(NFTM::OutputStream *os, NFTM::Stack *stack) {
+    if (!os || !stack) {
+        return false;
+    }
     NFTM::Variable *item = stack->Bottom();
 
     int counter = 0;

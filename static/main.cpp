@@ -105,12 +105,11 @@ int main(int argc, char *argv[]) {
 
 	// default is used if no other controllers accept the route
 	//
-	router.DefaultRoute(new NFTM::DefaultController);
+	router.DefaultController(new NFTM::DefaultController);
 
 	// add the controllers in FIFO order
 	//
-	router.AddRoute("/post", &post);
-	router.AddRoute("/"    , &post);
+	router.AddController(&post);
 
     NFTM::Variable   *pathInfo = cgi->PATH_INFO();
 	NFTM::Request    *request = new NFTM::Request(pathInfo ? pathInfo->AsText() : 0);
@@ -126,7 +125,11 @@ int main(int argc, char *argv[]) {
     // Handle processes the view and returns a Stack with
     // the output
     //
-    NFTM::Stack *stack = c->Handle(symtab, request, os);
+    NFTM::Stack *stack = new NFTM::Stack;
+    if (!c->Handle(symtab, request, stack)) {
+        printf("\nerror:\tcontroller did not create a stack\n\n");
+        return 2;
+    }
     if (!stack->Render(os)) {
         printf("\nerror:\tunable to render the stack\n\n");
         return 2;

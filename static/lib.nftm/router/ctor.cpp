@@ -6,6 +6,4 @@
 //
 NFTM::Router::Router(void) {
 	defaultController = 0;
-    routeTop          = 0;
-    routeBottom       = 0;
 }

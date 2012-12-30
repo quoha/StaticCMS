@@ -1,6 +1,8 @@
 #ifndef   NFTM_static_src_bin_static_Router_HPP
 #define   NFTM_static_src_bin_static_Router_HPP
 
+#include <list>
+
 namespace NFTM {
 
     //----------------------------------------------------------------------------
@@ -11,23 +13,14 @@ namespace NFTM {
     public:
         Router(void);
         ~Router();
-        
-        bool AddRoute(const char *path, class Controller *controller);
-        bool AddRoute(const char *path, const char *action, class Controller *controller);
-        
-        class Controller *DefaultRoute(void);
-        void              DefaultRoute(class Controller *controller);
+
+        bool AddController(class Controller *controller);
+        void DefaultController(class Controller *controller);
+
         class Controller *Route(class Request *request);
-        
-        class Controller *defaultController;
-        
-        struct Route {
-            struct Route     *prev;
-            struct Route     *next;
-            const char       *path;
-            const char       *action;
-            class Controller *controller;
-        } *routeTop, *routeBottom;
+
+        class Controller             *defaultController;
+        std::list<class Controller *> controllers;
     }; // class Router
     
 } // namespace NFTM

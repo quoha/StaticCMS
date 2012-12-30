@@ -34,7 +34,7 @@ NFTM::Variable *NFTM::Stack::Bottom(NFTM::Variable *variable) {
 //   returns that variable or null if the stack is empty
 //
 NFTM::Variable *NFTM::Stack::Bottom(void) {
-	struct StackNode *first    = bottom;
+	struct StackNode *first = bottom;
 	NFTM::Variable   *variable = first ? first->variable : 0;
 
 	// unlink the first node from the list
