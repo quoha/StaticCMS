@@ -7,20 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D2E19EC168F7F7100BCB6BA /* varText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19EB168F7F7100BCB6BA /* varText.cpp */; };
-		2D2E19EE168F847000BCB6BA /* varNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19ED168F847000BCB6BA /* varNumber.cpp */; };
 		2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F1168F928800BCB6BA /* templateFile.cpp */; };
 		2D2E19F4168F979400BCB6BA /* templateText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F3168F979400BCB6BA /* templateText.cpp */; };
 		2D2E19F6168F9A4900BCB6BA /* template.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F5168F9A4900BCB6BA /* template.cpp */; };
 		2D2E19FA168FAB4C00BCB6BA /* addController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F9168FAB4C00BCB6BA /* addController.cpp */; };
 		2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8878168E502D00B7E4D8 /* pull.cpp */; };
 		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
+		2DABC0CA1690C2E700B7C260 /* variable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DABC0C91690C2E700B7C260 /* variable.cpp */; };
 		2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1863168E2CE500C3ACCC /* dump.cpp */; };
 		2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1866168E31B100C3ACCC /* dump.cpp */; };
 		2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */; };
 		2DEE6CEC168FCD0700BC9A00 /* stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE6CEB168FCD0700BC9A00 /* stack.cpp */; };
 		2DEE6CF0168FFE3300BC9A00 /* loadAllVarFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE6CEF168FFE3300BC9A00 /* loadAllVarFunctions.cpp */; };
-		2DEE6CF2168FFF7D00BC9A00 /* varFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE6CF1168FFF7D00BC9A00 /* varFunction.cpp */; };
+		2DEE6CF2168FFF7D00BC9A00 /* functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE6CF1168FFF7D00BC9A00 /* functions.cpp */; };
 		2DF65848168D1E7600C198D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65847168D1E7600C198D3 /* main.cpp */; };
 		2DF6584A168D1E7600C198D3 /* static.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DF65849168D1E7600C198D3 /* static.1 */; };
 		2DF658CA168D21F900C198D3 /* canHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65852168D21F900C198D3 /* canHandle.cpp */; };
@@ -29,7 +28,6 @@
 		2DF658CE168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6585A168D21F900C198D3 /* dtor.cpp */; };
 		2DF658CF168D21F900C198D3 /* dumpEnv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6585B168D21F900C198D3 /* dumpEnv.cpp */; };
 		2DF658D0168D21F900C198D3 /* getEnv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6585C168D21F900C198D3 /* getEnv.cpp */; };
-		2DF658D3168D21F900C198D3 /* returnVariables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65860168D21F900C198D3 /* returnVariables.cpp */; };
 		2DF658D5168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65864168D21F900C198D3 /* ctor.cpp */; };
 		2DF658D6168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65865168D21F900C198D3 /* dtor.cpp */; };
 		2DF658D8168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6586C168D21F900C198D3 /* ctor.cpp */; };
@@ -68,7 +66,6 @@
 		2DF658FE168D21F900C198D3 /* strdup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658AE168D21F900C198D3 /* strdup.cpp */; };
 		2DF658FF168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658B1168D21F900C198D3 /* ctor.cpp */; };
 		2DF65900168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658B2168D21F900C198D3 /* dtor.cpp */; };
-		2DF65903168D21F900C198D3 /* value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658B6168D21F900C198D3 /* value.cpp */; };
 		2DF65907168D21F900C198D3 /* canHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C1168D21F900C198D3 /* canHandle.cpp */; };
 		2DF65908168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C2168D21F900C198D3 /* ctor.cpp */; };
 		2DF65909168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C3168D21F900C198D3 /* dtor.cpp */; };
@@ -77,8 +74,6 @@
 		2DF6590C168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C8168D21F900C198D3 /* dtor.cpp */; };
 		2DF6590D168D21F900C198D3 /* push.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF658C9168D21F900C198D3 /* push.cpp */; };
 		2DF65911168D24C900C198D3 /* exportToSymTab.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65910168D24C900C198D3 /* exportToSymTab.cpp */; };
-		2DF65917168D5F0100C198D3 /* init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65916168D5F0100C198D3 /* init.cpp */; };
-		2DF65919168D5F6C00C198D3 /* clearValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65918168D5F6C00C198D3 /* clearValues.cpp */; };
 		2DF6591B168D6ABE00C198D3 /* kind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6591A168D6ABE00C198D3 /* kind.cpp */; };
 		2DF6591D168D76DC00C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6591C168D76DC00C198D3 /* dtor.cpp */; };
 		2DF65921168D776800C198D3 /* strcopy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65920168D776800C198D3 /* strcopy.cpp */; };
@@ -99,8 +94,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D2E19EB168F7F7100BCB6BA /* varText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = varText.cpp; sourceTree = "<group>"; };
-		2D2E19ED168F847000BCB6BA /* varNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = varNumber.cpp; sourceTree = "<group>"; };
 		2D2E19EF168F90FC00BCB6BA /* Template.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Template.hpp; sourceTree = "<group>"; };
 		2D2E19F1168F928800BCB6BA /* templateFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = templateFile.cpp; sourceTree = "<group>"; };
 		2D2E19F3168F979400BCB6BA /* templateText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = templateText.cpp; sourceTree = "<group>"; };
@@ -108,12 +101,13 @@
 		2D2E19F9168FAB4C00BCB6BA /* addController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = addController.cpp; sourceTree = "<group>"; };
 		2D4C8878168E502D00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887B168E516B00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
+		2DABC0C91690C2E700B7C260 /* variable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = variable.cpp; sourceTree = "<group>"; };
 		2DEE1863168E2CE500C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1866168E31B100C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		2DEE6CEB168FCD0700BC9A00 /* stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stack.cpp; sourceTree = "<group>"; };
 		2DEE6CEF168FFE3300BC9A00 /* loadAllVarFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadAllVarFunctions.cpp; sourceTree = "<group>"; };
-		2DEE6CF1168FFF7D00BC9A00 /* varFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = varFunction.cpp; sourceTree = "<group>"; };
+		2DEE6CF1168FFF7D00BC9A00 /* functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
 		2DF65843168D1E7600C198D3 /* static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = static; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF65847168D1E7600C198D3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2DF65849168D1E7600C198D3 /* static.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = static.1; sourceTree = "<group>"; };
@@ -126,7 +120,6 @@
 		2DF6585B168D21F900C198D3 /* dumpEnv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dumpEnv.cpp; sourceTree = "<group>"; };
 		2DF6585C168D21F900C198D3 /* getEnv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = getEnv.cpp; sourceTree = "<group>"; };
 		2DF6585E168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
-		2DF65860168D21F900C198D3 /* returnVariables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = returnVariables.cpp; sourceTree = "<group>"; };
 		2DF65861168D21F900C198D3 /* CGI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CGI.hpp; sourceTree = "<group>"; };
 		2DF65864168D21F900C198D3 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
 		2DF65865168D21F900C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
@@ -186,7 +179,6 @@
 		2DF658B1168D21F900C198D3 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
 		2DF658B2168D21F900C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2DF658B4168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
-		2DF658B6168D21F900C198D3 /* value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = value.cpp; sourceTree = "<group>"; };
 		2DF658B7168D21F900C198D3 /* Variable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Variable.hpp; sourceTree = "<group>"; };
 		2DF658BE168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF658C1168D21F900C198D3 /* canHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canHandle.cpp; sourceTree = "<group>"; };
@@ -198,8 +190,6 @@
 		2DF658C8168D21F900C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2DF658C9168D21F900C198D3 /* push.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = push.cpp; sourceTree = "<group>"; };
 		2DF65910168D24C900C198D3 /* exportToSymTab.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exportToSymTab.cpp; sourceTree = "<group>"; };
-		2DF65916168D5F0100C198D3 /* init.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = init.cpp; sourceTree = "<group>"; };
-		2DF65918168D5F6C00C198D3 /* clearValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clearValues.cpp; sourceTree = "<group>"; };
 		2DF6591A168D6ABE00C198D3 /* kind.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kind.cpp; sourceTree = "<group>"; };
 		2DF6591C168D76DC00C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2DF65920168D776800C198D3 /* strcopy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strcopy.cpp; sourceTree = "<group>"; };
@@ -317,7 +307,6 @@
 				2DF6585B168D21F900C198D3 /* dumpEnv.cpp */,
 				2DF6585C168D21F900C198D3 /* getEnv.cpp */,
 				2DF6585E168D21F900C198D3 /* local.hpp */,
-				2DF65860168D21F900C198D3 /* returnVariables.cpp */,
 				2DF65910168D24C900C198D3 /* exportToSymTab.cpp */,
 			);
 			path = cgi;
@@ -460,15 +449,11 @@
 				2DF658B4168D21F900C198D3 /* local.hpp */,
 				2DF658B1168D21F900C198D3 /* ctor.cpp */,
 				2DF658B2168D21F900C198D3 /* dtor.cpp */,
-				2DF658B6168D21F900C198D3 /* value.cpp */,
-				2DF65916168D5F0100C198D3 /* init.cpp */,
-				2DF65918168D5F6C00C198D3 /* clearValues.cpp */,
 				2DF6591A168D6ABE00C198D3 /* kind.cpp */,
 				2DEE1863168E2CE500C3ACCC /* dump.cpp */,
-				2D2E19EB168F7F7100BCB6BA /* varText.cpp */,
-				2D2E19ED168F847000BCB6BA /* varNumber.cpp */,
 				2DEE6CEF168FFE3300BC9A00 /* loadAllVarFunctions.cpp */,
-				2DEE6CF1168FFF7D00BC9A00 /* varFunction.cpp */,
+				2DEE6CF1168FFF7D00BC9A00 /* functions.cpp */,
+				2DABC0C91690C2E700B7C260 /* variable.cpp */,
 			);
 			path = variable;
 			sourceTree = "<group>";
@@ -563,7 +548,6 @@
 				2DF658CE168D21F900C198D3 /* dtor.cpp in Sources */,
 				2DF658CF168D21F900C198D3 /* dumpEnv.cpp in Sources */,
 				2DF658D0168D21F900C198D3 /* getEnv.cpp in Sources */,
-				2DF658D3168D21F900C198D3 /* returnVariables.cpp in Sources */,
 				2DF658D5168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF658D6168D21F900C198D3 /* dtor.cpp in Sources */,
 				2DF658D8168D21F900C198D3 /* ctor.cpp in Sources */,
@@ -602,7 +586,6 @@
 				2DF658FE168D21F900C198D3 /* strdup.cpp in Sources */,
 				2DF658FF168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF65900168D21F900C198D3 /* dtor.cpp in Sources */,
-				2DF65903168D21F900C198D3 /* value.cpp in Sources */,
 				2DF65907168D21F900C198D3 /* canHandle.cpp in Sources */,
 				2DF65908168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF65909168D21F900C198D3 /* dtor.cpp in Sources */,
@@ -611,8 +594,6 @@
 				2DF6590C168D21F900C198D3 /* dtor.cpp in Sources */,
 				2DF6590D168D21F900C198D3 /* push.cpp in Sources */,
 				2DF65911168D24C900C198D3 /* exportToSymTab.cpp in Sources */,
-				2DF65917168D5F0100C198D3 /* init.cpp in Sources */,
-				2DF65919168D5F6C00C198D3 /* clearValues.cpp in Sources */,
 				2DF6591B168D6ABE00C198D3 /* kind.cpp in Sources */,
 				2DF6591D168D76DC00C198D3 /* dtor.cpp in Sources */,
 				2DF65921168D776800C198D3 /* strcopy.cpp in Sources */,
@@ -621,15 +602,14 @@
 				2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */,
 				2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */,
 				2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */,
-				2D2E19EC168F7F7100BCB6BA /* varText.cpp in Sources */,
-				2D2E19EE168F847000BCB6BA /* varNumber.cpp in Sources */,
 				2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */,
 				2D2E19F4168F979400BCB6BA /* templateText.cpp in Sources */,
 				2D2E19F6168F9A4900BCB6BA /* template.cpp in Sources */,
 				2D2E19FA168FAB4C00BCB6BA /* addController.cpp in Sources */,
 				2DEE6CEC168FCD0700BC9A00 /* stack.cpp in Sources */,
 				2DEE6CF0168FFE3300BC9A00 /* loadAllVarFunctions.cpp in Sources */,
-				2DEE6CF2168FFF7D00BC9A00 /* varFunction.cpp in Sources */,
+				2DEE6CF2168FFF7D00BC9A00 /* functions.cpp in Sources */,
+				2DABC0CA1690C2E700B7C260 /* variable.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

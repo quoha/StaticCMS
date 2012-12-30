@@ -1,13 +1,14 @@
 #include "local.hpp"
 #include "../Util.hpp"
+#include "../Variable.hpp"
 
 //============================================================================
 // Request(url)
 //
-NFTM::Request::Request(NFTM::Text *url) {
+NFTM::Request::Request(NFTM::VarText *url) {
 	argv    = 0;
 	symtab  = new NFTM::SymbolTable();
-	request = StrDup(url ? url->AsCString() : "/");
+	request = StrDup(url->IsNull() ? "/" : url->Value());
 
 	// split the url at the question mark
 	//

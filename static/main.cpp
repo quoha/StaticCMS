@@ -74,22 +74,37 @@ int main(int argc, char *argv[]) {
 			}
 			if (*value == '=') {
 				*(value++) = 0;
-			}
+			} else {
+                value = 0;
+            }
             NFTM::Variable *variable = symtab->Lookup(name);
             if (variable) {
-                if (!variable->Value(value)) {
+                if (variable->IsFinal()) {
                     printf("\nerror:\tunable to update variable in symbol table\n");
-                    printf("\t%-20s == '%s'\n", "name", name);
-                    printf("\t%-20s == '%s'\n\n", "value", value);
+                    printf("\tyou are not allowed to modify a finalized variable\n");
+                    printf("\t%-20s == '%s'\n", "finalVar", name);
+                    printf("\n");
                     return 2;
                 }
-            } else {
-                if (!symtab->Add(name, value)) {
-                    printf("\nerror:\tunable to add variable to symbol table\n");
-                    printf("\t%-20s == '%s'\n", "name", name);
-                    printf("\t%-20s == '%s'\n\n", "value", value);
+                if (!symtab->Remove(variable)) {
+                    printf("\nerror:\tinternal error\n");
+                    printf("\tunable to delete variable from symbol table\n");
+                    printf("\t%-20s == '%s'\n", "variableName", name);
+                    printf("\n");
                     return 2;
                 }
+                delete variable;
+            }
+            if (!symtab->Add(new NFTM::VarText(name, value))) {
+                printf("\nerror:\tunable to add variable to symbol table\n");
+                printf("\t%-20s == '%s'\n", "name", name);
+                if (value) {
+                    printf("\t%-20s == '%s'\n", "value", value);
+                } else {
+                    printf("\t%-20s == NULL\n", "value");
+                }
+                printf("\n");
+                return 2;
             }
             printf(" info:\t%-20s == '%s'\n", "name", name);
             printf("\t%-20s == '%s'\n", "value", value);
@@ -111,13 +126,13 @@ int main(int argc, char *argv[]) {
 	//
 	router.AddController(&post);
 
-    NFTM::Variable   *pathInfo = cgi->PATH_INFO();
-	NFTM::Request    *request = new NFTM::Request(pathInfo ? pathInfo->AsText() : 0);
+    NFTM::VarText    *pathInfo = cgi->PATH_INFO();
+	NFTM::Request    *request = new NFTM::Request(pathInfo);
 	NFTM::Controller *c       = router.Route(request);
 
     if (!c) {
         printf("\nerror:\tunable to find controller for route\n");
-        printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo ? pathInfo->AsText()->AsCString() : "");
+        printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->Value());
         printf("\n");
         return 2;
     }

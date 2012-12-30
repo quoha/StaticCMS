@@ -6,6 +6,8 @@
 //
 void NFTM::Variable::Dump(NFTM::OutputStream *os) {
     if (os) {
+        os->Write("****** Variable::Dump is BROKEN *****\n");
+#if 0
         os->Write("\t\tvar %s is %s%s\n", Name(), IsNull() ? "null " : "", Kind());
         if (!IsNull() && IsText()) {
             char minibuf[64 + 1];
@@ -17,5 +19,6 @@ void NFTM::Variable::Dump(NFTM::OutputStream *os) {
             *s = 0;
             os->Write("\t\t\t%s\n", minibuf);
         }
+#endif
     }
 }

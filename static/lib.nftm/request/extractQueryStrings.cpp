@@ -1,5 +1,6 @@
 #include "local.hpp"
 #include "../Util.hpp"
+#include "../Variable.hpp"
 
 //============================================================================
 // ExtractQueryStrings()
@@ -42,7 +43,7 @@ void NFTM::Request::ExtractQueryStrings(void) {
 		}
 
 		if (*name) {
-			symtab->Add(name, val);
+			symtab->Add(new NFTM::VarText(name, val));
 		}
 	}
 }

@@ -1,5 +1,6 @@
 #include "../local.hpp"
 #include "../../lib.nftm/Stack.hpp"
+#include "../../lib.nftm/Variable.hpp"
 
 //============================================================================
 // Pull(request)
@@ -15,7 +16,7 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
 
     // add two articles
     NFTM::Stack *result = new NFTM::Stack;
-    symtab->Add(new NFTM::Variable("recent_posts", result));
+    symtab->Add(new NFTM::VarStack("recent_posts", result));
     
     //  article id 2
     //          publish date "today"

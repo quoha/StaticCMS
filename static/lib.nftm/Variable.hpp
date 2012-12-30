@@ -11,17 +11,11 @@ namespace NFTM {
     //    the infamous null value. the only thing that a variable can't hold is
     //    a reference to another variable.
     //
-    // TODO - ponder subclassing for the individual types
-    //        all should have name
+    // NOTE are variables immutable?
     //
     class Variable {
     public:
         Variable(const char *name);
-        Variable(const char *name, class Stack    *stack);
-        Variable(const char *name, class Text     *text);
-        Variable(const char *name, class Text     *text, int length);
-        Variable(const char *name, const char     *text);
-        Variable(const char *name, const char     *text, int length);
         virtual ~Variable();
 
         virtual bool Execute(class SymbolTable *symtab, class Stack *stack) {
@@ -38,13 +32,12 @@ namespace NFTM {
             return false;
         }
 
-        bool Value(void);
-        bool Value(class Stack    *stack);
-        bool Value(class Text     *text);
-        bool Value(class Text     *text, int length);
-        bool Value(const char     *text);
-        bool Value(const char     *text, int length);
-
+        bool IsConst(void) const {
+            return false;
+        }
+        bool IsFinal(void) const {
+            return false;
+        }
         bool IsFunction(void) const {
             return kind == vtFUNCTION;
         }
@@ -64,33 +57,17 @@ namespace NFTM {
             return kind == vtTEXT;
         }
 
-        class Stack    *AsStack(void) {
-            return kind == vtSTACK ? val.stack : 0;
-        }
-        class Text     *AsText(void) {
-            return kind == vtTEXT ? val.text : 0;
-        }
-
         void Dump(class OutputStream *os);
-
-        void ClearValues(void);
-        void Init(void);
-
-        bool isNull;
-        bool isTainted;
-
-        enum { vtOTHER, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
-
-        union {
-            class Stack    *stack;
-            class Text     *text;
-            void           *null;
-        } val;
 
         // initialized when created, never changed
         //
         static const int maxNameLength = 64;
         char name[maxNameLength + 1];
+        bool isNull;
+        bool isTainted;
+
+        enum { vtOTHER, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
+        
     }; // class Variable
 
     // VarFunction
@@ -152,13 +129,11 @@ namespace NFTM {
     // VarStack
     class VarStack : public Variable {
     public:
-        VarStack(class Stack *stack);
+        VarStack(const char *name_, class Stack *stack);
         ~VarStack();
 
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-        const char *Kind(void) const {
-            return "var.stack";
-        }
+        bool        Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const;
 
         class Stack *value;
     }; // class VarStack
@@ -174,9 +149,30 @@ namespace NFTM {
             return "var.text";
         }
         bool Render(class OutputStream *os) const;
-        
+        const char *Value(void) const {
+            return value;
+        }
+
         char *value;
     }; // class VarText
+
+    // VarTaintedText
+    class VarTaintedText : public VarText {
+    public:
+        VarTaintedText(const char *name, const char *text);
+        ~VarTaintedText();
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const {
+            return "var.text.tainted";
+        }
+        bool Render(class OutputStream *os) const;
+        const char *Value(void) const {
+            return value;
+        }
+        
+        char *value;
+    }; // class VarTaintedText
 
 } // namespace NFTM
 
