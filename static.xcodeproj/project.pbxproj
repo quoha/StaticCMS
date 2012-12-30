@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D2E19E0168F4E9B00BCB6BA /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */; };
 		2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */; };
 		2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */; };
 		2D2E19E8168F739100BCB6BA /* include.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E7168F739000BCB6BA /* include.cpp */; };
@@ -21,14 +20,11 @@
 		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
 		2D4C8882168E5A8000B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887F168E5A8000B7E4D8 /* ctor.cpp */; };
 		2D4C8883168E5A8000B7E4D8 /* doIt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8880168E5A8000B7E4D8 /* doIt.cpp */; };
-		2D4C8887168EB52400B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8886168EB52400B7E4D8 /* ctor.cpp */; };
 		2D4C888E168EC80E00B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C888D168EC80E00B7E4D8 /* ctor.cpp */; };
 		2D4C8892168ECCBE00B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8891168ECCBE00B7E4D8 /* ctor.cpp */; };
 		2D4C8895168ECCD300B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8894168ECCD300B7E4D8 /* ctor.cpp */; };
 		2D4C8898168ECD8100B7E4D8 /* execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8897168ECD8100B7E4D8 /* execute.cpp */; };
 		2D4C889A168ECE0C00B7E4D8 /* execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8899168ECE0C00B7E4D8 /* execute.cpp */; };
-		2D523E2E168ED0AB00E9817B /* chunkFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D523E2D168ED0AB00E9817B /* chunkFactory.cpp */; };
-		2D523E30168ED0B600E9817B /* execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D523E2F168ED0B600E9817B /* execute.cpp */; };
 		2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1863168E2CE500C3ACCC /* dump.cpp */; };
 		2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1866168E31B100C3ACCC /* dump.cpp */; };
 		2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */; };
@@ -115,7 +111,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2D2E19E1168F4EFB00BCB6BA /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadAllFunctions.cpp; sourceTree = "<group>"; };
 		2D2E19E6168F724B00BCB6BA /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
@@ -133,9 +128,6 @@
 		2D4C887F168E5A8000B7E4D8 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
 		2D4C8880168E5A8000B7E4D8 /* doIt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = doIt.cpp; sourceTree = "<group>"; };
 		2D4C8881168E5A8000B7E4D8 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
-		2D4C8884168EAC6F00B7E4D8 /* View.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = View.hpp; sourceTree = "<group>"; };
-		2D4C8886168EB52400B7E4D8 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
-		2D4C8888168EB55500B7E4D8 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2D4C8889168EB5EC00B7E4D8 /* Chunk.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Chunk.hpp; sourceTree = "<group>"; };
 		2D4C888D168EC80E00B7E4D8 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
 		2D4C888F168EC83C00B7E4D8 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
@@ -145,8 +137,6 @@
 		2D4C8896168ECCDC00B7E4D8 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2D4C8897168ECD8100B7E4D8 /* execute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = execute.cpp; sourceTree = "<group>"; };
 		2D4C8899168ECE0C00B7E4D8 /* execute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = execute.cpp; sourceTree = "<group>"; };
-		2D523E2D168ED0AB00E9817B /* chunkFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunkFactory.cpp; sourceTree = "<group>"; };
-		2D523E2F168ED0B600E9817B /* execute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = execute.cpp; sourceTree = "<group>"; };
 		2DEE1863168E2CE500C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1866168E31B100C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -292,18 +282,6 @@
 			path = render;
 			sourceTree = "<group>";
 		};
-		2D4C8885168EB50A00B7E4D8 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				2D4C8888168EB55500B7E4D8 /* local.hpp */,
-				2D4C8886168EB52400B7E4D8 /* ctor.cpp */,
-				2D2E19DF168F4E9B00BCB6BA /* dtor.cpp */,
-				2D523E2D168ED0AB00E9817B /* chunkFactory.cpp */,
-				2D523E2F168ED0B600E9817B /* execute.cpp */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
 		2D4C888A168EC7D500B7E4D8 /* chunk */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,8 +400,6 @@
 				2DF658AF168D21F900C198D3 /* Util.hpp */,
 				2DF658B0168D21F900C198D3 /* variable */,
 				2DF658B7168D21F900C198D3 /* Variable.hpp */,
-				2D4C8885168EB50A00B7E4D8 /* view */,
-				2D4C8884168EAC6F00B7E4D8 /* View.hpp */,
 			);
 			path = lib.nftm;
 			sourceTree = "<group>";
@@ -754,15 +730,11 @@
 				2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */,
 				2D4C8882168E5A8000B7E4D8 /* ctor.cpp in Sources */,
 				2D4C8883168E5A8000B7E4D8 /* doIt.cpp in Sources */,
-				2D4C8887168EB52400B7E4D8 /* ctor.cpp in Sources */,
 				2D4C888E168EC80E00B7E4D8 /* ctor.cpp in Sources */,
 				2D4C8892168ECCBE00B7E4D8 /* ctor.cpp in Sources */,
 				2D4C8895168ECCD300B7E4D8 /* ctor.cpp in Sources */,
 				2D4C8898168ECD8100B7E4D8 /* execute.cpp in Sources */,
 				2D4C889A168ECE0C00B7E4D8 /* execute.cpp in Sources */,
-				2D523E2E168ED0AB00E9817B /* chunkFactory.cpp in Sources */,
-				2D523E30168ED0B600E9817B /* execute.cpp in Sources */,
-				2D2E19E0168F4E9B00BCB6BA /* dtor.cpp in Sources */,
 				2D2E19E2168F4EFB00BCB6BA /* dtor.cpp in Sources */,
 				2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */,
 				2D2E19E8168F739100BCB6BA /* include.cpp in Sources */,

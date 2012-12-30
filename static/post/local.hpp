@@ -8,7 +8,6 @@
 #include "../lib.nftm/Stack.hpp"
 #include "../lib.nftm/Request.hpp"
 #include "../lib.nftm/Controller.hpp"
-#include "../lib.nftm/View.hpp"
 #include "../lib.nftm/Model.hpp"
 #include "../lib.nftm/Template.hpp"
 
