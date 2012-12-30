@@ -23,7 +23,6 @@
 int main(int argc, char *argv[]) {
 	stderr = stdout;
 
-    NFTM::Render render;
 	NFTM::OutputStream *os = new NFTM::OutputStream("stdout");
 
 	FILE *fpOutput = stdout;
@@ -138,7 +137,6 @@ int main(int argc, char *argv[]) {
         printf("\nerror:\tunable to render the stack\n\n");
         return 2;
     }
-    render.DoIt(os, stack);
 
 	if (os) {
 		delete os;

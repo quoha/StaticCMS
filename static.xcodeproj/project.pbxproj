@@ -17,8 +17,6 @@
 		2D2E19FA168FAB4C00BCB6BA /* addController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F9168FAB4C00BCB6BA /* addController.cpp */; };
 		2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8878168E502D00B7E4D8 /* pull.cpp */; };
 		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
-		2D4C8882168E5A8000B7E4D8 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887F168E5A8000B7E4D8 /* ctor.cpp */; };
-		2D4C8883168E5A8000B7E4D8 /* doIt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C8880168E5A8000B7E4D8 /* doIt.cpp */; };
 		2DEE1864168E2CE500C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1863168E2CE500C3ACCC /* dump.cpp */; };
 		2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DEE1866168E31B100C3ACCC /* dump.cpp */; };
 		2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */; };
@@ -117,10 +115,6 @@
 		2D2E19F9168FAB4C00BCB6BA /* addController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = addController.cpp; sourceTree = "<group>"; };
 		2D4C8878168E502D00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2D4C887B168E516B00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
-		2D4C887D168E591800B7E4D8 /* Render.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Render.hpp; sourceTree = "<group>"; };
-		2D4C887F168E5A8000B7E4D8 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
-		2D4C8880168E5A8000B7E4D8 /* doIt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = doIt.cpp; sourceTree = "<group>"; };
-		2D4C8881168E5A8000B7E4D8 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DEE1863168E2CE500C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1866168E31B100C3ACCC /* dump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dump.cpp; sourceTree = "<group>"; };
 		2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -256,16 +250,6 @@
 			path = template;
 			sourceTree = "<group>";
 		};
-		2D4C887E168E5A8000B7E4D8 /* render */ = {
-			isa = PBXGroup;
-			children = (
-				2D4C887F168E5A8000B7E4D8 /* ctor.cpp */,
-				2D4C8880168E5A8000B7E4D8 /* doIt.cpp */,
-				2D4C8881168E5A8000B7E4D8 /* local.hpp */,
-			);
-			path = render;
-			sourceTree = "<group>";
-		};
 		2DF65838168D1E7600C198D3 = {
 			isa = PBXGroup;
 			children = (
@@ -329,8 +313,6 @@
 				2DF65870168D21F900C198D3 /* Model.hpp */,
 				2DF65871168D21F900C198D3 /* number */,
 				2DF65874168D21F900C198D3 /* Number.hpp */,
-				2D4C887E168E5A8000B7E4D8 /* render */,
-				2D4C887D168E591800B7E4D8 /* Render.hpp */,
 				2DF65875168D21F900C198D3 /* request */,
 				2DF6587A168D21F900C198D3 /* Request.hpp */,
 				2DF6587B168D21F900C198D3 /* router */,
@@ -677,8 +659,6 @@
 				2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */,
 				2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */,
 				2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */,
-				2D4C8882168E5A8000B7E4D8 /* ctor.cpp in Sources */,
-				2D4C8883168E5A8000B7E4D8 /* doIt.cpp in Sources */,
 				2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */,
 				2D2E19E8168F739100BCB6BA /* include.cpp in Sources */,
 				2D2E19EC168F7F7100BCB6BA /* varText.cpp in Sources */,
