@@ -7,5 +7,5 @@
 <billy { />
 <p>one</p>
 <p>two</p>
-<billy } />
+<billy } bold />
 

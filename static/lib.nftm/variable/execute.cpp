@@ -50,6 +50,30 @@ bool NFTM::VarFunc_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack
 
 //============================================================================
 // Execute(stack)
+//   t -- <bold> t </bold>
+//
+bool NFTM::VarFunc_Bold::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        NFTM::StackItem *a = stack->Pop();
+        
+        if (!a) {
+            NFTM::OutputStream *errlog = symtab->ErrorLog();
+            if (errlog) {
+                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                errlog->Write("\tbold requires one item on the stack\n");
+            }
+            return false;
+        }
+
+        stack->PushText("<bold>");
+        stack->Push(a);
+        stack->PushText("</bold>");
+    }
+    return true;
+}
+
+//============================================================================
+// Execute(stack)
 //  t -- <stack>
 //
 // reads in template file 't', executes it and places the result in a new stack

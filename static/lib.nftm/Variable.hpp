@@ -82,6 +82,15 @@ namespace NFTM {
         }
     }; // class VarFunction
 
+    // VarFunc_Bold
+    class VarFunc_Bold : public VarFunction {
+    public:
+        VarFunc_Bold(void) : VarFunction("bold") { }
+        ~VarFunc_Bold() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_Bold
+
     // VarFunc_Concat
     class VarFunc_Concat : public VarFunction {
     public:

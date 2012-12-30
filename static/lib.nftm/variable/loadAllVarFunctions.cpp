@@ -9,6 +9,7 @@ void NFTM::LoadAllVarFunctions(NFTM::SymbolTable *symtab) {
         return;
     }
 
+    symtab->Add(new NFTM::VarFunc_Bold);
     symtab->Add(new NFTM::VarFunc_Concat);
     symtab->Add(new NFTM::VarFunc_Include);
     symtab->Add(new NFTM::VarFunc_PopStack);
