@@ -49,7 +49,7 @@ namespace NFTM {
         bool Value(const char     *text);
         bool Value(const char     *text, int length);
 
-        bool IsFunction(void) const {
+        virtual bool IsFunction(void) const {
             return kind == vtFUNCTION;
         }
         bool IsNull(void) const {
@@ -112,6 +112,9 @@ namespace NFTM {
         ~VarFunction();
         
         virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
+        bool        IsFunction(void) const {
+            return true;
+        }
         const char *Kind(void) const {
             return "var.function";
         }

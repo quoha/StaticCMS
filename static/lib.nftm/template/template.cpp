@@ -2,6 +2,7 @@
 #include "../Stack.hpp"
 #include "../SymbolTable.hpp"
 #include "../Util.hpp"
+#include "../Variable.hpp"
 #include <cstring>
 #include <ctype.h>
 
@@ -100,7 +101,14 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                 // lookup the word in the symbol table
                 NFTM::Variable *v = symtab->Lookup(word);
                 if (v) {
-                    stack->PushVarReference(v);
+                    if (!v->IsFunction()) {
+                        stack->PushVarReference(v);
+                    } else {
+                        stack->PushFormatted("** should execute %s, not push it **", v->Name());
+                        if (!v->Execute(symtab, stack)) {
+                            return false;
+                        }
+                    }
                 } else if (*word == '"' || *word == '\'') {
                     // strip the quotes before pushing the text
                     //
