@@ -17,7 +17,6 @@ namespace NFTM {
     class Variable {
     public:
         Variable(const char *name);
-        Variable(const char *name, class Function *function);
         Variable(const char *name, class Number   *number);
         Variable(const char *name, class Stack    *stack);
         Variable(const char *name, class Text     *text);
@@ -68,9 +67,6 @@ namespace NFTM {
             return kind == vtTEXT;
         }
 
-        class Function *AsFunction(void) {
-            return kind == vtFUNCTION ? val.function : 0;
-        }
         class Number   *AsNumber(void) {
             return kind == vtNUMBER ? val.number : 0;
         }
@@ -92,7 +88,6 @@ namespace NFTM {
         enum { vtOTHER, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
 
         union {
-            class Function *function;
             class Number   *number;
             class Stack    *stack;
             class Text     *text;

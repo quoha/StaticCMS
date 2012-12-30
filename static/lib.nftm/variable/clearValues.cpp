@@ -5,7 +5,6 @@
 void NFTM::Variable::ClearValues(void) {
     switch (kind) {
         case vtFUNCTION:
-            delete val.function;
             break;
         case vtNULL:
             break;

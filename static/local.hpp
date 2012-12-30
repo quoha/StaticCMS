@@ -6,7 +6,6 @@ const char *StrDup(const char *str);
 #include "lib.nftm/Util.hpp"
 #include "lib.nftm/Text.hpp"
 #include "lib.nftm/Variable.hpp"
-#include "lib.nftm/Function.hpp"
 #include "lib.nftm/SymbolTable.hpp"
 #include "lib.nftm/Stream.hpp"
 #include "lib.nftm/CGI.hpp"

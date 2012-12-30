@@ -1,13 +1,6 @@
 #include "local.hpp"
 
 //============================================================================
-// Add(name, function)
-//
-NFTM::Variable *NFTM::SymbolTable::Add(const char *name, NFTM::Function *function) {
-	return Add(new NFTM::Variable(name, function));
-}
-
-//============================================================================
 // Add(name, number)
 //
 NFTM::Variable *NFTM::SymbolTable::Add(const char *name, NFTM::Number *number) {

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */; };
-		2D2E19E8168F739100BCB6BA /* include.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19E7168F739000BCB6BA /* include.cpp */; };
 		2D2E19EC168F7F7100BCB6BA /* varText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19EB168F7F7100BCB6BA /* varText.cpp */; };
 		2D2E19EE168F847000BCB6BA /* varNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19ED168F847000BCB6BA /* varNumber.cpp */; };
 		2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F1168F928800BCB6BA /* templateFile.cpp */; };
@@ -103,9 +101,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadAllFunctions.cpp; sourceTree = "<group>"; };
-		2D2E19E6168F724B00BCB6BA /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
-		2D2E19E7168F739000BCB6BA /* include.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = include.cpp; sourceTree = "<group>"; };
 		2D2E19EB168F7F7100BCB6BA /* varText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = varText.cpp; sourceTree = "<group>"; };
 		2D2E19ED168F847000BCB6BA /* varNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = varNumber.cpp; sourceTree = "<group>"; };
 		2D2E19EF168F90FC00BCB6BA /* Template.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Template.hpp; sourceTree = "<group>"; };
@@ -139,7 +134,6 @@
 		2DF65865168D21F900C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
 		2DF65867168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF65868168D21F900C198D3 /* Controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Controller.hpp; sourceTree = "<group>"; };
-		2DF65869168D21F900C198D3 /* Function.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Function.hpp; sourceTree = "<group>"; };
 		2DF6586A168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF6586C168D21F900C198D3 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
 		2DF6586D168D21F900C198D3 /* dtor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dtor.cpp; sourceTree = "<group>"; };
@@ -230,16 +224,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2D2E19E3168F6EDF00BCB6BA /* function */ = {
-			isa = PBXGroup;
-			children = (
-				2D2E19E6168F724B00BCB6BA /* local.hpp */,
-				2D2E19E4168F724000BCB6BA /* loadAllFunctions.cpp */,
-				2D2E19E7168F739000BCB6BA /* include.cpp */,
-			);
-			path = function;
-			sourceTree = "<group>";
-		};
 		2D2E19F0168F91BA00BCB6BA /* template */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,8 +290,6 @@
 				2DF65861168D21F900C198D3 /* CGI.hpp */,
 				2DF65862168D21F900C198D3 /* controller */,
 				2DF65868168D21F900C198D3 /* Controller.hpp */,
-				2D2E19E3168F6EDF00BCB6BA /* function */,
-				2DF65869168D21F900C198D3 /* Function.hpp */,
 				2DF6586A168D21F900C198D3 /* local.hpp */,
 				2DF6586B168D21F900C198D3 /* model */,
 				2DF65870168D21F900C198D3 /* Model.hpp */,
@@ -659,8 +641,6 @@
 				2DEE1867168E31B100C3ACCC /* dump.cpp in Sources */,
 				2D4C8879168E502D00B7E4D8 /* pull.cpp in Sources */,
 				2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */,
-				2D2E19E5168F724000BCB6BA /* loadAllFunctions.cpp in Sources */,
-				2D2E19E8168F739100BCB6BA /* include.cpp in Sources */,
 				2D2E19EC168F7F7100BCB6BA /* varText.cpp in Sources */,
 				2D2E19EE168F847000BCB6BA /* varNumber.cpp in Sources */,
 				2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */,

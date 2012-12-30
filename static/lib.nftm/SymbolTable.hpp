@@ -20,7 +20,6 @@ namespace NFTM {
         // using them. and maybe sometime soon i'll step up to real strings.
         //
         class Variable *Add(class Variable *variable);
-        class Variable *Add(const char *name, class Function *function);
         class Variable *Add(const char *name, class Number   *number);
         class Variable *Add(const char *name, class Stack    *stack);
         class Variable *Add(const char *name, class Text     *text);

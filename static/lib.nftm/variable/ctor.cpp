@@ -18,22 +18,6 @@ NFTM::Variable::Variable(const char *name_) {
 
 //============================================================================
 //
-NFTM::Variable::Variable(const char *name_, NFTM::Function *function) {
-    Init();
-    
-    if (name_) {
-        StrCopy(name, name_, maxNameLength);
-    } else if (function) {
-        StrCopy(name, function->Name(), maxNameLength);
-    } else {
-        sprintf(name, ".%p", this);
-    }
-
-    Value(function);
-}
-
-//============================================================================
-//
 NFTM::Variable::Variable(const char *name_, NFTM::Number *number) {
     Init();
     
