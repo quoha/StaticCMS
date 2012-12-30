@@ -126,6 +126,24 @@ namespace NFTM {
         int value;
     }; // class VarNumber
 
+    // VarFunc_PopStack
+    class VarFunc_PopStack : public VarFunction {
+    public:
+        VarFunc_PopStack(void) : VarFunction("{") { }
+        ~VarFunc_PopStack() { }
+
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_PopStack
+
+    // VarFunc_PushStack
+    class VarFunc_PushStack : public VarFunction {
+    public:
+        VarFunc_PushStack(void) : VarFunction("{") { }
+        ~VarFunc_PushStack() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_PushStack
+
     // VarStack
     class VarStack : public Variable {
     public:
@@ -137,6 +155,22 @@ namespace NFTM {
 
         class Stack *value;
     }; // class VarStack
+
+    // VarOutputStream
+    class VarOutputStream : public Variable {
+    public:
+        VarOutputStream(const char *name_, class OutputStream *value_) : Variable(name_) { value = value_; }
+        ~VarOutputStream();
+
+        bool Execute(class SymbolTable *symtab, class Stack *stack) {
+            return false;
+        }
+        const char *Kind(void) const {
+            return "var.outputStream";
+        }
+
+        class OutputStream *value;
+    }; // class VarStream
 
     // VarText
     class VarText : public Variable {

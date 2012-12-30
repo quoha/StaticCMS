@@ -1,6 +1,8 @@
 #include "local.hpp"
+#include "../Stream.hpp"
 #include "../Template.hpp"
 #include "../Util.hpp"
+#include <stdio.h>
 
 //============================================================================
 // Execute(stack)
@@ -43,32 +45,60 @@ bool NFTM::VarFunc_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack
 // that is pushed onto the current stack
 //
 bool NFTM::VarFunc_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    NFTM::OutputStream *errlog = symtab->ErrorLog();
+    
     if (stack) {
         if (stack->Height() < 1) {
-            stack->PushText("\n*** error: include requires one text item on the stack **\n\n");
+            if (errlog) {
+                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                errlog->Write("\tinclude requires at least one text item on the stack\n");
+            }
             return false;
         }
+        
         NFTM::Stack::Item *t = stack->PopItem();
         if (!stack->IsText(t)) {
-            stack->PushText("\n*** error: include requires one text item on the stack **\n\n");
+            if (errlog) {
+                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                errlog->Write("\tinclude text item on the stack, not %s\n", "fix this reference to t->Kind()");
+            }
             return false;
         }
+        
         NFTM::TemplateFile *tmplt = new NFTM::TemplateFile(t->u.text);
         if (!tmplt->Load()) {
-            stack->PushFormatted("\n*** error: include failed to load '%s'\n\n", t->u.text);
+            if (errlog) {
+                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                errlog->Write("\tinclude failed to load '%s'\n", t->u.text);
+            }
             return false;
         }
-        //stack->PushFormatted("\n*** successfully loaded %s\n", t->u.text);
+        
         NFTM::Stack *includeStack = new NFTM::Stack;
         if (!tmplt->Execute(symtab, includeStack)) {
-            stack->PushFormatted("\n*** error: include failed to execute '%s'\n\n", t->u.text);
+            if (errlog) {
+                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                errlog->Write("\tinclude failed to execute '%s'\n", t->u.text);
+            }
             return false;
         }
-        //stack->PushFormatted("\n*** successfully executed %s\n", t->u.text);
-
+        
         stack->PushStack(includeStack);
-
+        
         delete t;
+    }
+    return true;
+}
+
+//============================================================================
+// Execute(stack)
+//  ~ -- ~ <stackMarker>
+//
+// pushes a stack marker onto the current stack
+//
+bool NFTM::VarFunc_PushStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        stack->PushVarReference(this);
     }
     return true;
 }

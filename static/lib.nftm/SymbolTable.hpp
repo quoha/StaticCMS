@@ -27,6 +27,9 @@ namespace NFTM {
         
         // miscellaneous
         //
+        class OutputStream *ErrorLog(void) const { return errorLog; }
+        void                ErrorLog(class OutputStream *errorLog_) { errorLog = errorLog_; }
+        
         void Dump(class OutputStream *os, bool showHash, bool showVar) const;
         bool Remove(class Variable *variable);
         
@@ -42,6 +45,7 @@ namespace NFTM {
             class Variable *variable;
         } *hash[hashSize];
         
+        class OutputStream *errorLog;
     }; // class SymbolTable
     
 } // namespace NFTM

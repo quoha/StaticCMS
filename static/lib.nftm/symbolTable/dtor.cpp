@@ -12,4 +12,5 @@ NFTM::SymbolTable::~SymbolTable() {
 			b = tmp;
 		}
 	}
+    delete errorLog;
 }

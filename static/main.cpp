@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
 	FILE *fpOutput = stdout;
 
 	NFTM::SymbolTable *symtab = new NFTM::SymbolTable();
+    symtab->ErrorLog(new NFTM::OutputStream("stderr"));
 
 	NFTM::CGI *cgi = new NFTM::CGI();
     cgi->GetEnv("/", argv[0]);
