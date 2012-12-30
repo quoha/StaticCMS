@@ -3,6 +3,8 @@
 
 namespace NFTM {
     
+    void LoadAllVarFunctions(class SymbolTable *symtab);
+
     //---------------------------------------------------------------------------
     // Variable
     //    holds value for everything that we're going to manipulate, including
@@ -106,14 +108,14 @@ namespace NFTM {
     // VarFunction
     class VarFunction : public Variable {
     public:
-        VarFunction(void);
+        VarFunction(const char *name);
         ~VarFunction();
         
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
         const char *Kind(void) const {
             return "var.function";
         }
-    }; // class VarFunc_Include
+    }; // class VarFunction
 
     // VarFunc_Include
     class VarFunc_Include : public VarFunction {
@@ -174,6 +176,7 @@ namespace NFTM {
         const char *Kind(void) const {
             return "var.text";
         }
+        bool Render(class OutputStream *os) const;
         
         char *value;
     }; // class VarText

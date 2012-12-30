@@ -25,3 +25,16 @@ bool NFTM::VarText::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     }
     return stack;
 }
+
+//============================================================================
+// Render(os)
+//
+bool NFTM::VarText::Render(NFTM::OutputStream *os) const {
+    if (!os) {
+        return false;
+    }
+    if (value && *value) {
+        os->Write("%s", value);
+    }
+    return true;
+}

@@ -17,21 +17,18 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     
 	delete model;
     
-    // load first template. ask me how the controller knows which template
+    // first template. ask me how the controller knows which template
     // to start off with.
     //
     NFTM::Template *t = new NFTM::TemplateText("<p>Site_Name is <billy site_name /></p>"
                                                "<p>Page_Title is <billy page_title /></p>"
                                                "<billy 'filename.tpl' include />");
+
+    // load and execute the template
+    //
     t->Load();
     t->Execute(symtab, stack);
 
-    // load view
-    NFTM::View *view = new NFTM::View("/tmp/", "header.tpl");
-    
-    view->Execute(symtab, stack);
-    
-    delete view;
     delete t;
     
 	return stack;

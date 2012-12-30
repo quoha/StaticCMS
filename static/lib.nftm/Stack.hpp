@@ -59,6 +59,7 @@ namespace NFTM {
         void  PushFormatted(const char *fmt, ...);
         void  PushStack(Stack *stack);
         void  PushText(const char *text);
+        void  PushText(const char *text, int length);
         void  PushTaintedText(const char *text);
         void  PushVarReference(class Variable *var);
         bool  Render(class OutputStream *os);

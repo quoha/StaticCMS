@@ -34,7 +34,8 @@ int main(int argc, char *argv[]) {
     cgi->GetEnv("/", argv[0]);
     cgi->ExportToSymTab(symtab);
 
-    LoadAllFunctions(symtab);
+    //LoadAllFunctions(symtab);
+    NFTM::LoadAllVarFunctions(symtab);
 
 	for (int idx = 1; idx < argc; idx++) {
 		char *opt = argv[idx];
@@ -131,7 +132,7 @@ int main(int argc, char *argv[]) {
         printf("\nerror:\tcontroller did not create a stack\n\n");
         return 2;
     }
-    stack->PushText("**** bottom of stack ***\n");
+    stack->PushText("**** top--- of stack ***\n");
 
     if (!stack->Render(os)) {
         printf("\nerror:\tunable to render the stack\n\n");

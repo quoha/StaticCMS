@@ -1,0 +1,13 @@
+#include "../Variable.hpp"
+#include "../SymbolTable.hpp"
+
+//============================================================================
+// LoadAllVarFunctions(symtab)
+//
+void NFTM::LoadAllVarFunctions(NFTM::SymbolTable *symtab) {
+    if (!symtab) {
+        return;
+    }
+
+    symtab->Add(new NFTM::VarFunc_Include);
+}

@@ -63,7 +63,7 @@ void NFTM::Stack::PushTaintedText(const char *text) {
 //
 void NFTM::Stack::PushVarReference(NFTM::Variable *var) {
     Item *i  = new Item;
-    i->kind  = Item::siText;
+    i->kind  = Item::siVarReference;
     i->u.var = var;
     items.push_front(i);
 }
