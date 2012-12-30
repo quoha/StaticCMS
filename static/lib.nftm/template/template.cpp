@@ -14,7 +14,7 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
         return false;
     }
 
-    stack->PushFormatted("\n\n%s\n\n", data);
+    //stack->PushFormatted("\n\n%s\n\n", data);
 
     char *nextChunk = data;
 

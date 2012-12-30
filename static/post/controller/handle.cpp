@@ -8,8 +8,8 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
         return false;
     }
 
-    stack->PushText("<!-- PostController::Handle(symtab, request, os)\n");
-    stack->PushFormatted("request->argv[0] is '%s'\n", request->argv[0]);
+    //stack->PushText("<!-- PostController::Handle(symtab, request, os)\n");
+    //stack->PushFormatted("request->argv[0] is '%s'\n", request->argv[0]);
 
 	// load model
 	NFTM::PostModel *model = new NFTM::PostModel(symtab);
@@ -20,9 +20,7 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     // first template. ask me how the controller knows which template
     // to start off with.
     //
-    NFTM::Template *t = new NFTM::TemplateText("<p>Site_Name is <billy site_name /></p>"
-                                               "<p>Page_Title is <billy page_title /></p>"
-                                               "<billy 'tpl' '.' 'filename' concat concat include />");
+    NFTM::Template *t = new NFTM::TemplateText("<billy '/Users/mdhender/Software/xcode/static/static/static/data/templates/footer.tpl' include />");
 
     // load and execute the template
     //

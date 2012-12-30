@@ -127,12 +127,12 @@ int main(int argc, char *argv[]) {
     // the output
     //
     NFTM::Stack *stack = new NFTM::Stack;
-    stack->PushText("**** bottom of stack ***\n");
+    //stack->PushText("**** bottom of stack ***\n");
     if (!c->Handle(symtab, request, stack)) {
         printf("\nerror:\tcontroller did not create a stack\n\n");
         return 2;
     }
-    stack->PushText("**** top--- of stack ***\n");
+    //stack->PushText("**** top--- of stack ***\n");
 
     if (!stack->Render(os)) {
         printf("\nerror:\tunable to render the stack\n\n");
