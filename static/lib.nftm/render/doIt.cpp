@@ -7,6 +7,7 @@ bool NFTM::Render::DoIt(NFTM::OutputStream *os, NFTM::Stack *stack) {
     if (!os || !stack) {
         return false;
     }
+#if 0
     NFTM::Variable *item = stack->Bottom();
 
     int counter = 0;
@@ -22,6 +23,6 @@ bool NFTM::Render::DoIt(NFTM::OutputStream *os, NFTM::Stack *stack) {
         }
         item = stack->Bottom();
     }
-
+#endif
 	return true;
 }

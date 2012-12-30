@@ -10,7 +10,7 @@ bool NFTM::DefaultController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *r
         return false;
     }
 
-    stack->Push(new NFTM::Variable("<!-- Controller::Handle(cgi, request, os) -- default controller -->\n"));
+    stack->PushText("<!-- Controller::Handle(cgi, request, os) -- default controller -->\n");
 
-	return stack;
+	return true;
 }

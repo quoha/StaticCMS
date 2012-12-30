@@ -57,9 +57,7 @@
 		2DF658E1168D21F900C198D3 /* defaultController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6587F168D21F900C198D3 /* defaultController.cpp */; };
 		2DF658E2168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65880168D21F900C198D3 /* dtor.cpp */; };
 		2DF658E3168D21F900C198D3 /* route.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65882168D21F900C198D3 /* route.cpp */; };
-		2DF658E4168D21F900C198D3 /* bottom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65885168D21F900C198D3 /* bottom.cpp */; };
 		2DF658E5168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65886168D21F900C198D3 /* ctor.cpp */; };
-		2DF658E6168D21F900C198D3 /* top.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65888168D21F900C198D3 /* top.cpp */; };
 		2DF658E7168D21F900C198D3 /* close.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6588E168D21F900C198D3 /* close.cpp */; };
 		2DF658E8168D21F900C198D3 /* ctor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF6588F168D21F900C198D3 /* ctor.cpp */; };
 		2DF658E9168D21F900C198D3 /* dtor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65890168D21F900C198D3 /* dtor.cpp */; };
@@ -194,10 +192,8 @@
 		2DF65881168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF65882168D21F900C198D3 /* route.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route.cpp; sourceTree = "<group>"; };
 		2DF65883168D21F900C198D3 /* Router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Router.hpp; sourceTree = "<group>"; };
-		2DF65885168D21F900C198D3 /* bottom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bottom.cpp; sourceTree = "<group>"; };
 		2DF65886168D21F900C198D3 /* ctor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ctor.cpp; sourceTree = "<group>"; };
 		2DF65887168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
-		2DF65888168D21F900C198D3 /* top.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = top.cpp; sourceTree = "<group>"; };
 		2DF65889168D21F900C198D3 /* Stack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Stack.hpp; sourceTree = "<group>"; };
 		2DF6588C168D21F900C198D3 /* local.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local.hpp; sourceTree = "<group>"; };
 		2DF6588E168D21F900C198D3 /* close.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = close.cpp; sourceTree = "<group>"; };
@@ -506,10 +502,8 @@
 		2DF65884168D21F900C198D3 /* stack */ = {
 			isa = PBXGroup;
 			children = (
-				2DF65885168D21F900C198D3 /* bottom.cpp */,
-				2DF65886168D21F900C198D3 /* ctor.cpp */,
 				2DF65887168D21F900C198D3 /* local.hpp */,
-				2DF65888168D21F900C198D3 /* top.cpp */,
+				2DF65886168D21F900C198D3 /* ctor.cpp */,
 				2DF6591C168D76DC00C198D3 /* dtor.cpp */,
 				2DEE6CEB168FCD0700BC9A00 /* stack.cpp */,
 			);
@@ -712,9 +706,7 @@
 				2DF658E1168D21F900C198D3 /* defaultController.cpp in Sources */,
 				2DF658E2168D21F900C198D3 /* dtor.cpp in Sources */,
 				2DF658E3168D21F900C198D3 /* route.cpp in Sources */,
-				2DF658E4168D21F900C198D3 /* bottom.cpp in Sources */,
 				2DF658E5168D21F900C198D3 /* ctor.cpp in Sources */,
-				2DF658E6168D21F900C198D3 /* top.cpp in Sources */,
 				2DF658E7168D21F900C198D3 /* close.cpp in Sources */,
 				2DF658E8168D21F900C198D3 /* ctor.cpp in Sources */,
 				2DF658E9168D21F900C198D3 /* dtor.cpp in Sources */,

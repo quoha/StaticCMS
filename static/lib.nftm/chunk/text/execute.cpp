@@ -5,7 +5,7 @@
 //
 NFTM::Stack *NFTM::TextChunk::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
-        stack->Push(new NFTM::Variable("text", text));
+        stack->PushVarReference(new NFTM::Variable("text", text));
     }
     return stack;
 }

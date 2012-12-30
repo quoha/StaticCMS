@@ -21,9 +21,9 @@ NFTM::VarText::~VarText() {
 //
 bool NFTM::VarText::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
-        stack->Push(this);
+        stack->PushVarReference(this);
     }
-    return stack;
+    return true;
 }
 
 //============================================================================

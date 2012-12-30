@@ -15,7 +15,7 @@ NFTM::F_Include::F_Include(NFTM::SymbolTable *symtab) : Function(symtab) {
 //
 NFTM::Stack *NFTM::F_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
-        stack->Push(new NFTM::Variable("~function", "function"));
+        stack->PushVarReference(new NFTM::Variable("~function", "function"));
     }
     return stack;
 }

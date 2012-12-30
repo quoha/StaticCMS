@@ -20,7 +20,7 @@ NFTM::VarNumber::~VarNumber() {
 //
 bool NFTM::VarNumber::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
-        stack->Push(this);
+        stack->PushVarReference(this);
     }
-    return stack;
+    return true;
 }

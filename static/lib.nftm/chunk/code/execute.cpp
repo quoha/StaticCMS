@@ -4,6 +4,7 @@
 // Execute(stack)
 //
 NFTM::Stack *NFTM::CodeChunk::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+#if 0
     if (stack) {
         // iterate through all of the words in the chunk
         //
@@ -39,6 +40,6 @@ NFTM::Stack *NFTM::CodeChunk::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *st
             stack->Push(new NFTM::Variable("~word", word));
         }
     }
-
+#endif
     return stack;
 }
