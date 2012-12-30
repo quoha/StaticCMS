@@ -1,6 +1,7 @@
 #include "../Stack.hpp"
-#include "../Variable.hpp"
 #include "../Stream.hpp"
+#include "../Util.hpp"
+#include "../Variable.hpp"
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -27,7 +28,7 @@ void NFTM::Stack::PushFormatted(const char *fmt, ...) {
 		vsnprintf(data, 256, fmt, ap);
         data[255] = 0;
 		va_end(ap);
-        PushText(data);
+        PushText(NFTM::StrDup(data));
 	}
 }
 

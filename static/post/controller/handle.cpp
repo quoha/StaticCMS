@@ -9,7 +9,7 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     }
 
     stack->PushText("<!-- PostController::Handle(symtab, request, os)\n");
-    stack->PushText(request->argv[0]);
+    stack->PushFormatted("request->argv[0] is '%s'\n", request->argv[0]);
 
 	// load model
 	NFTM::PostModel *model = new NFTM::PostModel(symtab);
