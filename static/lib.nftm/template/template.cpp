@@ -90,7 +90,7 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                 }
             }
 
-            // word must be nil-terminate for the push functions to
+            // word must be nil-terminated for the push functions to
             // work properly.
             //
             while (*s && isspace(*s)) {
@@ -104,7 +104,6 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                     if (!v->IsFunction()) {
                         stack->PushVarReference(v);
                     } else {
-                        stack->PushFormatted("** should execute %s, not push it **", v->Name());
                         if (!v->Execute(symtab, stack)) {
                             return false;
                         }
