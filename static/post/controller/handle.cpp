@@ -1,4 +1,7 @@
 #include "../local.hpp"
+#include "../../lib.nftm/AST.hpp"
+#include "../../lib.nftm/Model.hpp"
+#include "../../lib.nftm/Template.hpp"
 
 //============================================================================
 // Handle(cgi, request, stack)
@@ -24,10 +27,13 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
 
     // load and execute the template
     //
-    t->Load();
-    t->Execute(symtab, stack);
-
+    bool wasSuccessful = false;
+    NFTM::AST *ast = t->Load();
+    if (ast) {
+        wasSuccessful = ast->Execute(symtab, stack);
+    }
     delete t;
-    
-	return stack;
+    delete ast;
+
+	return wasSuccessful;
 }

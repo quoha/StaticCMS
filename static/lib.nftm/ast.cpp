@@ -1,5 +1,9 @@
 #include "AST.hpp"
+#include "Stream.hpp"
+#include "Stack.hpp"
+#include "SymbolTable.hpp"
 #include "Util.hpp"
+#include "Variable.hpp"
 #include <cstring>
 #include <ctype.h>
 
@@ -18,6 +22,66 @@ NFTM::AST::~AST() {
     delete [] data;
 }
 
+//---------------------------------------------------------------------------
+//
+bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (!symtab || !stack) {
+        return false;
+    }
+    NFTM::OutputStream *log = symtab->ErrorLog();
+    if (log) {
+        log->Write("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+    }
+    
+    NFTM::AST *ast = this;
+    
+    while (ast) {
+        //printf("ast.data is %d %s\n", ast->kind, ast->data);
+        
+        if (ast->kind == astNOOP) {
+            ast = ast->next;
+            continue;
+        }
+        
+        if (ast->kind == astTEXT) {
+            stack->PushText(NFTM::StrDup(ast->data));
+            ast = ast->next;
+            continue;
+        }
+        
+        if (ast->kind == astCODE) {
+            // lookup the word in the symbol table
+            NFTM::Variable *v = symtab->Lookup(ast->data);
+            if (v) {
+                if (!v->IsFunction()) {
+                    stack->PushVarReference(v);
+                } else {
+                    if (!v->Execute(symtab, stack)) {
+                        NFTM::OutputStream *errlog = symtab->ErrorLog();
+                        if (errlog) {
+                            errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                            errlog->Write("\tfailed to execute word '%s'\n", ast->data);
+                        }
+                        return false;
+                    }
+                }
+            } else {
+                NFTM::OutputStream *errlog = symtab->ErrorLog();
+                if (errlog) {
+                    errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                    errlog->Write("\tclueless on how to execute '%s'\n", ast->data);
+                }
+                return false;
+            }
+            ast = ast->next;
+            continue;
+        }
+        
+        ast = ast->next;
+    }
+
+    return true;
+}
 
 //---------------------------------------------------------------------------
 // Parse(code)

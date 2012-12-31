@@ -1,4 +1,5 @@
 #include "local.hpp"
+#include "../AST.hpp"
 #include "../Stream.hpp"
 #include "../Template.hpp"
 #include "../Util.hpp"
@@ -102,7 +103,8 @@ bool NFTM::VarFunc_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stac
         }
         
         NFTM::TemplateFile *tmplt = new NFTM::TemplateFile(t->u.text);
-        if (!tmplt->Load()) {
+        NFTM::AST *ast = tmplt->Load();
+        if (!ast) {
             NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
                 errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
@@ -110,9 +112,10 @@ bool NFTM::VarFunc_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stac
             }
             return false;
         }
+        delete tmplt;
         
         NFTM::Stack *includeStack = new NFTM::Stack;
-        if (!tmplt->Execute(symtab, includeStack)) {
+        if (!ast->Execute(symtab, includeStack)) {
             NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
                 errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);

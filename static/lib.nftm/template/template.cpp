@@ -9,6 +9,7 @@
 #include <ctype.h>
 //#include <stdio.h>
 
+#if 0
 //---------------------------------------------------------------------------
 // Execute(symtab, stack)
 //
@@ -222,3 +223,4 @@ bool NFTM::Template::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 
     return true;
 }
+#endif

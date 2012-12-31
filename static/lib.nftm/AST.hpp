@@ -20,6 +20,8 @@ namespace NFTM {
         AST(astKind kind, const char *data, int length);
         ~AST();
 
+        virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
+
         static AST *Parse(const char *code);
     }; // class AST
     

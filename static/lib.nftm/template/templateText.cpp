@@ -1,4 +1,5 @@
 #include "../Template.hpp"
+#include "../AST.hpp"
 #include "../Util.hpp"
 
 //---------------------------------------------------------------------------
@@ -18,10 +19,6 @@ NFTM::TemplateText::~TemplateText() {
 //---------------------------------------------------------------------------
 // Load()
 //
-bool NFTM::TemplateText::Load(void) {
-    delete [] data;
-    data = text;
-    text = 0;
-    
-    return data ? true : false;
+NFTM::AST *NFTM::TemplateText::Load(void) {
+    return AST::Parse(text);
 }

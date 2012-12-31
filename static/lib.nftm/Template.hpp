@@ -14,9 +14,7 @@ namespace NFTM {
         Template(void) { data = 0; }
         virtual ~Template() { delete [] data; };
 
-        bool  Execute(class SymbolTable *symtab, class Stack *stack);
-
-        virtual bool Load(void) = 0;
+        virtual class AST *Load(void) = 0;
 
         char *data;
     }; // class Template
@@ -26,7 +24,7 @@ namespace NFTM {
         TemplateFile(const char *source);
         ~TemplateFile();
 
-        bool Load(void);
+        class AST *Load(void);
 
         char *source;
     }; // class TemplateFile
@@ -36,7 +34,7 @@ namespace NFTM {
         TemplateText(const char *text);
         ~TemplateText();
         
-        bool Load(void);
+        class AST *Load(void);
 
         char *text;
     }; // class TemplateText

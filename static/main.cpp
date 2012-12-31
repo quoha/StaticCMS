@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
     NFTM::Stack *stack = new NFTM::Stack;
     //stack->PushText("**** bottom of stack ***\n");
     if (!c->Handle(symtab, request, stack)) {
-        printf("\nerror:\tcontroller did not create a stack\n\n");
+        printf("\nerror:\tcontroller failed to load and execute request\n\n");
         return 2;
     }
     //stack->PushText("**** top--- of stack ***\n");

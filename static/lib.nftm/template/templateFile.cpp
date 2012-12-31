@@ -1,4 +1,5 @@
 #include "../Template.hpp"
+#include "../AST.hpp"
 #include "../Util.hpp"
 
 #include <stdio.h>
@@ -21,7 +22,7 @@ NFTM::TemplateFile::~TemplateFile() {
 //---------------------------------------------------------------------------
 // Load()
 //
-bool NFTM::TemplateFile::Load(void) {
+NFTM::AST *NFTM::TemplateFile::Load(void) {
     delete [] data;
     data = 0;
     
@@ -51,6 +52,11 @@ bool NFTM::TemplateFile::Load(void) {
 
         data[statBuf.st_size] = 0;
     }
+
+    NFTM::AST *ast = AST::Parse(data);
+
+    delete [] data;
+    data = 0;
     
-    return data ? true : false;
+    return ast;
 }
