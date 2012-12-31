@@ -122,6 +122,33 @@ namespace NFTM {
         bool Execute(class SymbolTable *symtab, class Stack *stack);
     }; // class VarFunc_Include
     
+    // VarFunc_Not
+    class VarFunc_Not : public VarFunction {
+    public:
+        VarFunc_Not(void) : VarFunction("not") { }
+        ~VarFunc_Not() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_Not
+
+    // VarFunc_PopStack
+    class VarFunc_PopStack : public VarFunction {
+    public:
+        VarFunc_PopStack(void) : VarFunction("}") { }
+        ~VarFunc_PopStack() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_PopStack
+    
+    // VarFunc_PushStack
+    class VarFunc_PushStack : public VarFunction {
+    public:
+        VarFunc_PushStack(void) : VarFunction("{") { }
+        ~VarFunc_PushStack() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class VarFunc_PushStack
+    
     // VarNull
     class VarNull : public Variable {
     public:
@@ -147,24 +174,6 @@ namespace NFTM {
         
         int value;
     }; // class VarNumber
-
-    // VarFunc_PopStack
-    class VarFunc_PopStack : public VarFunction {
-    public:
-        VarFunc_PopStack(void) : VarFunction("}") { }
-        ~VarFunc_PopStack() { }
-
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_PopStack
-
-    // VarFunc_PushStack
-    class VarFunc_PushStack : public VarFunction {
-    public:
-        VarFunc_PushStack(void) : VarFunction("{") { }
-        ~VarFunc_PushStack() { }
-        
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_PushStack
 
     // VarStack
     class VarStack : public Variable {

@@ -18,6 +18,30 @@ bool NFTM::VarFunction::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 
 //============================================================================
 // Execute(stack)
+//   t -- <bold> t </bold>
+//
+bool NFTM::VarFunc_Bold::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        NFTM::StackItem *a = stack->Pop();
+        
+        if (!a) {
+            NFTM::OutputStream *errlog = symtab->ErrorLog();
+            if (errlog) {
+                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                errlog->Write("\tbold requires one item on the stack\n");
+            }
+            return false;
+        }
+        
+        stack->PushText("<bold>");
+        stack->Push(a);
+        stack->PushText("</bold>");
+    }
+    return true;
+}
+
+//============================================================================
+// Execute(stack)
 //   t1 t2 -- t2t1
 //
 bool NFTM::VarFunc_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
@@ -44,30 +68,6 @@ bool NFTM::VarFunc_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack
         stack->PushText(NFTM::StrCat(b->u.text, a->u.text));
         delete a;
         delete b;
-    }
-    return true;
-}
-
-//============================================================================
-// Execute(stack)
-//   t -- <bold> t </bold>
-//
-bool NFTM::VarFunc_Bold::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
-    if (stack) {
-        NFTM::StackItem *a = stack->Pop();
-        
-        if (!a) {
-            NFTM::OutputStream *errlog = symtab->ErrorLog();
-            if (errlog) {
-                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-                errlog->Write("\tbold requires one item on the stack\n");
-            }
-            return false;
-        }
-
-        stack->PushText("<bold>");
-        stack->Push(a);
-        stack->PushText("</bold>");
     }
     return true;
 }
@@ -124,6 +124,36 @@ bool NFTM::VarFunc_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stac
         stack->PushStack(includeStack);
         
         delete t;
+    }
+    return true;
+}
+
+//============================================================================
+// Execute(stack)
+//   false -- true
+//   true  -- false
+//   null  -- null
+//
+bool NFTM::VarFunc_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        NFTM::StackItem *a = stack->Pop();
+        
+        if (!a) {
+            NFTM::OutputStream *errlog = symtab->ErrorLog();
+            if (errlog) {
+                errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                errlog->Write("\not requires one item on the stack\n");
+            }
+            return false;
+        }
+
+        // should really put real logic here
+        //
+        if (a->kind == siVarReference) {
+            stack->PushVarReference(new VarBool("boolean", true));
+        } else {
+            stack->PushVarReference(new VarBool("boolean", true));
+        }
     }
     return true;
 }
