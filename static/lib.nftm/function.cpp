@@ -174,7 +174,7 @@ bool NFTM::Func_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
         
         // should really put real logic here
         //
-        if (a->kind == siVarReference) {
+        if (a->kind == siVariable) {
             stack->PushVarReference(new VarBool("boolean", true));
         } else {
             stack->PushVarReference(new VarBool("boolean", true));

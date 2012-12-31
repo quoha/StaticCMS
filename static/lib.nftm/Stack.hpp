@@ -5,7 +5,7 @@ namespace NFTM {
 
     //----------------------------------------------------------------------------
     //
-    enum stackItemType {siText, siTaintedText, siStack, siStackMarker, siVarReference};
+    enum stackItemType {siBoolean, siFunction, siStack, siStackMarker, siText, siTaintedText, siVariable};
 
     //----------------------------------------------------------------------------
     //
@@ -14,8 +14,10 @@ namespace NFTM {
         struct StackItem *next;
         stackItemType kind;
         union {
-            const char     *text;
+            bool            boolean;
+            class Function *function;
             class Stack    *stack;
+            const char     *text;
             class Variable *var;
             void           *null;
         } u;

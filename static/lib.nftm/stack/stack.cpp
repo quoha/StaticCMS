@@ -197,7 +197,7 @@ void NFTM::Stack::PushTaintedText(const char *text) {
 //
 void NFTM::Stack::PushVarReference(NFTM::Variable *var) {
     NFTM::StackItem *item = new NFTM::StackItem;
-    item->kind  = siVarReference;
+    item->kind  = siVariable;
     item->u.var = var;
     PushTop(item);
 }
@@ -213,11 +213,12 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os) {
     NFTM::StackItem *curr = bottom;
     while (curr) {
         switch (curr->kind) {
-            case siTaintedText:
-                os->Write("%s", curr->u.text);
+            case siBoolean:
+                os->Write("%s", curr->u.boolean ? "true" : "false");
                 break;
-            case siText:
-                os->Write("%s", curr->u.text);
+            case siFunction:
+                // should never happen
+                //
                 break;
             case siStack:
                 if (!curr->u.stack->Render(os)) {
@@ -226,7 +227,13 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os) {
                 break;
             case siStackMarker:
                 break;
-            case siVarReference:
+            case siTaintedText:
+                os->Write("%s", curr->u.text);
+                break;
+            case siText:
+                os->Write("%s", curr->u.text);
+                break;
+            case siVariable:
                 if (!curr->u.var->Render(os)) {
                     return false;
                 }
