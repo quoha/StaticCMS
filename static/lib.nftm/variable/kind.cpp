@@ -6,6 +6,8 @@
 //
 const char *NFTM::Variable::Kind(void) const {
 	switch (kind) {
+        case vtBOOL:
+            return "boolean";
         case vtFUNCTION:
             return "function";
         case vtNULL:

@@ -66,9 +66,22 @@ namespace NFTM {
         bool isNull;
         bool isTainted;
 
-        enum { vtOTHER, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
+        enum { vtOTHER, vtBOOL, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
         
     }; // class Variable
+
+    // VarBool
+    class VarBool : public Variable {
+    public:
+        VarBool(const char *functionName, bool value_) : Variable(functionName) { kind = vtBOOL; value = value_; }
+        ~VarBool() { }
+        
+        const char *Kind(void) const {
+            return "var.boolean";
+        }
+
+        bool value;
+    }; // class VarBool
 
     // VarFunction
     class VarFunction : public Variable {
