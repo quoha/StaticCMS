@@ -1,18 +1,40 @@
-#include "../local.hpp"
-#include "../../lib.nftm/Stack.hpp"
-#include "../../lib.nftm/Variable.hpp"
+#include "PostModel.hpp"
+#include "../lib.nftm/Request.hpp"
+#include "../lib.nftm/Stack.hpp"
+#include "../lib.nftm/SymbolTable.hpp"
+#include "../lib.nftm/Variable.hpp"
+#include <stdio.h>
+
+//============================================================================
+// PostModel(symtab)
+//   creates blank object
+//
+NFTM::PostModel::PostModel(NFTM::SymbolTable *symtab_) : Model(symtab_) {
+
+}
+
+//============================================================================
+// ~PostModel()
+//
+NFTM::PostModel::~PostModel() {
+
+}
 
 //============================================================================
 // Pull(request)
-//    dummy for development. adds a couple text variables to the symbol table.
+//      <posting
+//        var value
+//      />
+//      rawText<endSlug />rawText
 //
 bool NFTM::PostModel::Pull(NFTM::Request *request) {
     if (!symtab) {
         return false;
     }
 
-    symtab->Add(new NFTM::VarText("site_name", "StaticCMS"));
-    symtab->Add(new NFTM::VarText("page_title", "Hello, World!"));
+    symtab->Add(new NFTM::VarText("//model_name", "PostModel_FlatFile"));
+    symtab->Add(new NFTM::VarText("site_name"   , "StaticCMS"));
+    symtab->Add(new NFTM::VarText("page_title"  , "Hello, World!"));
 
     // add two articles
     NFTM::Stack *result = new NFTM::Stack;
@@ -27,7 +49,7 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
     row->PushText("today");
     row->PushText("Article 2");
     result->PushStack(row);
-
+    
     //  article id 7
     //          publish date "2012/10/13"
     //          title "Halloween Madness"
@@ -36,6 +58,6 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
     row->PushText("2012/10/13");
     row->PushText("Halloween Madness");
     result->PushStack(row);
-
+    
 	return true;
 }

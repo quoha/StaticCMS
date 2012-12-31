@@ -16,6 +16,7 @@ const char *StrDup(const char *str);
 #include "lib.nftm/Model.hpp"
 
 #include "controller/Default.hpp"
-#include "post/local.hpp"
+#include "post/PostController.hpp"
+#include "post/PostModel.hpp"
 
 #endif // NFTM_static_src_bin_static_local_HPP

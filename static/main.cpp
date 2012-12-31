@@ -16,6 +16,7 @@
 //  * subclass Variables instead of using union
 
 #include "local.hpp"
+#include "lib.nftm/Stack.hpp"
 #include "lib.nftm/SymbolTable.hpp"
 #include <stdio.h>
 

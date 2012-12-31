@@ -1,7 +1,42 @@
-#include "../local.hpp"
-#include "../../lib.nftm/AST.hpp"
-#include "../../lib.nftm/Model.hpp"
-#include "../../lib.nftm/Template.hpp"
+#include "PostController.hpp"
+#include "PostModel.hpp"
+#include "../lib.nftm/AST.hpp"
+#include "../lib.nftm/Request.hpp"
+#include "../lib.nftm/Template.hpp"
+#include <cstring>
+
+//============================================================================
+// PostController()
+//   creates blank object
+//
+NFTM::PostController::PostController(void) {
+}
+
+//============================================================================
+// ~PostController()
+//
+NFTM::PostController::~PostController() {
+}
+
+//============================================================================
+// CanHandle(request)
+//
+bool NFTM::PostController::CanHandle(NFTM::Request *request) {
+    if (!request->argv[0] || std::strcmp(request->argv[0], "/") != 0) {
+        // we always expect the request path to start with /
+		return false;
+	}
+    
+    if (!request->argv[1]) {
+        return true;
+    }
+    
+	if (std::strcmp(request->argv[1], "post") == 0) {
+		return true;
+	}
+    
+	return false;
+}
 
 //============================================================================
 // Handle(cgi, request, stack)
@@ -10,10 +45,10 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     if (!symtab || !request || !stack) {
         return false;
     }
-
+    
     //stack->PushText("<!-- PostController::Handle(symtab, request, os)\n");
     //stack->PushFormatted("request->argv[0] is '%s'\n", request->argv[0]);
-
+    
 	// load model
 	NFTM::PostModel *model = new NFTM::PostModel(symtab);
     model->Pull(request);
@@ -24,7 +59,7 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     // to start off with.
     //
     NFTM::Template *t = new NFTM::TemplateText("<billy '/Users/mdhender/Software/xcode/static/static/static/data/templates/footer.tpl' include />");
-
+    
     // load and execute the template
     //
     bool wasSuccessful = false;
@@ -34,6 +69,6 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     }
     delete t;
     delete ast;
-
+    
 	return wasSuccessful;
 }
