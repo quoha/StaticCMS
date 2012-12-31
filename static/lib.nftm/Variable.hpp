@@ -2,8 +2,8 @@
 #define   NFTM_static_src_bin_static_Variable_HPP
 
 namespace NFTM {
-    
-    void LoadAllVarFunctions(class SymbolTable *symtab);
+
+    enum vrtKind { vtOTHER, vtBOOL, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT };
 
     //---------------------------------------------------------------------------
     // Variable
@@ -65,15 +65,22 @@ namespace NFTM {
         char name[maxNameLength + 1];
         bool isNull;
         bool isTainted;
-
-        enum { vtOTHER, vtBOOL, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT } kind;
+        vrtKind kind;
         
+        union {
+            bool            asBool;
+            class Function *asFunction;
+        } v;
     }; // class Variable
 
     // VarBool
     class VarBool : public Variable {
     public:
-        VarBool(const char *functionName, bool value_) : Variable(functionName) { kind = vtBOOL; value = value_; }
+        VarBool(const char *functionName, bool value_) : Variable(functionName) {
+            kind = vtBOOL;
+            value = value_;
+            v.asBool = value_;
+        }
         ~VarBool() { }
         
         const char *Kind(void) const {
@@ -86,69 +93,22 @@ namespace NFTM {
     // VarFunction
     class VarFunction : public Variable {
     public:
-        VarFunction(const char *functionName) : Variable(functionName) { kind = vtFUNCTION; }
+        VarFunction(const char *functionName, class Function *function_) : Variable(functionName) {
+            kind = vtFUNCTION;
+            function = function_;
+            v.asFunction = function_;
+        }
         ~VarFunction() { }
-        
-        virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
+
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+
         const char *Kind(void) const {
             return "var.function";
         }
+        
+        class Function *function;
     }; // class VarFunction
 
-    // VarFunc_Bold
-    class VarFunc_Bold : public VarFunction {
-    public:
-        VarFunc_Bold(void) : VarFunction("bold") { }
-        ~VarFunc_Bold() { }
-        
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_Bold
-
-    // VarFunc_Concat
-    class VarFunc_Concat : public VarFunction {
-    public:
-        VarFunc_Concat(void) : VarFunction("concat") { }
-        ~VarFunc_Concat() { }
-        
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_Concat
-
-    // VarFunc_Include
-    class VarFunc_Include : public VarFunction {
-    public:
-        VarFunc_Include(void) : VarFunction("include") { }
-        ~VarFunc_Include() { }
-
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_Include
-    
-    // VarFunc_Not
-    class VarFunc_Not : public VarFunction {
-    public:
-        VarFunc_Not(void) : VarFunction("not") { }
-        ~VarFunc_Not() { }
-        
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_Not
-
-    // VarFunc_PopStack
-    class VarFunc_PopStack : public VarFunction {
-    public:
-        VarFunc_PopStack(void) : VarFunction("}") { }
-        ~VarFunc_PopStack() { }
-        
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_PopStack
-    
-    // VarFunc_PushStack
-    class VarFunc_PushStack : public VarFunction {
-    public:
-        VarFunc_PushStack(void) : VarFunction("{") { }
-        ~VarFunc_PushStack() { }
-        
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-    }; // class VarFunc_PushStack
-    
     // VarNull
     class VarNull : public Variable {
     public:

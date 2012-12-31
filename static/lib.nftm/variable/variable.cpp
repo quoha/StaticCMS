@@ -5,6 +5,16 @@
 #include "../Util.hpp"
 
 //============================================================================
+// Execute(stack)
+//
+bool NFTM::VarFunction::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        stack->PushVarReference(this);
+    }
+    return true;
+}
+
+//============================================================================
 // VarNumber(name, value)
 //
 NFTM::VarNumber::VarNumber(const char *name_, int value_) : Variable(name_) {

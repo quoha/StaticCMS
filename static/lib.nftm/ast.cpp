@@ -1,4 +1,5 @@
 #include "AST.hpp"
+#include "Function.hpp"
 #include "Stream.hpp"
 #include "Stack.hpp"
 #include "SymbolTable.hpp"
@@ -15,6 +16,8 @@ NFTM::AST::AST(astKind kind_, const char *data_, int length) {
     if (data_) {
         data = NFTM::StrDup(data_, length);
     }
+    variable = 0;
+    function = 0;
 }
 
 //---------------------------------------------------------------------------
@@ -28,15 +31,18 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (!symtab || !stack) {
         return false;
     }
-    NFTM::OutputStream *log = symtab->ErrorLog();
-    if (log) {
-        log->Write("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+
+    NFTM::OutputStream *errlog = symtab->ErrorLog();
+    if (errlog) {
+        errlog->Write("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
     }
     
     NFTM::AST *ast = this;
     
     while (ast) {
-        //printf("ast.data is %d %s\n", ast->kind, ast->data);
+        if (errlog) {
+            errlog->Write("ast->kind is %d %s\n", ast->kind, ast->data);
+        }
         
         if (ast->kind == astNOOP) {
             ast = ast->next;
@@ -50,34 +56,75 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
         }
         
         if (ast->kind == astCODE) {
-            // lookup the word in the symbol table
-            NFTM::Variable *v = symtab->Lookup(ast->data);
-            if (v) {
-                if (!v->IsFunction()) {
-                    stack->PushVarReference(v);
-                } else {
-                    if (!v->Execute(symtab, stack)) {
-                        NFTM::OutputStream *errlog = symtab->ErrorLog();
-                        if (errlog) {
-                            errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-                            errlog->Write("\tfailed to execute word '%s'\n", ast->data);
-                        }
-                        return false;
+            // lookup the word in the symbol table. it will be one of these:
+            //   function
+            //   variable
+            //   missing
+            //
+            if (!ast->variable) {
+                ast->variable = symtab->Lookup(ast->data);
+                if (ast->variable) {
+                    if (ast->variable->IsFunction()) {
+                        ast->function = ast->variable->v.asFunction;
                     }
                 }
+            }
+
+            // use the results of the lookup to execute the word
+            //
+            if (ast->function) {
+                // execute the function. it will push its results onto the stack
+                //
+                if (errlog) {
+                    errlog->Write("ast->function is %s\n", ast->data);
+                }
+
+                if (!ast->function->Execute(symtab, stack)) {
+                    if (errlog) {
+                        errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                        errlog->Write("\tfailed to execute word '%s'\n", ast->data);
+                    }
+                    return false;
+                }
+            } else if (ast->variable) {
+                // push a reference to the variable. this could be dangerous if a function
+                // changes the value of the variable changes later.
+                //
+                stack->PushVarReference(ast->variable);
             } else {
-                NFTM::OutputStream *errlog = symtab->ErrorLog();
                 if (errlog) {
                     errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-                    errlog->Write("\tclueless on how to execute '%s'\n", ast->data);
+                    errlog->Write("\tword '%s' is not defined\n", ast->data);
                 }
                 return false;
             }
             ast = ast->next;
             continue;
         }
-        
-        ast = ast->next;
+
+        if (ast->kind == astIF) {
+            // look at the top value on the stack
+            bool isTrue = true;
+
+            // if it is true, take the THEN branch
+            if (isTrue) {
+                ast = ast->branchThen;
+            } else {
+                ast = ast->branchElse;
+            }
+            continue;
+        }
+
+        if (errlog) {
+            errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+            errlog->Write("\tinternal error - fell through execute loop\n");
+            errlog->Write("\tast->kind is %d\n\n", ast->kind);
+        }
+        return false;
+    }
+
+    if (errlog) {
+        errlog->Write("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
     }
 
     return true;
@@ -129,7 +176,7 @@ NFTM::AST *NFTM::AST::Parse(const char *nextChunk) {
         // current branch of the tree.
         //
         if (textStart < textEnd) {
-            AST *blockText = new AST(astTEXT, textStart, (int)(codeStart - textStart));
+            AST *blockText = new AST(astTEXT, textStart, (int)(textEnd - textStart));
             blockText->prev = tail;
             tail->next      = blockText;
             tail            = blockText;

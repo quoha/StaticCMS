@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     cgi->ExportToSymTab(symtab);
 
     //LoadAllFunctions(symtab);
-    NFTM::LoadAllVarFunctions(symtab);
+    NFTM::LoadAllFunctions(symtab);
 
 	for (int idx = 1; idx < argc; idx++) {
 		char *opt = argv[idx];

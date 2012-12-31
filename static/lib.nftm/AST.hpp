@@ -16,6 +16,8 @@ namespace NFTM {
         AST    *next;
         AST    *prev;
         char   *data;
+        class  Variable *variable;
+        class  Function *function;
 
         AST(astKind kind, const char *data, int length);
         ~AST();

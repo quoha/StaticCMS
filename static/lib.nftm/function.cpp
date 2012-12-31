@@ -1,14 +1,36 @@
-#include "local.hpp"
-#include "../AST.hpp"
-#include "../Stream.hpp"
-#include "../Template.hpp"
-#include "../Util.hpp"
+#include "Function.hpp"
+#include "AST.hpp"
+#include "Stack.hpp"
+#include "Stream.hpp"
+#include "SymbolTable.hpp"
+#include "Template.hpp"
+#include "Util.hpp"
+#include "Variable.hpp"
 #include <stdio.h>
+
+//============================================================================
+// LoadAllVarFunctions(symtab)
+//
+void NFTM::LoadAllFunctions(NFTM::SymbolTable *symtab) {
+    if (!symtab) {
+        return;
+    }
+
+    symtab->Add(new NFTM::VarBool("false", false));
+    symtab->Add(new NFTM::VarBool("true", true));
+
+    symtab->Add(new NFTM::VarFunction("bold"   , new NFTM::Func_Bold));
+    symtab->Add(new NFTM::VarFunction("concat" , new NFTM::Func_Concat));
+    symtab->Add(new NFTM::VarFunction("include", new NFTM::Func_Include));
+    symtab->Add(new NFTM::VarFunction("not"    , new NFTM::Func_Not));
+    symtab->Add(new NFTM::VarFunction("}"      , new NFTM::Func_PopStack));
+    symtab->Add(new NFTM::VarFunction("{"      , new NFTM::Func_PushStack));
+}
 
 //============================================================================
 // Execute(stack)
 //
-bool NFTM::VarFunction::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+bool NFTM::Function::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     NFTM::OutputStream *errlog = symtab->ErrorLog();
     if (errlog) {
         errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
@@ -21,7 +43,7 @@ bool NFTM::VarFunction::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 // Execute(stack)
 //   t -- <bold> t </bold>
 //
-bool NFTM::VarFunc_Bold::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+bool NFTM::Func_Bold::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
         NFTM::StackItem *a = stack->Pop();
         
@@ -45,11 +67,11 @@ bool NFTM::VarFunc_Bold::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) 
 // Execute(stack)
 //   t1 t2 -- t2t1
 //
-bool NFTM::VarFunc_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+bool NFTM::Func_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
         NFTM::StackItem *b = stack->Pop();
         NFTM::StackItem *a = stack->Pop();
-
+        
         if (!a || !b) {
             NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
@@ -80,10 +102,10 @@ bool NFTM::VarFunc_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack
 // reads in template file 't', executes it and places the result in a new stack
 // that is pushed onto the current stack
 //
-bool NFTM::VarFunc_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+bool NFTM::Func_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
         NFTM::StackItem *t = stack->Pop();
-
+        
         if (!t) {
             NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
@@ -92,7 +114,7 @@ bool NFTM::VarFunc_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stac
             }
             return false;
         }
-
+        
         if (!stack->IsText(t)) {
             NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
@@ -137,7 +159,7 @@ bool NFTM::VarFunc_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stac
 //   true  -- false
 //   null  -- null
 //
-bool NFTM::VarFunc_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+bool NFTM::Func_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
         NFTM::StackItem *a = stack->Pop();
         
@@ -149,7 +171,7 @@ bool NFTM::VarFunc_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             }
             return false;
         }
-
+        
         // should really put real logic here
         //
         if (a->kind == siVarReference) {
@@ -168,7 +190,7 @@ bool NFTM::VarFunc_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 // searches stack for marker. removes the marker, moves everything from that
 // point to a new stack and then pushes that stack onto the current stack
 //
-bool NFTM::VarFunc_PopStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+bool NFTM::Func_PopStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
         // error if not found
         //
@@ -181,7 +203,7 @@ bool NFTM::VarFunc_PopStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *sta
             return false;
         }
     }
-
+    
     return true;
 }
 
@@ -191,7 +213,7 @@ bool NFTM::VarFunc_PopStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *sta
 //
 // pushes a stack marker onto the current stack
 //
-bool NFTM::VarFunc_PushStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+bool NFTM::Func_PushStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
         stack->PushStackMarker();
     }
