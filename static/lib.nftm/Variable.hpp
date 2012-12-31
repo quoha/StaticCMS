@@ -32,6 +32,9 @@ namespace NFTM {
             return false;
         }
 
+        bool IsBoolean(void) const {
+            return kind == vtBOOL;
+        }
         bool IsConst(void) const {
             return false;
         }
@@ -66,7 +69,7 @@ namespace NFTM {
         bool isNull;
         bool isTainted;
         vrtKind kind;
-        
+
         union {
             bool            asBool;
             class Function *asFunction;
@@ -77,15 +80,17 @@ namespace NFTM {
     class VarBool : public Variable {
     public:
         VarBool(const char *functionName, bool value_) : Variable(functionName) {
-            kind = vtBOOL;
-            value = value_;
+            kind     = vtBOOL;
+            value    = value_;
             v.asBool = value_;
+            isNull   = false;
         }
         ~VarBool() { }
         
         const char *Kind(void) const {
             return "var.boolean";
         }
+        bool Render(class OutputStream *os) const;
 
         bool value;
     }; // class VarBool

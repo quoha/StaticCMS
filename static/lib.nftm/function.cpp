@@ -15,16 +15,15 @@ void NFTM::LoadAllFunctions(NFTM::SymbolTable *symtab) {
     if (!symtab) {
         return;
     }
-
-    symtab->Add(new NFTM::VarBool("false", false));
-    symtab->Add(new NFTM::VarBool("true", true));
-
-    symtab->Add(new NFTM::VarFunction("bold"   , new NFTM::Func_Bold));
-    symtab->Add(new NFTM::VarFunction("concat" , new NFTM::Func_Concat));
-    symtab->Add(new NFTM::VarFunction("include", new NFTM::Func_Include));
-    symtab->Add(new NFTM::VarFunction("not"    , new NFTM::Func_Not));
-    symtab->Add(new NFTM::VarFunction("}"      , new NFTM::Func_PopStack));
-    symtab->Add(new NFTM::VarFunction("{"      , new NFTM::Func_PushStack));
+    
+    symtab->Add(new NFTM::Func_Bold     , true);
+    symtab->Add(new NFTM::Func_Concat   , true);
+    symtab->Add(new NFTM::Func_False    , true);
+    symtab->Add(new NFTM::Func_Include  , true);
+    symtab->Add(new NFTM::Func_Not      , true);
+    symtab->Add(new NFTM::Func_PopStack , true);
+    symtab->Add(new NFTM::Func_PushStack, true);
+    symtab->Add(new NFTM::Func_True     , true);
 }
 
 //============================================================================
@@ -97,6 +96,16 @@ bool NFTM::Func_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 
 //============================================================================
 // Execute(stack)
+//
+bool NFTM::Func_False::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        stack->PushBoolean(false);
+    }
+    return true;
+}
+
+//============================================================================
+// Execute(stack)
 //  t -- <stack>
 //
 // reads in template file 't', executes it and places the result in a new stack
@@ -161,25 +170,60 @@ bool NFTM::Func_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) 
 //
 bool NFTM::Func_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
-        NFTM::StackItem *a = stack->Pop();
+        NFTM::OutputStream *errlog = symtab->ErrorLog();
+        NFTM::StackItem    *item   = stack->Pop();
         
-        if (!a) {
-            NFTM::OutputStream *errlog = symtab->ErrorLog();
+        if (!item) {
             if (errlog) {
                 errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
                 errlog->Write("\not requires one item on the stack\n");
             }
             return false;
         }
-        
-        // should really put real logic here
-        //
-        if (a->kind == siVariable) {
-            stack->PushVarReference(new VarBool("boolean", true));
-        } else {
-            stack->PushVarReference(new VarBool("boolean", true));
+
+        bool condition;
+
+        switch (item->kind) {
+            case siBoolean:
+                condition = item->u.boolean;
+                break;
+            case siFunction:
+                condition = true;
+                break;
+            case siStack:
+                condition = true;
+                break;
+            case siStackMarker:
+                if (errlog) {
+                    errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                    errlog->Write("\tnot will not treat stack marker as a conditional\n");
+                }
+                return false;
+            case siText:
+            case siTaintedText:
+                condition = item->u.text ? true : false;
+                break;
+            case siVariable:
+                if (item->u.variable->IsNull()) {
+                    condition = false;
+                } else if (item->u.variable->IsBoolean()) {
+                    NFTM::VarBool *vb = dynamic_cast<NFTM::VarBool *>(item->u.variable);
+                    condition = vb->value;
+                } else {
+                    condition = true;
+                }
+                break;
+            default:
+                if (errlog) {
+                    errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                    errlog->Write("\tinternal error - not can't handle %d\n", item->kind);
+                }
+                return false;
         }
+
+        stack->PushVarReference(new VarBool("boolean", !condition));
     }
+
     return true;
 }
 
@@ -216,6 +260,16 @@ bool NFTM::Func_PopStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack)
 bool NFTM::Func_PushStack::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     if (stack) {
         stack->PushStackMarker();
+    }
+    return true;
+}
+
+//============================================================================
+// Execute(stack)
+//
+bool NFTM::Func_True::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    if (stack) {
+        stack->PushBoolean(true);
     }
     return true;
 }

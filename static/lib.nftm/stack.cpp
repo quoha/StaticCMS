@@ -1,7 +1,7 @@
-#include "../Stack.hpp"
-#include "../Stream.hpp"
-#include "../Util.hpp"
-#include "../Variable.hpp"
+#include "Stack.hpp"
+#include "Stream.hpp"
+#include "Util.hpp"
+#include "Variable.hpp"
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -54,18 +54,18 @@ bool NFTM::Stack::CreateStack(void) {
     stackMarker->prev = 0;
     stackMarker->next = 0;
     delete stackMarker;
-
+    
     // create a new stack, push the split off items to it
     //
     NFTM::Stack *stack = new NFTM::Stack;
     if (topOfNewStack) {
         stack->PushTop(topOfNewStack);
     }
-
+    
     // push the new stack onto the current stack
     //
     PushStack(stack);
-
+    
     return true;
 }
 
@@ -142,6 +142,15 @@ void NFTM::Stack::PushTop(StackItem *item) {
 }
 
 //============================================================================
+//
+void NFTM::Stack::PushBoolean(bool boolean) {
+    NFTM::StackItem *item = new NFTM::StackItem;
+    item->kind      = siBoolean;
+    item->u.boolean = boolean;
+    PushTop(item);
+}
+
+//============================================================================
 // PushFormatted(fmt, ...)
 //
 void NFTM::Stack::PushFormatted(const char *fmt, ...) {
@@ -195,17 +204,17 @@ void NFTM::Stack::PushTaintedText(const char *text) {
 
 //============================================================================
 //
-void NFTM::Stack::PushVarReference(NFTM::Variable *var) {
+void NFTM::Stack::PushVarReference(NFTM::Variable *variable) {
     NFTM::StackItem *item = new NFTM::StackItem;
     item->kind  = siVariable;
-    item->u.var = var;
+    item->u.variable = variable;
     PushTop(item);
 }
 
 //============================================================================
 // Render(os)
 //
-bool NFTM::Stack::Render(NFTM::OutputStream *os) {
+bool NFTM::Stack::Render(NFTM::OutputStream *os, NFTM::OutputStream *errlog) {
     if (!os) {
         return false;
     }
@@ -219,13 +228,23 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os) {
             case siFunction:
                 // should never happen
                 //
-                break;
+                if (errlog) {
+                    errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                    errlog->Write("\tinternal error - function left on stack\n");
+                }
+                return false;
             case siStack:
-                if (!curr->u.stack->Render(os)) {
+                if (!curr->u.stack->Render(os, errlog)) {
+                    if (errlog) {
+                        errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                        errlog->Write("\tinternal error - failed to render sub-stack\n");
+                    }
                     return false;
                 }
                 break;
             case siStackMarker:
+                // should never happen but it's okay if it does
+                //
                 break;
             case siTaintedText:
                 os->Write("%s", curr->u.text);
@@ -234,7 +253,11 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os) {
                 os->Write("%s", curr->u.text);
                 break;
             case siVariable:
-                if (!curr->u.var->Render(os)) {
+                if (!curr->u.variable->Render(os)) {
+                    if (errlog) {
+                        errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                        errlog->Write("\tinternal error - failed to render variable '%s'\n", curr->u.variable->Name());
+                    }
                     return false;
                 }
                 break;

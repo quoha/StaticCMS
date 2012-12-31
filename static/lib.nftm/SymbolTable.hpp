@@ -2,7 +2,27 @@
 #define   NFTM_static_src_bin_static_SymbolTable_HPP
 
 namespace NFTM {
-    
+
+    //---------------------------------------------------------------------------
+    //
+    enum symtabEntryType {steBoolean, steFunction, steNull, steTaintedText, steText, steVariable};
+
+    //---------------------------------------------------------------------------
+    // SymbolTableEntry
+    //
+    struct SymbolTableEntry {
+        symtabEntryType     kind;
+        char               *name;
+        bool                isFinal;
+        union {
+            bool            boolean;
+            class Function *function;
+            void           *null;
+            const char     *text;
+            class Variable *variable;
+        } u;
+    }; // struct SymbolTableEntry
+
     //---------------------------------------------------------------------------
     // SymbolTable
     //    the interpreter uses the symbol table to store functions and variables.
@@ -15,15 +35,14 @@ namespace NFTM {
         SymbolTable(void);
         ~SymbolTable();
         
-        // add various items to the table. note the convenience function
-        // for c-strings. i hope that by this point, we're ready to stop
-        // using them. and maybe sometime soon i'll step up to real strings.
+        // add entries to the table
         //
-        class Variable *Add(class Variable *variable);
+        SymbolTableEntry *Add(class Function *function, bool isFinal);
+        SymbolTableEntry *Add(class Variable *variable);
         
         // find items in the table
         //
-        class Variable *Lookup(const char *name) const;
+        SymbolTableEntry *Lookup(const char *name) const;
         
         // miscellaneous
         //
@@ -31,6 +50,7 @@ namespace NFTM {
         void                ErrorLog(class OutputStream *errorLog_) { errorLog = errorLog_; }
         
         void Dump(class OutputStream *os, bool showHash, bool showVar) const;
+        bool Remove(class Function *function);
         bool Remove(class Variable *variable);
         
     private:
@@ -39,12 +59,13 @@ namespace NFTM {
         unsigned int Hash(const char *str) const;
         
         struct Bucket {
-            struct Bucket  *prev;
-            struct Bucket  *next;
-            unsigned int    hashValue;
-            class Variable *variable;
+            struct Bucket    *prev;
+            struct Bucket    *next;
+            unsigned int      hashValue;
+            SymbolTableEntry *entry;
         } *hash[hashSize];
-        
+
+        class OutputStream *debugLog;
         class OutputStream *errorLog;
     }; // class SymbolTable
     

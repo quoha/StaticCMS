@@ -1,8 +1,87 @@
-#include "../Variable.hpp"
-#include "../Stack.hpp"
-#include "../Stream.hpp"
-#include "../SymbolTable.hpp"
-#include "../Util.hpp"
+#include "Variable.hpp"
+#include "Stack.hpp"
+#include "Stream.hpp"
+#include "SymbolTable.hpp"
+#include "Util.hpp"
+#include <stdio.h>
+
+
+//============================================================================
+//
+NFTM::Variable::Variable(const char *name_) {
+    isNull    = true;
+    isTainted = false;
+    kind      = vtNULL;
+    
+    if (name_) {
+        StrCopy(name, name_, maxNameLength);
+    } else {
+        sprintf(name, ".%p", this);
+    }
+}
+
+//============================================================================
+// ~Variable()
+//   deletes object
+//
+NFTM::Variable::~Variable() {
+}
+
+//---------------------------------------------------------------------------
+//
+void NFTM::Variable::Dump(NFTM::OutputStream *os) {
+    if (os) {
+        os->Write("****** Variable::Dump is BROKEN *****\n");
+#if 0
+        os->Write("\t\tvar %s is %s%s\n", Name(), IsNull() ? "null " : "", Kind());
+        if (!IsNull() && IsText()) {
+            char minibuf[64 + 1];
+            NFTM::StrCopy(minibuf, val.text->AsCString(), 64);
+            char *s = minibuf;
+            while (*s && *s != '\n') {
+                s++;
+            }
+            *s = 0;
+            os->Write("\t\t\t%s\n", minibuf);
+        }
+#endif
+    }
+}
+
+//============================================================================
+// Kind(void)
+//   returns type of object that word holds.
+//
+const char *NFTM::Variable::Kind(void) const {
+	switch (kind) {
+        case vtBOOL:
+            return "boolean";
+        case vtFUNCTION:
+            return "function";
+        case vtNULL:
+            return "null";
+        case vtNUMBER:
+            return "number";
+        case vtSTACK:
+            return "stack";
+        case vtTEXT:
+            return "text";
+        case vtOTHER:
+            return "other";
+	}
+	return "unknown";
+}
+
+//============================================================================
+// Render(os)
+//
+bool NFTM::VarBool::Render(NFTM::OutputStream *os) const {
+    if (!os) {
+        return false;
+    }
+    os->Write("%s", value ? "true" : "false");
+    return true;
+}
 
 //============================================================================
 // Execute(stack)

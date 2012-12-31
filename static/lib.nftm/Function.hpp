@@ -51,6 +51,17 @@ namespace NFTM {
     }; // class Func_Concat
     
     //---------------------------------------------------------------------------
+    // Func_False
+    //
+    class Func_False : public Function {
+    public:
+        Func_False(void) : Function("false") { }
+        ~Func_False() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class Func_False
+    
+    //---------------------------------------------------------------------------
     // Func_Include
     //
     class Func_Include : public Function {
@@ -93,6 +104,17 @@ namespace NFTM {
         
         bool Execute(class SymbolTable *symtab, class Stack *stack);
     }; // class Func_PushStack
+
+    //---------------------------------------------------------------------------
+    // Func_True
+    //
+    class Func_True : public Function {
+    public:
+        Func_True(void) : Function("true") { }
+        ~Func_True() { }
+        
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+    }; // class Func_True
     
 } // namespace NFTM
 

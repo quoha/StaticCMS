@@ -16,6 +16,7 @@
 //  * subclass Variables instead of using union
 
 #include "local.hpp"
+#include "lib.nftm/SymbolTable.hpp"
 #include <stdio.h>
 
 #define DNL fprintf(stderr, "%s: %d\n", __FILE__, __LINE__);
@@ -78,23 +79,30 @@ int main(int argc, char *argv[]) {
 			} else {
                 value = 0;
             }
-            NFTM::Variable *variable = symtab->Lookup(name);
-            if (variable) {
-                if (variable->IsFinal()) {
+            NFTM::SymbolTableEntry *entry = symtab->Lookup(name);
+            if (entry) {
+                if (entry->isFinal) {
                     printf("\nerror:\tunable to update variable in symbol table\n");
                     printf("\tyou are not allowed to modify a finalized variable\n");
                     printf("\t%-20s == '%s'\n", "finalVar", name);
                     printf("\n");
                     return 2;
                 }
-                if (!symtab->Remove(variable)) {
+                if (entry->kind == NFTM::steFunction && !symtab->Remove(entry->u.variable)) {
+                    printf("\nerror:\tinternal error\n");
+                    printf("\tunable to delete function from symbol table\n");
+                    printf("\t%-20s == '%s'\n", "variableName", name);
+                    printf("\n");
+                    return 2;
+                }
+                if (entry->kind == NFTM::steVariable && !symtab->Remove(entry->u.variable)) {
                     printf("\nerror:\tinternal error\n");
                     printf("\tunable to delete variable from symbol table\n");
                     printf("\t%-20s == '%s'\n", "variableName", name);
                     printf("\n");
                     return 2;
                 }
-                delete variable;
+                delete entry;
             }
             if (!symtab->Add(new NFTM::VarText(name, value))) {
                 printf("\nerror:\tunable to add variable to symbol table\n");
@@ -149,7 +157,7 @@ int main(int argc, char *argv[]) {
     }
     //stack->PushText("**** top--- of stack ***\n");
 
-    if (!stack->Render(os)) {
+    if (!stack->Render(os, os)) {
         printf("\nerror:\tunable to render the stack\n\n");
         return 2;
     }

@@ -61,12 +61,13 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             //   variable
             //   missing
             //
-            if (!ast->variable) {
-                ast->variable = symtab->Lookup(ast->data);
-                if (ast->variable) {
-                    if (ast->variable->IsFunction()) {
-                        ast->function = ast->variable->v.asFunction;
-                    }
+            if (!ast->variable && !ast->function) {
+                NFTM::SymbolTableEntry *entry = symtab->Lookup(ast->data);
+                if (entry && entry->kind == steFunction) {
+                    ast->function = entry->u.function;
+                }
+                if (entry && entry->kind == steVariable) {
+                    ast->variable = entry->u.variable;
                 }
             }
 
@@ -104,14 +105,59 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 
         if (ast->kind == astIF) {
             // look at the top value on the stack
-            bool isTrue = true;
+            bool condition = true;
 
-            // if it is true, take the THEN branch
-            if (isTrue) {
-                ast = ast->branchThen;
-            } else {
-                ast = ast->branchElse;
+            // force the top value on the stack to be a boolean
+            NFTM::StackItem *item = stack->Pop();
+            if (!item) {
+                if (errlog) {
+                    errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                    errlog->Write("\tif requires a condition on the stack\n", ast->data);
+                }
+                return false;
             }
+            switch (item->kind) {
+                case siBoolean:
+                    condition = item->u.boolean;
+                    break;
+                case siFunction:
+                    condition = true;
+                    break;
+                case siStack:
+                    condition = true;
+                    break;
+                case siStackMarker:
+                    if (errlog) {
+                        errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                        errlog->Write("\tif will not treat stack marker as a conditional\n");
+                    }
+                    return false;
+                case siText:
+                case siTaintedText:
+                    condition = item->u.text ? true : false;
+                    break;
+                case siVariable:
+                    if (item->u.variable->IsNull()) {
+                        condition = false;
+                    } else if (item->u.variable->IsBoolean()) {
+                        NFTM::VarBool *vb = dynamic_cast<NFTM::VarBool *>(item->u.variable);
+                        condition = vb->value;
+                    } else {
+                        condition = true;
+                    }
+                    break;
+                default:
+                    if (errlog) {
+                        errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+                        errlog->Write("\tinternal error - if can't handle %d\n", item->kind);
+                    }
+                    return false;
+            }
+
+            // if it is true, take the THEN branch otherwise, follow ELSE branch
+            //
+            ast = condition ? ast->branchThen : ast->branchElse;
+
             continue;
         }
 

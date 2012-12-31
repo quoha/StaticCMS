@@ -18,7 +18,7 @@ namespace NFTM {
             class Function *function;
             class Stack    *stack;
             const char     *text;
-            class Variable *var;
+            class Variable *variable;
             void           *null;
         } u;
     };
@@ -53,6 +53,7 @@ namespace NFTM {
             PushTop(item);
         }
 
+        void  PushBoolean(bool boolean);
         void  PushFormatted(const char *fmt, ...);
         void  PushStack(Stack *stack);
         void  PushStackMarker(void);
@@ -60,7 +61,8 @@ namespace NFTM {
         void  PushText(const char *text, int length);
         void  PushTaintedText(const char *text);
         void  PushVarReference(class Variable *var);
-        bool  Render(class OutputStream *os);
+
+        bool  Render(class OutputStream *os, class OutputStream *errlog);
 
         StackItem *PopBottom(void);
         void       PushBottom(StackItem *item);
