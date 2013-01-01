@@ -32,10 +32,18 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
         return false;
     }
 
+    // default some values
+    //
     symtab->Add(new NFTM::VarText("//model_name", "PostModel_FlatFile"));
     symtab->Add(new NFTM::VarText("site_name"   , "StaticCMS"));
     symtab->Add(new NFTM::VarText("page_title"  , "Hello, World!"));
 
+    // turn the request into a file path
+    for (int idx = 0; request->argv[idx]; idx++) {
+        printf("%d %s%s", idx, request->argv[idx], request->argv[idx] ? "/" : "\n");
+    }
+    printf("\n");
+    
     // add two articles
     NFTM::Stack *result = new NFTM::Stack;
     symtab->Add(new NFTM::VarStack("recent_posts", result));

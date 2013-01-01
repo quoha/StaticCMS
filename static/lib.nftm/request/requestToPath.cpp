@@ -6,8 +6,10 @@
 //   no matter what, argv[0] should always be /
 //
 void NFTM::Request::RequestToPath(void) {
+#if 0
     static char loneSlash[2] = {'/', 0};
-
+#endif
+    
 	if (argv) {
 		return;
 	}
@@ -28,17 +30,20 @@ void NFTM::Request::RequestToPath(void) {
 	//
 	argv = new char *[numberOfSlashes + 3];
 
+    int idx = 0;
+    s = request;
+
+#if 0
     // no matter what, argv[0] should be /
     //
-    int idx = 0;
     argv[idx++] = loneSlash;
 
     // don't put that leading slash in there twice
     //
-    s = request;
     while (*s && *s == '/') {
         *(s++) = 0;
     }
+#endif
 
 	// assign the remaining path elements to argv
 	//

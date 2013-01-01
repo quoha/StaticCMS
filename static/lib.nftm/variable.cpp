@@ -121,8 +121,9 @@ bool NFTM::VarNumber::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 // VarText(name, value)
 //
 NFTM::VarText::VarText(const char *name_, const char *value_) : Variable(name_) {
-    kind  = vtOTHER;
-    value = NFTM::StrDup(value_);
+    kind   = vtOTHER;
+    value  = NFTM::StrDup(value_);
+    isNull = (value_) ? false : true;
 }
 
 //============================================================================

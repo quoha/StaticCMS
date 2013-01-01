@@ -32,8 +32,9 @@ int main(int argc, char *argv[]) {
 	NFTM::SymbolTable *symtab = new NFTM::SymbolTable();
     symtab->ErrorLog(new NFTM::OutputStream("stderr"));
 
+    const char *defaultPath = "/Users/mdhender/Software/xcode/static/static/static/data/article0001";
 	NFTM::CGI *cgi = new NFTM::CGI();
-    cgi->GetEnv("/", argv[0]);
+    cgi->GetEnv(defaultPath ? defaultPath : "/", argv[0]);
     cgi->ExportToSymTab(symtab);
 
     //LoadAllFunctions(symtab);

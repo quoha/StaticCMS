@@ -22,6 +22,8 @@ NFTM::PostController::~PostController() {
 // CanHandle(request)
 //
 bool NFTM::PostController::CanHandle(NFTM::Request *request) {
+    return true;
+
     if (!request->argv[0] || std::strcmp(request->argv[0], "/") != 0) {
         // we always expect the request path to start with /
 		return false;
