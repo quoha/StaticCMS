@@ -5,7 +5,7 @@ namespace NFTM {
 
     //----------------------------------------------------------------------------
     //
-    enum stackItemType {siBoolean, siFunction, siStack, siStackMarker, siText, siTaintedText, siVariable};
+    enum stackItemType {siBoolean, siFunction, siNull, siStack, siStackMarker, siText, siTaintedText, siVariable};
 
     //----------------------------------------------------------------------------
     //
@@ -55,6 +55,7 @@ namespace NFTM {
 
         void  PushBoolean(bool boolean);
         void  PushFormatted(const char *fmt, ...);
+        void  PushNull(void);
         void  PushStack(Stack *stack);
         void  PushStackMarker(void);
         void  PushText(const char *text);

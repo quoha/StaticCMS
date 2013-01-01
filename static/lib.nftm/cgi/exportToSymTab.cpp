@@ -8,24 +8,24 @@ bool NFTM::CGI::ExportToSymTab(NFTM::SymbolTable *symtab) {
         return false;
     }
 
-	symtab->Add(authType        );
-	symtab->Add(contentLength   );
-	symtab->Add(contentType     );
-	symtab->Add(gatewayInterface);
-	symtab->Add(path            );
-	symtab->Add(pathInfo        );
-	symtab->Add(pathTranslated  );
-	symtab->Add(queryString     );
-	symtab->Add(remoteAddr      );
-	symtab->Add(remoteHost      );
-	symtab->Add(remoteIdent     );
-	symtab->Add(remoteUser      );
-	symtab->Add(requestMethod   );
-	symtab->Add(scriptName      );
-	symtab->Add(serverName      );
-	symtab->Add(serverPort      );
-	symtab->Add(serverProtocol  );
-	symtab->Add(serverSoftware  );
+	symtab->Add("AUTH_TYPE"        , authType        );
+	symtab->Add("CONTENT_LENGTH"   , contentLength   );
+	symtab->Add("CONTENT_TYPE"     , contentType     );
+	symtab->Add("GATEWAY_INTERFACE", gatewayInterface);
+	symtab->Add("PATH"             , path            );
+	symtab->Add("PATH_INFO"        , pathInfo        );
+	symtab->Add("PATH_TRANSLATED"  , pathTranslated  );
+	symtab->Add("QUERY_STRING"     , queryString     );
+	symtab->Add("REMOTE_ADDR"      , remoteAddr      );
+	symtab->Add("REMOTE_HOST"      , remoteHost      );
+	symtab->Add("REMOTE_IDENT"     , remoteIdent     );
+	symtab->Add("REMOTE_USER"      , remoteUser      );
+	symtab->Add("REQUEST_METHOD"   , requestMethod   );
+	symtab->Add("SCRIPT_NAME"      , scriptName      );
+	symtab->Add("SERVER_NAME"      , serverName      );
+	symtab->Add("SERVER_PORT"      , serverPort      );
+	symtab->Add("SERVER_PROTOCOL"  , serverProtocol  );
+	symtab->Add("SERVER_SOFTWARE"  , serverSoftware  );
     
     return true;
 }

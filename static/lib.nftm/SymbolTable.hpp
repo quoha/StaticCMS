@@ -5,7 +5,7 @@ namespace NFTM {
 
     //---------------------------------------------------------------------------
     //
-    enum symtabEntryType {steBoolean, steFunction, steNull, steTaintedText, steText, steVariable};
+    enum symtabEntryType {steBoolean, steFunction, steNull, steText, steVariable};
 
     //---------------------------------------------------------------------------
     // SymbolTableEntry
@@ -18,7 +18,7 @@ namespace NFTM {
             bool            boolean;
             class Function *function;
             void           *null;
-            const char     *text;
+            class Text     *text;
             class Variable *variable;
         } u;
     }; // struct SymbolTableEntry
@@ -38,6 +38,7 @@ namespace NFTM {
         // add entries to the table
         //
         SymbolTableEntry *Add(class Function *function, bool isFinal);
+        SymbolTableEntry *Add(const char     *name    , class Text *text);
         SymbolTableEntry *Add(class Variable *variable);
         
         // find items in the table

@@ -5,7 +5,7 @@ namespace NFTM {
     
     class Request {
     public:
-        Request(class VarText *url);
+        Request(class Text *url);
         ~Request();
         
         void Dump(class OutputStream *os);

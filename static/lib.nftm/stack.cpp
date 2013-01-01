@@ -168,6 +168,15 @@ void NFTM::Stack::PushFormatted(const char *fmt, ...) {
 
 //============================================================================
 //
+void NFTM::Stack::PushNull(void) {
+    NFTM::StackItem *item = new NFTM::StackItem;
+    item->kind      = siNull;
+    item->u.null    = 0;
+    PushTop(item);
+}
+
+//============================================================================
+//
 void NFTM::Stack::PushStack(NFTM::Stack *stack) {
     NFTM::StackItem *item = new NFTM::StackItem;
     item->kind    = siStack;
@@ -233,6 +242,8 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os, NFTM::OutputStream *errlog) {
                     errlog->Write("\tinternal error - function left on stack\n");
                 }
                 return false;
+            case siNull:
+                break;
             case siStack:
                 if (!curr->u.stack->Render(os, errlog)) {
                     if (errlog) {

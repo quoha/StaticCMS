@@ -3,7 +3,7 @@
 
 namespace NFTM {
 
-    enum vrtKind { vtOTHER, vtBOOL, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT };
+    enum vrtKind { vtOTHER, vtBOOLEAN, vtFUNCTION, vtNULL, vtNUMBER, vtSTACK, vtTEXT };
 
     //---------------------------------------------------------------------------
     // Variable
@@ -16,30 +16,25 @@ namespace NFTM {
     class Variable {
     public:
         Variable(const char *name);
-        virtual ~Variable();
+        Variable(const char *name, vrtKind kind);
+        Variable(const char *name, class Function   *function);
+        Variable(const char *name, class Stack      *stack);
+        Variable(const char *name, class Text       *text);
+        Variable(const char *name, class VarBoolean *varBoolean);
+        Variable(const char *name, class VarNumber  *varNumber);
+        ~Variable();
 
-        virtual bool Execute(class SymbolTable *symtab, class Stack *stack) {
-            return false;
-        }
-
-        virtual const char *Kind(void) const;
+        bool Execute(class SymbolTable *symtab, class Stack *stack);
+        const char *Kind(void) const;
 
         const char *Name(void) const {
             return name;
         }
 
-        virtual bool Render(class OutputStream *os) const {
-            return false;
-        }
+        bool Render(class OutputStream *os) const;
 
         bool IsBoolean(void) const {
-            return kind == vtBOOL;
-        }
-        bool IsConst(void) const {
-            return false;
-        }
-        bool IsFinal(void) const {
-            return false;
+            return kind == vtBOOLEAN;
         }
         bool IsFunction(void) const {
             return kind == vtFUNCTION;
@@ -56,6 +51,9 @@ namespace NFTM {
         bool IsTainted(void) const {
             return isTainted;
         }
+        bool IsTaintedText(void) const {
+            return kind == vtTEXT && isTainted;
+        }
         bool IsText(void) const {
             return kind == vtTEXT;
         }
@@ -65,81 +63,40 @@ namespace NFTM {
         // initialized when created, never changed
         //
         static const int maxNameLength = 64;
-        char name[maxNameLength + 1];
-        bool isNull;
-        bool isTainted;
+        char    name[maxNameLength + 1];
+        bool    isNull;
+        bool    isTainted;
         vrtKind kind;
 
         union {
-            bool            asBool;
-            class Function *asFunction;
-        } v;
+            bool            boolean;
+            class Function *function;
+            void           *null;
+            int             number;
+            class Stack    *stack;
+            class Text     *text;
+        } u;
     }; // class Variable
 
-    // VarBool
-    class VarBool : public Variable {
+    // VarBoolean
+    class VarBoolean {
     public:
-        VarBool(const char *functionName, bool value_) : Variable(functionName) {
-            kind     = vtBOOL;
-            value    = value_;
-            v.asBool = value_;
-            isNull   = false;
-        }
-        ~VarBool() { }
-        
-        const char *Kind(void) const {
-            return "var.boolean";
-        }
-        bool Render(class OutputStream *os) const;
+        VarBoolean(bool value_) { value = value_; }
+        ~VarBoolean() { }
 
         bool value;
-    }; // class VarBool
-
-    // VarFunction
-    class VarFunction : public Variable {
-    public:
-        VarFunction(const char *functionName, class Function *function_) : Variable(functionName) {
-            kind = vtFUNCTION;
-            function = function_;
-            v.asFunction = function_;
-        }
-        ~VarFunction() { }
-
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-
-        const char *Kind(void) const {
-            return "var.function";
-        }
-        
-        class Function *function;
-    }; // class VarFunction
-
-    // VarNull
-    class VarNull : public Variable {
-    public:
-        VarNull(const char *name);
-        ~VarNull();
-
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-        const char *Kind(void) const {
-            return "var.null";
-        }
-    }; // class VarNull
+    }; // class VarBoolean
 
     // VarNumber
-    class VarNumber : public Variable {
+    class VarNumber {
     public:
-        VarNumber(const char *name, int value);
+        VarNumber(int value_) { value = value_; }
         ~VarNumber();
-        
-        bool Execute(class SymbolTable *symtab, class Stack *stack);
-        const char *Kind(void) const {
-            return "var.number";
-        }
         
         int value;
     }; // class VarNumber
 
+#if 0
     // VarStack
     class VarStack : public Variable {
     public:
@@ -203,7 +160,7 @@ namespace NFTM {
         
         char *value;
     }; // class VarTaintedText
-
+#endif
 } // namespace NFTM
 
 #endif // NFTM_static_src_bin_static_Variable_HPP

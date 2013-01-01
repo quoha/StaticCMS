@@ -57,6 +57,30 @@ NFTM::SymbolTableEntry *NFTM::SymbolTable::Add(NFTM::Function *function, bool is
 }
 
 //============================================================================
+// Add(name, text)
+//
+NFTM::SymbolTableEntry *NFTM::SymbolTable::Add(const char *name, NFTM::Text *text) {
+	Bucket *b = new Bucket();
+    
+    b->entry             = new SymbolTableEntry;
+    b->entry->name       = StrDup(name);
+    b->entry->kind       = steText;
+    b->entry->u.text     = text;
+    b->entry->isFinal    = false;
+    
+	b->hashValue         = Hash(b->entry->name);
+    b->prev              = 0;
+	b->next              = hash[b->hashValue % hashSize];
+    if (b->next) {
+        b->next->prev = b;
+    }
+    
+	hash[b->hashValue % hashSize] = b;
+    
+	return b->entry;
+}
+
+//============================================================================
 // Add(variable)
 //
 NFTM::SymbolTableEntry *NFTM::SymbolTable::Add(NFTM::Variable *variable) {

@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
 	NFTM::CGI *cgi = new NFTM::CGI();
     cgi->GetEnv("/", argv[0]);
     cgi->ExportToSymTab(symtab);
+    NFTM::Text *pathInfo = cgi->PATH_INFO();
 
     NFTM::LoadAllFunctions(symtab);
 
@@ -60,14 +61,9 @@ int main(int argc, char *argv[]) {
 				fprintf(stderr, "%s: %s\n", val, os->ErrorMessage());
 				return 2;
 			}
-		} else if (NFTM::StrCmp(opt, "--template") && val && *val) {
-			NFTM::Text *t = new NFTM::Text();
-			if (!t->FromFile(val, true)) {
-				perror(val);
-				return 2;
-			}
-			fprintf(fpOutput, "%s\n\n", t->data ? t->data : "");
-			delete t;
+		} else if (NFTM::StrCmp(opt, "--path-info")) {
+            delete pathInfo;
+            pathInfo = new NFTM::Text(val);
 		} else if (NFTM::StrCmp(opt, "--variable") && val && *val) {
 			char *name  = val;
 			char *value = val;
@@ -104,7 +100,7 @@ int main(int argc, char *argv[]) {
                 }
                 delete entry;
             }
-            if (!symtab->Add(new NFTM::VarText(name, value))) {
+            if (!symtab->Add(name, new NFTM::Text(value))) {
                 printf("\nerror:\tunable to add variable to symbol table\n");
                 printf("\t%-20s == '%s'\n", "name", name);
                 if (value) {
@@ -117,7 +113,6 @@ int main(int argc, char *argv[]) {
             }
             printf(" info:\t%-20s == '%s'\n", "name", name);
             printf("\t%-20s == '%s'\n", "value", value);
-            symtab->Dump(os, true, true);
 		} else {
 			fprintf(stderr, "\nerror:\tinvalid option '%s%s%s'\n", opt, val ? "=" : "", val ? val : "");
 			fprintf(stderr, "\ttry --help if you're stuck\n\n");
@@ -136,15 +131,14 @@ int main(int argc, char *argv[]) {
 	//
 	router.AddController(&post);
 
-    NFTM::VarText    *pathInfo = cgi->PATH_INFO();
-	NFTM::Request    *request = new NFTM::Request(pathInfo);
-	NFTM::Controller *c       = router.Route(request);
-    printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->Value());
+	NFTM::Request    *request  = new NFTM::Request(pathInfo);
+	NFTM::Controller *c        = router.Route(request);
+    printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
     printf("\n");
 
     if (!c) {
         printf("\nerror:\tunable to find controller for route\n");
-        printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->Value());
+        printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
         printf("\n");
         return 2;
     }

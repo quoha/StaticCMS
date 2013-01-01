@@ -2,6 +2,7 @@
 #include "../lib.nftm/Request.hpp"
 #include "../lib.nftm/Stack.hpp"
 #include "../lib.nftm/SymbolTable.hpp"
+#include "../lib.nftm/Text.hpp"
 #include "../lib.nftm/Util.hpp"
 #include "../lib.nftm/Variable.hpp"
 #include <stdio.h>
@@ -35,12 +36,12 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
         return false;
     }
 
-    char *articleText  = 0;
-    char *articleTitle = 0;
-    char *author       = 0;
-    char *modelName    = "PostModel_FlatFile";
-    char *pageTitle    = 0;
-    char *siteName     = "StaticCMS";
+    const char *articleText  = 0;
+    const char *articleTitle = 0;
+    const char *author       = 0;
+    const char *modelName    = "PostModel_FlatFile";
+    const char *pageTitle    = 0;
+    const char *siteName     = "StaticCMS";
     
     // turn the request into a file path
     //
@@ -112,7 +113,7 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
                     } else if (std::strcmp(name, "page_title") == 0) {
                         pageTitle = value;
                     } else {
-                        symtab->Add(new NFTM::VarText(name, value));
+                        symtab->Add(name, new NFTM::Text(value));
                     }
                 }
             }
@@ -120,12 +121,12 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
         }
     }
 
-    symtab->Add(new NFTM::VarText("article_title", articleTitle));
-    symtab->Add(new NFTM::VarText("article_text" , articleText));
-    symtab->Add(new NFTM::VarText("author"       , author));
-    symtab->Add(new NFTM::VarText("page_title"   , pageTitle));
-    symtab->Add(new NFTM::VarText("//model_name" , modelName));
-    symtab->Add(new NFTM::VarText("site_name"    , siteName));
+    symtab->Add("article_title", new NFTM::Text(articleTitle));
+    symtab->Add("article_text" , new NFTM::Text(articleText));
+    symtab->Add("author"       , new NFTM::Text(author));
+    symtab->Add("page_title"   , new NFTM::Text(pageTitle));
+    symtab->Add("//model_name" , new NFTM::Text(modelName));
+    symtab->Add("site_name"    , new NFTM::Text(siteName));
     
     delete [] sourceData;
     

@@ -138,8 +138,7 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                     if (item->u.variable->IsNull()) {
                         condition = false;
                     } else if (item->u.variable->IsBoolean()) {
-                        NFTM::VarBool *vb = dynamic_cast<NFTM::VarBool *>(item->u.variable);
-                        condition = vb->value;
+                        condition = item->u.variable->u.boolean;
                     } else {
                         condition = true;
                     }
