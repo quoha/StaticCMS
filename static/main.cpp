@@ -32,12 +32,10 @@ int main(int argc, char *argv[]) {
 	NFTM::SymbolTable *symtab = new NFTM::SymbolTable();
     symtab->ErrorLog(new NFTM::OutputStream("stderr"));
 
-    const char *defaultPath = "/Users/mdhender/Software/xcode/static/static/static/data/article0001";
 	NFTM::CGI *cgi = new NFTM::CGI();
-    cgi->GetEnv(defaultPath ? defaultPath : "/", argv[0]);
+    cgi->GetEnv("/", argv[0]);
     cgi->ExportToSymTab(symtab);
 
-    //LoadAllFunctions(symtab);
     NFTM::LoadAllFunctions(symtab);
 
 	for (int idx = 1; idx < argc; idx++) {
@@ -119,6 +117,7 @@ int main(int argc, char *argv[]) {
             }
             printf(" info:\t%-20s == '%s'\n", "name", name);
             printf("\t%-20s == '%s'\n", "value", value);
+            symtab->Dump(os, true, true);
 		} else {
 			fprintf(stderr, "\nerror:\tinvalid option '%s%s%s'\n", opt, val ? "=" : "", val ? val : "");
 			fprintf(stderr, "\ttry --help if you're stuck\n\n");
@@ -140,6 +139,8 @@ int main(int argc, char *argv[]) {
     NFTM::VarText    *pathInfo = cgi->PATH_INFO();
 	NFTM::Request    *request = new NFTM::Request(pathInfo);
 	NFTM::Controller *c       = router.Route(request);
+    printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->Value());
+    printf("\n");
 
     if (!c) {
         printf("\nerror:\tunable to find controller for route\n");

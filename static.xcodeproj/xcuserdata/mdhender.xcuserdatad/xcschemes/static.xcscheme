@@ -57,6 +57,12 @@
             ReferencedContainer = "container:static.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "--variable=PATH_INFO=/Users/mdhender/Software/xcode/static/static/static/data/article0001"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

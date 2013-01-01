@@ -31,9 +31,9 @@ NFTM::Variable::~Variable() {
 //
 void NFTM::Variable::Dump(NFTM::OutputStream *os) {
     if (os) {
-        os->Write("****** Variable::Dump is BROKEN *****\n");
-#if 0
+        //os->Write("****** Variable::Dump is BROKEN *****\n");
         os->Write("\t\tvar %s is %s%s\n", Name(), IsNull() ? "null " : "", Kind());
+#if 0
         if (!IsNull() && IsText()) {
             char minibuf[64 + 1];
             NFTM::StrCopy(minibuf, val.text->AsCString(), 64);
