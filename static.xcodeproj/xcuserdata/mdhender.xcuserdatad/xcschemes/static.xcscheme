@@ -62,6 +62,18 @@
             argument = "--path-info=/Users/mdhender/Software/xcode/static/static/static/data/article0001"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--cgi=false"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--root-input=/Users/mdhender/Software/xcode/static/static/static/data/source/"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--root-output=/Users/mdhender/Software/xcode/static/static/static/data/public/"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

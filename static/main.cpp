@@ -25,6 +25,9 @@
 int main(int argc, char *argv[]) {
 	stderr = stdout;
 
+    bool        useCGI     = true;
+    NFTM::Text *rootInput  = new NFTM::Text("./");
+    NFTM::Text *rootOutput = new NFTM::Text("./");
 	NFTM::OutputStream *os = new NFTM::OutputStream("stdout");
 
 	FILE *fpOutput = stdout;
@@ -53,6 +56,17 @@ int main(int argc, char *argv[]) {
 
 		if (NFTM::StrCmp(opt, "--help")) {
 			return 2;
+        } else if (NFTM::StrCmp(opt, "--cgi")) {
+            if (!val || !*val) {
+                useCGI = true;
+            } else if (NFTM::StrCmp(val, "no") || NFTM::StrCmp(val, "false")) {
+                useCGI = false;
+            } else if (NFTM::StrCmp(val, "yes") || NFTM::StrCmp(val, "true")) {
+                useCGI = true;
+            } else {
+                fprintf(stderr, "\nerror:\tflag for %s must be yes, no, true or false\n\n", opt);
+                return 2;
+            }
 		} else if (NFTM::StrCmp(opt, "--dump-env")) {
 			symtab->Dump(os, true, true);
 		} else if (NFTM::StrCmp(opt, "--output") && val && *val) {
@@ -61,9 +75,22 @@ int main(int argc, char *argv[]) {
 				fprintf(stderr, "%s: %s\n", val, os->ErrorMessage());
 				return 2;
 			}
+        } else if (NFTM::StrCmp(opt, "--no-cgi")) {
+            useCGI = false;
 		} else if (NFTM::StrCmp(opt, "--path-info")) {
             delete pathInfo;
             pathInfo = new NFTM::Text(val);
+		} else if (NFTM::StrCmp(opt, "--root-input") && val && *val) {
+            printf(" info:\t%-20s == '%s'\n", "rootInput", val);
+            delete rootInput;
+            rootInput = new NFTM::Text(val);
+		} else if (NFTM::StrCmp(opt, "--root-output") && val && *val) {
+            printf(" info:\t%-20s == '%s'\n", "rootOutput", val);
+            delete rootOutput;
+            rootOutput = new NFTM::Text(val);
+        } else if (NFTM::StrCmp(opt, "--variable") && useCGI) {
+            fprintf(stderr, "\nerror:\tyou can't override variables in CGI mode\n\n");
+            return 2;
 		} else if (NFTM::StrCmp(opt, "--variable") && val && *val) {
 			char *name  = val;
 			char *value = val;
