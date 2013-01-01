@@ -3,6 +3,7 @@
 #include "Stream.hpp"
 #include "Stack.hpp"
 #include "SymbolTable.hpp"
+#include "Text.hpp"
 #include "Util.hpp"
 #include "Variable.hpp"
 #include <cstring>
@@ -48,7 +49,7 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
         }
         
         if (ast->kind == astTEXT) {
-            stack->PushText(NFTM::StrDup(ast->data));
+            stack->PushText(new NFTM::Text(ast->data));
             ast = ast->next;
             continue;
         }
@@ -57,12 +58,16 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             // lookup the word in the symbol table. it will be one of these:
             //   function
             //   variable
+            //   text
             //   missing
             //
             if (!ast->variable && !ast->function) {
                 NFTM::SymbolTableEntry *entry = symtab->Lookup(ast->data);
                 if (entry && entry->kind == steFunction) {
                     ast->function = entry->u.function;
+                }
+                if (entry && entry->kind == steText) {
+                    ast->text = entry->u.text;
                 }
                 if (entry && entry->kind == steVariable) {
                     ast->variable = entry->u.variable;
@@ -85,6 +90,8 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                     }
                     return false;
                 }
+            } else if (ast->text) {
+                stack->PushText(ast->text);
             } else if (ast->variable) {
                 // push a reference to the variable. this could be dangerous if a function
                 // changes the value of the variable changes later.
@@ -131,7 +138,6 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                     }
                     return false;
                 case siText:
-                case siTaintedText:
                     condition = item->u.text ? true : false;
                     break;
                 case siVariable:
@@ -172,9 +178,11 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 //---------------------------------------------------------------------------
 // Parse(code)
 //
-NFTM::AST *NFTM::AST::Parse(const char *nextChunk) {
+NFTM::AST *NFTM::AST::Parse(NFTM::Text *code) {
     AST *root       = new AST(astNOOP, 0, 0);
     AST *tail       = root;
+
+    const char *nextChunk = code ? code->text : "";
 
     // enclosingIF will hold the most current IF statement. the "next"
     // pointer will be abused as the pointer to the enclosing IF statement.

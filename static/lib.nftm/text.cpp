@@ -100,6 +100,40 @@ NFTM::Text::Text(NFTM::Text *text_) {
 }
 
 //============================================================================
+// Text(text1, text2)
+//   creates object as a concat of text1 and text2
+//
+NFTM::Text::Text(NFTM::Text *text1, NFTM::Text *text2) {
+    // if the pointer is null or it's data is null, force the pointer to null
+    //
+    text1 = (text1 && !text1->isNull) ? text1 : 0;
+
+    // if the pointer is null or it's data is null, force the pointer to null
+    //
+    text2 = (text2 && !text2->isNull) ? text2 : 0;
+
+    // both must be null for isNull to be true
+    //
+    isNull    = (text1 || text2) ? false : true;
+    
+    // if either is tainted, then the concatenation is tainted
+    //
+    isTainted = (text1 && text1->isTainted) || (text2 && text2->isTainted) ? true  : false;
+    
+    if (isNull) {
+        text    = new char[1];
+        text[0] = 0;
+    } else {
+        const char *str1 = text1 ? text1->text : "";
+        const char *str2 = text2 ? text2->text : "";
+        
+        int actLength = (int)std::strlen(str1) + (int)std::strlen(str2);
+        text = new char[actLength + 1];
+        sprintf(text, "%s%s", str1, str2);
+    }
+}
+
+//============================================================================
 // Text(text, length)
 //   creates object as a copy of text, up to length bytes
 //
@@ -134,11 +168,12 @@ NFTM::Text::Text(NFTM::Text *text_, int length) {
 //
 // will leave text set to NULL and isNull set to TRUE if there are errors
 //
-NFTM::Text::Text(const char *fileName, bool forceNewLine, bool trimTrailingNewline) {
+NFTM::Text::Text(NFTM::Text *fileName_, bool forceNewLine, bool trimTrailingNewline) {
 	isNull     = true;
     isTainted  = false;
     text       = 0;
-
+    
+    const char *fileName = fileName_ ? fileName_->text : "";
 	struct stat statBuf;
 	if (stat(fileName, &statBuf) == 0) {
         // allocate enough space for the file and
@@ -146,7 +181,7 @@ NFTM::Text::Text(const char *fileName, bool forceNewLine, bool trimTrailingNewli
         //
         int actLength       = (int)statBuf.st_size;
         text                = new char[actLength + 2];
-
+        
         // set those two extra bytes to zero so that we don't forget to
         // do it later. they ensure that we end up nil-terminated.
         //
@@ -167,12 +202,12 @@ NFTM::Text::Text(const char *fileName, bool forceNewLine, bool trimTrailingNewli
                 fclose(fp);
             }
         }
-
+        
         // do the logic to force or trim trailing newline
         //
         if (text) {
             isNull = false;
-
+            
             if (forceNewLine) {
                 if (text[actLength - 1] != '\n') {
                     text[actLength    ] = '\n';

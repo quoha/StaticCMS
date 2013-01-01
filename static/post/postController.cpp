@@ -3,6 +3,7 @@
 #include "../lib.nftm/AST.hpp"
 #include "../lib.nftm/Request.hpp"
 #include "../lib.nftm/Template.hpp"
+#include "../lib.nftm/Text.hpp"
 #include <cstring>
 
 //============================================================================
@@ -60,7 +61,8 @@ bool NFTM::PostController::Handle(NFTM::SymbolTable *symtab, NFTM::Request *requ
     // first template. ask me how the controller knows which template
     // to start off with.
     //
-    NFTM::Template *t = new NFTM::TemplateText("<billy '/Users/mdhender/Software/xcode/static/static/static/data/templates/footer.tpl' include />");
+    NFTM::Text *templateText = new NFTM::Text("<billy '/Users/mdhender/Software/xcode/static/static/static/data/templates/footer.tpl' include />");
+    NFTM::Template *t = new NFTM::TemplateText(templateText);
     
     // load and execute the template
     //

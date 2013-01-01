@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F1168F928800BCB6BA /* templateFile.cpp */; };
-		2D2E19F4168F979400BCB6BA /* templateText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F3168F979400BCB6BA /* templateText.cpp */; };
-		2D2E19F6168F9A4900BCB6BA /* template.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F5168F9A4900BCB6BA /* template.cpp */; };
 		2D2E19FA168FAB4C00BCB6BA /* addController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D2E19F9168FAB4C00BCB6BA /* addController.cpp */; };
 		2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D4C887B168E516B00B7E4D8 /* pull.cpp */; };
 		2DABC0CD16915BEF00B7C260 /* ast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DABC0CC16915BEE00B7C260 /* ast.cpp */; };
@@ -22,6 +19,7 @@
 		2DABC0DE16927D9700B7C260 /* loadFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DABC0DD16927D9600B7C260 /* loadFile.cpp */; };
 		2DABC0E21692A0A900B7C260 /* text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DABC0E11692A0A800B7C260 /* text.cpp */; };
 		2DABC0E41692AA7200B7C260 /* request.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DABC0E31692AA7100B7C260 /* request.cpp */; };
+		2DABC0E61692C1F300B7C260 /* template.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DABC0E51692C1F000B7C260 /* template.cpp */; };
 		2DEE1869168E386F00C3ACCC /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */; };
 		2DF65848168D1E7600C198D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DF65847168D1E7600C198D3 /* main.cpp */; };
 		2DF6584A168D1E7600C198D3 /* static.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2DF65849168D1E7600C198D3 /* static.1 */; };
@@ -71,9 +69,6 @@
 
 /* Begin PBXFileReference section */
 		2D2E19EF168F90FC00BCB6BA /* Template.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Template.hpp; sourceTree = "<group>"; };
-		2D2E19F1168F928800BCB6BA /* templateFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = templateFile.cpp; sourceTree = "<group>"; };
-		2D2E19F3168F979400BCB6BA /* templateText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = templateText.cpp; sourceTree = "<group>"; };
-		2D2E19F5168F9A4900BCB6BA /* template.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = template.cpp; sourceTree = "<group>"; };
 		2D2E19F9168FAB4C00BCB6BA /* addController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = addController.cpp; sourceTree = "<group>"; };
 		2D4C887B168E516B00B7E4D8 /* pull.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pull.cpp; sourceTree = "<group>"; };
 		2DABC0CB16915BE300B7C260 /* AST.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AST.hpp; sourceTree = "<group>"; };
@@ -90,6 +85,7 @@
 		2DABC0DD16927D9600B7C260 /* loadFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = loadFile.cpp; sourceTree = "<group>"; };
 		2DABC0E11692A0A800B7C260 /* text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = text.cpp; sourceTree = "<group>"; };
 		2DABC0E31692AA7100B7C260 /* request.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = request.cpp; sourceTree = "<group>"; };
+		2DABC0E51692C1F000B7C260 /* template.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = template.cpp; sourceTree = "<group>"; };
 		2DEE1868168E386F00C3ACCC /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		2DF65843168D1E7600C198D3 /* static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = static; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF65847168D1E7600C198D3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -158,16 +154,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2D2E19F0168F91BA00BCB6BA /* template */ = {
-			isa = PBXGroup;
-			children = (
-				2D2E19F1168F928800BCB6BA /* templateFile.cpp */,
-				2D2E19F3168F979400BCB6BA /* templateText.cpp */,
-				2D2E19F5168F9A4900BCB6BA /* template.cpp */,
-			);
-			path = template;
-			sourceTree = "<group>";
-		};
 		2DF65838168D1E7600C198D3 = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +216,8 @@
 				2DABC0D5169246E000B7C260 /* stack.cpp */,
 				2DF658A0168D21F900C198D3 /* SymbolTable.hpp */,
 				2DABC0D1169232A700B7C260 /* symbolTable.cpp */,
+				2D2E19EF168F90FC00BCB6BA /* Template.hpp */,
+				2DABC0E51692C1F000B7C260 /* template.cpp */,
 				2DF658A8168D21F900C198D3 /* Text.hpp */,
 				2DABC0E11692A0A800B7C260 /* text.cpp */,
 				2DF658B7168D21F900C198D3 /* Variable.hpp */,
@@ -245,8 +233,6 @@
 				2DF65883168D21F900C198D3 /* Router.hpp */,
 				2DF6588A168D21F900C198D3 /* stream */,
 				2DF65896168D21F900C198D3 /* Stream.hpp */,
-				2D2E19F0168F91BA00BCB6BA /* template */,
-				2D2E19EF168F90FC00BCB6BA /* Template.hpp */,
 				2DF658A9168D21F900C198D3 /* util */,
 				2DF658AF168D21F900C198D3 /* Util.hpp */,
 				2DABC0DD16927D9600B7C260 /* loadFile.cpp */,
@@ -440,9 +426,6 @@
 				2DF65911168D24C900C198D3 /* exportToSymTab.cpp in Sources */,
 				2DF65921168D776800C198D3 /* strcopy.cpp in Sources */,
 				2D4C887C168E516B00B7E4D8 /* pull.cpp in Sources */,
-				2D2E19F2168F928800BCB6BA /* templateFile.cpp in Sources */,
-				2D2E19F4168F979400BCB6BA /* templateText.cpp in Sources */,
-				2D2E19F6168F9A4900BCB6BA /* template.cpp in Sources */,
 				2D2E19FA168FAB4C00BCB6BA /* addController.cpp in Sources */,
 				2DABC0CD16915BEF00B7C260 /* ast.cpp in Sources */,
 				2DABC0D01692019E00B7C260 /* function.cpp in Sources */,
@@ -454,6 +437,7 @@
 				2DABC0DE16927D9700B7C260 /* loadFile.cpp in Sources */,
 				2DABC0E21692A0A900B7C260 /* text.cpp in Sources */,
 				2DABC0E41692AA7200B7C260 /* request.cpp in Sources */,
+				2DABC0E61692C1F300B7C260 /* template.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

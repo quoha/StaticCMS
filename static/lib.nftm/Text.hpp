@@ -11,7 +11,8 @@ namespace NFTM {
         Text(const char *str1, const char *str2);
         Text(Text *text);
         Text(Text *text, int length);
-        Text(const char *fileName, bool forceNewLine, bool trimTrailingNewline);
+        Text(Text *text1, Text *text2);
+        Text(Text *fileName, bool forceNewLine, bool trimTrailingNewline);
         ~Text();
         
         bool IsNull(void) const {

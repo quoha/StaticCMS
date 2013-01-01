@@ -1,5 +1,6 @@
 #include "Stack.hpp"
 #include "Stream.hpp"
+#include "Text.hpp"
 #include "Util.hpp"
 #include "Variable.hpp"
 #include <stdio.h>
@@ -162,7 +163,7 @@ void NFTM::Stack::PushFormatted(const char *fmt, ...) {
 		vsnprintf(data, 256, fmt, ap);
         data[255] = 0;
 		va_end(ap);
-        PushText(NFTM::StrDup(data));
+        PushText(new NFTM::Text(data));
 	}
 }
 
@@ -195,6 +196,16 @@ void NFTM::Stack::PushStackMarker(void) {
 
 //============================================================================
 //
+void NFTM::Stack::PushText(NFTM::Text *text) {
+    NFTM::StackItem *item = new NFTM::StackItem;
+    item->kind   = siText;
+    item->u.text = text;
+    PushTop(item);
+}
+
+#if 0
+//============================================================================
+//
 void NFTM::Stack::PushText(const char *text) {
     NFTM::StackItem *item = new NFTM::StackItem;
     item->kind   = siText;
@@ -210,6 +221,7 @@ void NFTM::Stack::PushTaintedText(const char *text) {
     item->u.text = text;
     PushTop(item);
 }
+#endif
 
 //============================================================================
 //
@@ -257,11 +269,12 @@ bool NFTM::Stack::Render(NFTM::OutputStream *os, NFTM::OutputStream *errlog) {
                 // should never happen but it's okay if it does
                 //
                 break;
-            case siTaintedText:
-                os->Write("%s", curr->u.text);
-                break;
             case siText:
-                os->Write("%s", curr->u.text);
+                if (curr->u.text->IsTainted()) {
+                    os->Write("%s", curr->u.text->text);
+                } else {
+                    os->Write("%s", curr->u.text->text);
+                }
                 break;
             case siVariable:
                 if (!curr->u.variable->Render(os)) {

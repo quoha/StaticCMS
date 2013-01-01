@@ -11,32 +11,32 @@ namespace NFTM {
     //
     class Template {
     public:
-        Template(void) { data = 0; }
-        virtual ~Template() { delete [] data; };
+        Template(void);
+        virtual ~Template();
 
         virtual class AST *Load(void) = 0;
 
-        char *data;
+        class Text *data;
     }; // class Template
 
     class TemplateFile : public Template {
     public:
-        TemplateFile(const char *source);
+        TemplateFile(class Text *fileName);
         ~TemplateFile();
 
         class AST *Load(void);
 
-        char *source;
+        class Text *fileName;
     }; // class TemplateFile
 
     class TemplateText : public Template {
     public:
-        TemplateText(const char *text);
+        TemplateText(class Text *text);
         ~TemplateText();
         
         class AST *Load(void);
 
-        char *text;
+        class Text *text;
     }; // class TemplateText
 
 } // namespace NFTM

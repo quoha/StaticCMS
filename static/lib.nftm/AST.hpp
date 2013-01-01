@@ -16,15 +16,16 @@ namespace NFTM {
         AST    *next;
         AST    *prev;
         char   *data;
-        class  Variable *variable;
         class  Function *function;
+        class  Text     *text;
+        class  Variable *variable;
 
         AST(astKind kind, const char *data, int length);
         ~AST();
 
         virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
 
-        static AST *Parse(const char *code);
+        static AST *Parse(class Text *code);
     }; // class AST
     
 } // namespace NFTM

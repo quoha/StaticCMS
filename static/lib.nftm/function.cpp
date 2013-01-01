@@ -4,6 +4,7 @@
 #include "Stream.hpp"
 #include "SymbolTable.hpp"
 #include "Template.hpp"
+#include "Text.hpp"
 #include "Util.hpp"
 #include "Variable.hpp"
 #include <stdio.h>
@@ -55,9 +56,9 @@ bool NFTM::Func_Bold::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             return false;
         }
         
-        stack->PushText("<bold>");
+        stack->PushText(new NFTM::Text("<bold>"));
         stack->Push(a);
-        stack->PushText("</bold>");
+        stack->PushText(new NFTM::Text("</bold>"));
     }
     return true;
 }
@@ -87,7 +88,7 @@ bool NFTM::Func_Concat::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             }
             return false;
         }
-        stack->PushText(NFTM::StrCat(b->u.text, a->u.text));
+        stack->PushText(new NFTM::Text(b->u.text, a->u.text));
         delete a;
         delete b;
     }
@@ -200,7 +201,6 @@ bool NFTM::Func_Not::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
                 }
                 return false;
             case siText:
-            case siTaintedText:
                 condition = item->u.text ? true : false;
                 break;
             case siVariable:
