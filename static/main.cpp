@@ -25,20 +25,23 @@
 int main(int argc, char *argv[]) {
 	stderr = stdout;
 
+    // must be very careful about stdout when using CGI
+    //
     bool        useCGI     = true;
-    NFTM::Text *rootInput  = new NFTM::Text("./");
-    NFTM::Text *rootOutput = new NFTM::Text("./");
-	NFTM::OutputStream *os = new NFTM::OutputStream("stdout");
 
-	FILE *fpOutput = stdout;
+    NFTM::CGI  *cgi          = 0;
+    NFTM::Text *inputFile    = 0;
+    NFTM::Text *outputFile   = 0;
+    NFTM::Text *pathInfo     = 0;
+    NFTM::Text *rootInput    = new NFTM::Text("./");
+    NFTM::Text *rootOutput   = new NFTM::Text("./");
+    NFTM::OutputStream *obuf = 0;
+	NFTM::OutputStream *os   = new NFTM::OutputStream("stdout");
+    NFTM::OutputStream *oerr = new NFTM::OutputStream("stderr");
+    NFTM::OutputStream *olog = new NFTM::OutputStream("stderr");
 
 	NFTM::SymbolTable *symtab = new NFTM::SymbolTable();
     symtab->ErrorLog(new NFTM::OutputStream("stderr"));
-
-	NFTM::CGI *cgi = new NFTM::CGI();
-    cgi->GetEnv("/", argv[0]);
-    cgi->ExportToSymTab(symtab);
-    NFTM::Text *pathInfo = cgi->PATH_INFO();
 
     NFTM::LoadAllFunctions(symtab);
 
@@ -64,11 +67,23 @@ int main(int argc, char *argv[]) {
             } else if (NFTM::StrCmp(val, "yes") || NFTM::StrCmp(val, "true")) {
                 useCGI = true;
             } else {
-                fprintf(stderr, "\nerror:\tflag for %s must be yes, no, true or false\n\n", opt);
+                oerr->Write("\nerror:\tflag for %s must be yes, no, true or false\n\n", opt);
                 return 2;
             }
+            olog->Write(" info:\tturning CGI mode %s\n", useCGI ? "on" : "off");
 		} else if (NFTM::StrCmp(opt, "--dump-env")) {
 			symtab->Dump(os, true, true);
+		} else if (NFTM::StrCmp(opt, "--input") && val && *val) {
+            if (useCGI) {
+                oerr->Write("\nerror:\tyou may not specify an input file when using CGI\n\n");
+                return 2;
+            }
+            if (inputFile) {
+                oerr->Write("\nerror:\tyou may only specify one input file\n\n");
+                return 2;
+            }
+            inputFile = new NFTM::Text(val);
+            olog->Write(" info:\t%-20s == '%s'\n", "inputFile", val);
 		} else if (NFTM::StrCmp(opt, "--output") && val && *val) {
 			os->Redirect(val);
 			if (os->ErrorMessage()) {
@@ -77,19 +92,27 @@ int main(int argc, char *argv[]) {
 			}
         } else if (NFTM::StrCmp(opt, "--no-cgi")) {
             useCGI = false;
+            olog->Write(" info:\tturning CGI mode off\n");
+		} else if (NFTM::StrCmp(opt, "--output") && val && *val) {
+            if (outputFile) {
+                oerr->Write("\nerror:\tyou may only specify one output file\n\n");
+                return 2;
+            }
+            outputFile = new NFTM::Text(val);
+            olog->Write(" info:\t%-20s == '%s'\n", "outputFile", val);
 		} else if (NFTM::StrCmp(opt, "--path-info")) {
             delete pathInfo;
             pathInfo = new NFTM::Text(val);
 		} else if (NFTM::StrCmp(opt, "--root-input") && val && *val) {
-            printf(" info:\t%-20s == '%s'\n", "rootInput", val);
+            olog->Write(" info:\t%-20s == '%s'\n", "rootInput", val);
             delete rootInput;
             rootInput = new NFTM::Text(val);
 		} else if (NFTM::StrCmp(opt, "--root-output") && val && *val) {
-            printf(" info:\t%-20s == '%s'\n", "rootOutput", val);
+            olog->Write(" info:\t%-20s == '%s'\n", "rootOutput", val);
             delete rootOutput;
             rootOutput = new NFTM::Text(val);
         } else if (NFTM::StrCmp(opt, "--variable") && useCGI) {
-            fprintf(stderr, "\nerror:\tyou can't override variables in CGI mode\n\n");
+            oerr->Write("\nerror:\tyou can't override variables in CGI mode\n\n");
             return 2;
 		} else if (NFTM::StrCmp(opt, "--variable") && val && *val) {
 			char *name  = val;
@@ -105,47 +128,56 @@ int main(int argc, char *argv[]) {
             NFTM::SymbolTableEntry *entry = symtab->Lookup(name);
             if (entry) {
                 if (entry->isFinal) {
-                    printf("\nerror:\tunable to update variable in symbol table\n");
-                    printf("\tyou are not allowed to modify a finalized variable\n");
-                    printf("\t%-20s == '%s'\n", "finalVar", name);
-                    printf("\n");
+                    oerr->Write("\nerror:\tunable to update variable in symbol table\n");
+                    oerr->Write("\tyou are not allowed to modify a finalized variable\n");
+                    oerr->Write("\t%-20s == '%s'\n", "finalVar", name);
+                    oerr->Write("\n");
                     return 2;
                 }
                 if (entry->kind == NFTM::steFunction && !symtab->Remove(entry->u.variable)) {
-                    printf("\nerror:\tinternal error\n");
-                    printf("\tunable to delete function from symbol table\n");
-                    printf("\t%-20s == '%s'\n", "variableName", name);
-                    printf("\n");
+                    oerr->Write("\nerror:\tinternal error\n");
+                    oerr->Write("\tunable to delete function from symbol table\n");
+                    oerr->Write("\t%-20s == '%s'\n", "variableName", name);
+                    oerr->Write("\n");
                     return 2;
                 }
                 if (entry->kind == NFTM::steVariable && !symtab->Remove(entry->u.variable)) {
-                    printf("\nerror:\tinternal error\n");
-                    printf("\tunable to delete variable from symbol table\n");
-                    printf("\t%-20s == '%s'\n", "variableName", name);
-                    printf("\n");
+                    oerr->Write("\nerror:\tinternal error\n");
+                    oerr->Write("\tunable to delete variable from symbol table\n");
+                    oerr->Write("\t%-20s == '%s'\n", "variableName", name);
+                    oerr->Write("\n");
                     return 2;
                 }
                 delete entry;
             }
             if (!symtab->Add(name, new NFTM::Text(value))) {
-                printf("\nerror:\tunable to add variable to symbol table\n");
-                printf("\t%-20s == '%s'\n", "name", name);
+                oerr->Write("\nerror:\tunable to add variable to symbol table\n");
+                oerr->Write("\t%-20s == '%s'\n", "name", name);
                 if (value) {
-                    printf("\t%-20s == '%s'\n", "value", value);
+                    oerr->Write("\t%-20s == '%s'\n", "value", value);
                 } else {
-                    printf("\t%-20s == NULL\n", "value");
+                    oerr->Write("\t%-20s == NULL\n", "value");
                 }
-                printf("\n");
+                oerr->Write("\n");
                 return 2;
             }
-            printf(" info:\t%-20s == '%s'\n", "name", name);
-            printf("\t%-20s == '%s'\n", "value", value);
+            olog->Write(" info:\t%-20s == '%s'\n", "name", name);
+            olog->Write("\t%-20s == '%s'\n", "value", value);
 		} else {
-			fprintf(stderr, "\nerror:\tinvalid option '%s%s%s'\n", opt, val ? "=" : "", val ? val : "");
-			fprintf(stderr, "\ttry --help if you're stuck\n\n");
+			oerr->Write("\nerror:\tinvalid option '%s%s%s'\n", opt, val ? "=" : "", val ? val : "");
+			oerr->Write("\ttry --help if you're stuck\n\n");
 			return 2;
 		}
 	}
+
+    if (useCGI) {
+        cgi = new NFTM::CGI();
+        cgi->GetEnv("/", argv[0]);
+        cgi->ExportToSymTab(symtab);
+        pathInfo = cgi->PATH_INFO();
+        olog->Write("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
+        olog->Write("\n");
+    }
 
 	NFTM::Router         router;
 	NFTM::PostController post;
@@ -160,13 +192,11 @@ int main(int argc, char *argv[]) {
 
 	NFTM::Request    *request  = new NFTM::Request(pathInfo);
 	NFTM::Controller *c        = router.Route(request);
-    printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
-    printf("\n");
 
     if (!c) {
-        printf("\nerror:\tunable to find controller for route\n");
-        printf("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
-        printf("\n");
+        oerr->Write("\nerror:\tunable to find controller for route\n");
+        oerr->Write("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
+        oerr->Write("\n");
         return 2;
     }
 
@@ -176,23 +206,25 @@ int main(int argc, char *argv[]) {
     NFTM::Stack *stack = new NFTM::Stack;
     //stack->PushText("**** bottom of stack ***\n");
     if (!c->Handle(symtab, request, stack)) {
-        printf("\nerror:\tcontroller failed to load and execute request\n\n");
+        oerr->Write("\nerror:\tcontroller failed to load and execute request\n\n");
         return 2;
     }
     //stack->PushText("**** top--- of stack ***\n");
 
     if (!stack->Render(os, os)) {
-        printf("\nerror:\tunable to render the stack\n\n");
+        oerr->Write("\nerror:\tunable to render the stack\n\n");
         return 2;
     }
 
 	if (os) {
 		delete os;
 	}
-
-	if (fpOutput) {
-		fclose(fpOutput);
-	}
+    if (oerr) {
+        delete oerr;
+    }
+    if (olog) {
+        delete olog;
+    }
 
 	return 0;
 }

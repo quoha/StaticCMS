@@ -59,10 +59,6 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--path-info=/Users/mdhender/Software/xcode/static/static/static/data/article0001"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "--cgi=false"
             isEnabled = "YES">
          </CommandLineArgument>
@@ -71,7 +67,15 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "--input=index.txt"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "--root-output=/Users/mdhender/Software/xcode/static/static/static/data/public/"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--output=index.html"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

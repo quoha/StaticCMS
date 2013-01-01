@@ -12,7 +12,7 @@
 NFTM::Request::Request(NFTM::Text *url) {
 	argv    = 0;
 	symtab  = new NFTM::SymbolTable();
-	request = StrDup(url->IsNull() ? "/" : url->text);
+	request = StrDup(!url || url->IsNull() ? "/" : url->text);
     
 	// split the url at the question mark
 	//
