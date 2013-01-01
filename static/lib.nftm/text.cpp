@@ -104,22 +104,26 @@ NFTM::Text::Text(NFTM::Text *text_) {
 //   creates object as a concat of text1 and text2
 //
 NFTM::Text::Text(NFTM::Text *text1, NFTM::Text *text2) {
-    // if the pointer is null or it's data is null, force the pointer to null
-    //
-    text1 = (text1 && !text1->isNull) ? text1 : 0;
+    isNull    = true;
+    isTainted = false;
 
-    // if the pointer is null or it's data is null, force the pointer to null
-    //
-    text2 = (text2 && !text2->isNull) ? text2 : 0;
+    if (text1) {
+        if (!text1->isNull) {
+            isNull = false;
+        }
+        if (text1->isTainted) {
+            isTainted = true;
+        }
+    }
+    if (text2) {
+        if (!text2->isNull) {
+            isNull = false;
+        }
+        if (text2->isTainted) {
+            isTainted = true;
+        }
+    }
 
-    // both must be null for isNull to be true
-    //
-    isNull    = (text1 || text2) ? false : true;
-    
-    // if either is tainted, then the concatenation is tainted
-    //
-    isTainted = (text1 && text1->isTainted) || (text2 && text2->isTainted) ? true  : false;
-    
     if (isNull) {
         text    = new char[1];
         text[0] = 0;
@@ -209,11 +213,14 @@ NFTM::Text::Text(NFTM::Text *fileName_, bool forceNewLine, bool trimTrailingNewl
             isNull = false;
             
             if (forceNewLine) {
-                if (text[actLength - 1] != '\n') {
+                if (actLength == 0) {
+                    text[0] = '\n';
+                    text[1] = 0;
+                } else if (text[actLength - 1] != '\n') {
                     text[actLength    ] = '\n';
                 }
             } else if (trimTrailingNewline) {
-                if (text[actLength - 1] != '\n') {
+                if (actLength > 0 && text[actLength - 1] != '\n') {
                     text[actLength - 1] = 0;
                 }
             }
@@ -227,4 +234,5 @@ NFTM::Text::Text(NFTM::Text *fileName_, bool forceNewLine, bool trimTrailingNewl
 //
 NFTM::Text::~Text() {
 	delete [] text;
+    text = 0;
 }

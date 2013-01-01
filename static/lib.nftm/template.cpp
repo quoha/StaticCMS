@@ -34,12 +34,12 @@ NFTM::TemplateFile::~TemplateFile() {
 // Load()
 //
 NFTM::AST *NFTM::TemplateFile::Load(void) {
-    delete [] data;
+    delete data;
     data = new NFTM::Text(fileName, true, true);
     
     NFTM::AST *ast = AST::Parse(data);
     
-    delete [] data;
+    delete data;
     data = 0;
     
     return ast;
