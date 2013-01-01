@@ -1,9 +1,10 @@
-#ifndef   NFTM_static_src_bin_static_Util_HPP
-#define   NFTM_static_src_bin_static_Util_HPP
+#ifndef   NFTM_static_src_bin_static_lib_nftm_Util_HPP
+#define   NFTM_static_src_bin_static_lib_nftm_Util_HPP
 
 namespace NFTM {
     
     char *AbsPath(char *path);
+    char *LoadFile(const char *fileName, bool trimTrailingNewLine);
     char *StrCat(const char *s1, const char *s2);
     char *StrCat(const char *s1, const char *s2, const char *s3);
     char *StrCat(const char *s1, const char *s2, const char *s3, const char *s4);
@@ -15,4 +16,4 @@ namespace NFTM {
     
 } // namespace NFTM
 
-#endif // NFTM_static_src_bin_static_Util_HPP
+#endif // NFTM_static_src_bin_static_lib_nftm_Util_HPP

@@ -4,6 +4,7 @@
 #include "../lib.nftm/SymbolTable.hpp"
 #include "../lib.nftm/Variable.hpp"
 #include <stdio.h>
+#include <cstring>
 
 //============================================================================
 // PostModel(symtab)
@@ -39,10 +40,28 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
     symtab->Add(new NFTM::VarText("page_title"  , "Hello, World!"));
 
     // turn the request into a file path
+    //
+    int length = 1;
     for (int idx = 0; request->argv[idx]; idx++) {
-        printf("%d %s%s", idx, request->argv[idx], request->argv[idx] ? "/" : "\n");
+        length += (std::strlen(request->argv[idx]) + 1);
     }
-    printf("\n");
+    const char *pathSeparator = "/";
+    char newPath[length];
+    newPath[0] = 0;
+    for (int idx = 0; request->argv[idx]; idx++) {
+        std::strcat(newPath, request->argv[idx]);
+
+        // need a path separator for most entries except the very
+        // last one and the first one, if it is a path separator
+        //
+        if (request->argv[idx+1]) {
+            if (idx == 0 && request->argv[idx][0] == pathSeparator[0]) {
+                // already there
+            } else {
+                std::strcat(newPath, pathSeparator);
+            }
+        }
+    }
     
     // add two articles
     NFTM::Stack *result = new NFTM::Stack;
