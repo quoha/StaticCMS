@@ -2,9 +2,11 @@
 #include "../lib.nftm/Request.hpp"
 #include "../lib.nftm/Stack.hpp"
 #include "../lib.nftm/SymbolTable.hpp"
+#include "../lib.nftm/Util.hpp"
 #include "../lib.nftm/Variable.hpp"
 #include <stdio.h>
 #include <cstring>
+#include <ctype.h>
 
 //============================================================================
 // PostModel(symtab)
@@ -23,22 +25,23 @@ NFTM::PostModel::~PostModel() {
 
 //============================================================================
 // Pull(request)
-//      <posting
-//        var value
-//      />
-//      rawText<endSlug />rawText
+//      ~~~
+//      var value
+//      ~~~
+//      rawText
 //
 bool NFTM::PostModel::Pull(NFTM::Request *request) {
     if (!symtab) {
         return false;
     }
 
-    // default some values
-    //
-    symtab->Add(new NFTM::VarText("//model_name", "PostModel_FlatFile"));
-    symtab->Add(new NFTM::VarText("site_name"   , "StaticCMS"));
-    symtab->Add(new NFTM::VarText("page_title"  , "Hello, World!"));
-
+    char *articleText  = 0;
+    char *articleTitle = 0;
+    char *author       = 0;
+    char *modelName    = "PostModel_FlatFile";
+    char *pageTitle    = 0;
+    char *siteName     = "StaticCMS";
+    
     // turn the request into a file path
     //
     int length = 1;
@@ -46,7 +49,7 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
         length += (std::strlen(request->argv[idx]) + 1);
     }
     const char *pathSeparator = "/";
-    char newPath[length];
+    char *newPath = new char[length + 1];
     newPath[0] = 0;
     for (int idx = 0; request->argv[idx]; idx++) {
         std::strcat(newPath, request->argv[idx]);
@@ -62,29 +65,69 @@ bool NFTM::PostModel::Pull(NFTM::Request *request) {
             }
         }
     }
+
+    char *sourceData = LoadFile(newPath, false);
+    delete [] newPath;
     
-    // add two articles
-    NFTM::Stack *result = new NFTM::Stack;
-    symtab->Add(new NFTM::VarStack("recent_posts", result));
+    if (sourceData) {
+        char *line = sourceData;
+        if (line[0] == '~' && line[1] == line[0] && line[2] == line[0] && line[3] == '\n') {
+            // ~~~ is start of article data
+            line += 4;
+            while (*line) {
+                char *text     = line;
+                char *nextLine = line;
+                while (*nextLine && *nextLine != '\n') {
+                    nextLine++;
+                }
+                if (*nextLine) {
+                    *(nextLine++) = 0;
+                }
+                line = nextLine;
+
+                if (text[0] == '~' && text[1] == text[0] && text[2] == text[0] && text[3] == 0) {
+                    // ~~~ is end of article data
+                    break;
+                }
+
+                // skip whitespace
+                //
+                char *name = text;
+                while (*name && isspace(*name)) {
+                    *(name++) = 0;
+                }
+                char *value = name;
+                while (*value && !isspace(*value)) {
+                    *(value++) = 0;
+                }
+
+                if (*name) {
+                    if (std::strcmp(name, "title") == 0) {
+                        articleTitle = value;
+                        if (!pageTitle) {
+                            pageTitle = articleTitle;
+                        }
+                    } else if (std::strcmp(name, "author") == 0) {
+                        author = value;
+                    } else if (std::strcmp(name, "page_title") == 0) {
+                        pageTitle = value;
+                    } else {
+                        symtab->Add(new NFTM::VarText(name, value));
+                    }
+                }
+            }
+            articleText = line;
+        }
+    }
+
+    symtab->Add(new NFTM::VarText("article_title", articleTitle));
+    symtab->Add(new NFTM::VarText("article_text" , articleText));
+    symtab->Add(new NFTM::VarText("author"       , author));
+    symtab->Add(new NFTM::VarText("page_title"   , pageTitle));
+    symtab->Add(new NFTM::VarText("//model_name" , modelName));
+    symtab->Add(new NFTM::VarText("site_name"    , siteName));
     
-    //  article id 2
-    //          publish date "today"
-    //          title "Article 2"
-    NFTM::Stack *row;
-    row = new NFTM::Stack;
-    row->PushText("2");
-    row->PushText("today");
-    row->PushText("Article 2");
-    result->PushStack(row);
-    
-    //  article id 7
-    //          publish date "2012/10/13"
-    //          title "Halloween Madness"
-    row = new NFTM::Stack;
-    row->PushText("7");
-    row->PushText("2012/10/13");
-    row->PushText("Halloween Madness");
-    result->PushStack(row);
+    delete [] sourceData;
     
 	return true;
 }

@@ -13,9 +13,7 @@ NFTM::AST::AST(astKind kind_, const char *data_, int length) {
     kind = kind_;
     next = prev = 0;
     branchThen = branchElse = 0;
-    if (data_) {
-        data = NFTM::StrDup(data_, length);
-    }
+    data = data_ ? NFTM::StrDup(data_, length) : 0;
     variable = 0;
     function = 0;
 }
@@ -33,16 +31,16 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
     }
 
     NFTM::OutputStream *errlog = symtab->ErrorLog();
-    if (errlog) {
-        errlog->Write("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-    }
+    //if (errlog) {
+    //    errlog->Write("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+    //}
     
     NFTM::AST *ast = this;
     
     while (ast) {
-        if (errlog) {
-            errlog->Write("ast->kind is %d %s\n", ast->kind, ast->data);
-        }
+        //if (errlog) {
+        //    errlog->Write("ast->kind is %d %s\n", ast->kind, ast->data ? ast->data : "(((null)))");
+        //}
         
         if (ast->kind == astNOOP) {
             ast = ast->next;
@@ -76,9 +74,9 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             if (ast->function) {
                 // execute the function. it will push its results onto the stack
                 //
-                if (errlog) {
-                    errlog->Write("ast->function is %s\n", ast->data);
-                }
+                //if (errlog) {
+                //    errlog->Write("ast->function is %s\n", ast->data);
+                //}
 
                 if (!ast->function->Execute(symtab, stack)) {
                     if (errlog) {
@@ -167,10 +165,6 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             errlog->Write("\tast->kind is %d\n\n", ast->kind);
         }
         return false;
-    }
-
-    if (errlog) {
-        errlog->Write("%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
     }
 
     return true;
