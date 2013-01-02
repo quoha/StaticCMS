@@ -36,7 +36,6 @@ int main(int argc, char *argv[]) {
     NFTM::Text *rootInput    = new NFTM::Text("./");
     NFTM::Text *rootOutput   = new NFTM::Text("./");
     NFTM::OutputStream *obuf = 0;
-	NFTM::OutputStream *os   = new NFTM::OutputStream("stdout");
     NFTM::OutputStream *oerr = new NFTM::OutputStream("stderr");
     NFTM::OutputStream *olog = new NFTM::OutputStream("stderr");
 
@@ -72,7 +71,7 @@ int main(int argc, char *argv[]) {
             }
             olog->Write(" info:\tturning CGI mode %s\n", useCGI ? "on" : "off");
 		} else if (NFTM::StrCmp(opt, "--dump-env")) {
-			symtab->Dump(os, true, true);
+			symtab->Dump(olog, true, true);
 		} else if (NFTM::StrCmp(opt, "--input") && val && *val) {
             if (useCGI) {
                 oerr->Write("\nerror:\tyou may not specify an input file when using CGI\n\n");
@@ -84,12 +83,6 @@ int main(int argc, char *argv[]) {
             }
             inputFile = new NFTM::Text(val);
             olog->Write(" info:\t%-20s == '%s'\n", "inputFile", val);
-		} else if (NFTM::StrCmp(opt, "--output") && val && *val) {
-			os->Redirect(val);
-			if (os->ErrorMessage()) {
-				fprintf(stderr, "%s: %s\n", val, os->ErrorMessage());
-				return 2;
-			}
         } else if (NFTM::StrCmp(opt, "--no-cgi")) {
             useCGI = false;
             olog->Write(" info:\tturning CGI mode off\n");
@@ -171,14 +164,26 @@ int main(int argc, char *argv[]) {
 	}
 
     if (useCGI) {
+        // do something when running on the web
+        //
         cgi = new NFTM::CGI();
         cgi->GetEnv("/", argv[0]);
         cgi->ExportToSymTab(symtab);
         pathInfo = cgi->PATH_INFO();
         olog->Write("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
         olog->Write("\n");
+    } else {
+        // do something when running from the command line
+        //
+        if (!outputFile) {
+            outputFile = new NFTM::Text("stdout");
+        }
     }
 
+    obuf = new NFTM::OutputStream(outputFile);
+
+    // start using the library code to do something useful
+    //
 	NFTM::Router         router;
 	NFTM::PostController post;
 
@@ -211,20 +216,16 @@ int main(int argc, char *argv[]) {
     }
     //stack->PushText("**** top--- of stack ***\n");
 
-    if (!stack->Render(os, os)) {
+    if (stack->Render(obuf, oerr)) {
+        olog->Write("\n info:\tsuccessfully rendered the stack\n\n");
+    } else {
         oerr->Write("\nerror:\tunable to render the stack\n\n");
         return 2;
     }
 
-	if (os) {
-		delete os;
-	}
-    if (oerr) {
-        delete oerr;
-    }
-    if (olog) {
-        delete olog;
-    }
-
+    delete obuf;
+    delete olog;
+    delete oerr;
+    
 	return 0;
 }

@@ -15,6 +15,7 @@ namespace NFTM {
         Text(Text *fileName, bool forceNewLine, bool trimTrailingNewline);
         ~Text();
         
+        bool Equals(const char *str) const;
         bool IsNull(void) const {
             return isNull;
         }

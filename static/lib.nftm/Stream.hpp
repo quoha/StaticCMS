@@ -21,19 +21,21 @@ public:
 class OutputStream {
 public:
 	OutputStream(const char *fileName);
+	OutputStream(class Text *fileName);
 	~OutputStream();
 
 	bool        Close(void);
-	const char *ErrorMessage(void) const { return errmsg; }
+	class Text *ErrorMessage(void) const { return errmsg; }
 	bool        Flush(void);
 	bool        IsValid(void) const { return errmsg ? false : true; }
 	bool        LogVar(class Variable *var);
-	bool        Open(const char *fileName);
-	bool        Redirect(const char *fileName);
+	bool        Open(class Text *fileName);
+	bool        Redirect(class Text *fileName);
 	bool        Write(const char *fmt, ...);
 
+    class Text *fileName;
 	void       *data;
-	const char *errmsg;
+	class Text *errmsg;
 }; // class OutputStream
 
 } // namespace NFTM

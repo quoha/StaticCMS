@@ -4,6 +4,15 @@
 #include <sys/stat.h>
 
 //============================================================================
+// ~Text()
+//   deletes object
+//
+NFTM::Text::~Text() {
+	delete [] text;
+    text = 0;
+}
+
+//============================================================================
 // Text()
 //   creates blank object
 //
@@ -229,10 +238,14 @@ NFTM::Text::Text(NFTM::Text *fileName_, bool forceNewLine, bool trimTrailingNewl
 }
 
 //============================================================================
-// ~Text()
-//   deletes object
+// Equals(str)
 //
-NFTM::Text::~Text() {
-	delete [] text;
-    text = 0;
+// NOTE null never equals null
+//
+bool NFTM::Text::Equals(const char *str) const {
+    if (isNull || !str || !text || std::strcmp(text, str) != 0) {
+        return false;
+    }
+
+    return true;
 }
