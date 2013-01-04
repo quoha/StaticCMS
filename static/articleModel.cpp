@@ -20,7 +20,7 @@ bool NFTM::ArticleModel::Pull(void) {
         symtab->Add(articleTitle);
     }
 
-    entry = symtab->Lookup("articleTitle");
+    entry = symtab->Lookup("pageTitle");
     if (entry && entry->kind == steVariable) {
         pageTitle = entry->u.variable;
     }

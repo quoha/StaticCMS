@@ -220,5 +220,30 @@ const char *NFTM::Variable::Kind(void) const {
 //============================================================================
 //
 bool NFTM::Variable::Render(class OutputStream *os) const {
-    return false;
+	switch (kind) {
+        case vtBOOLEAN:
+            os->Write("%s", u.boolean ? "true" : "false");
+            break;
+        case vtFUNCTION:
+            os->Write("<!-- variable.render.function(%s) -->", u.function->Name());
+            break;
+        case vtNULL:
+            break;
+        case vtNUMBER:
+            os->Write("%d", u.number);
+            break;
+        case vtSTACK:
+            os->Write("<!-- variable.render.stack -->");
+            break;
+        case vtTEXT:
+            os->Write(u.text);
+            break;
+        case vtOTHER:
+            os->Write("<!-- variable.render.other -->");
+            break;
+        default:
+            os->Write("<!-- variable.render.%d -->", kind);
+            return false;
+	}
+    return true;
 }

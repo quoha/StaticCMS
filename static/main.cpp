@@ -139,6 +139,7 @@ int main(int argc, char *argv[]) {
     //
     symtab->Add(new NFTM::Variable("siteTitle" , new NFTM::Text("StaticCMS")));
     symtab->Add(new NFTM::Variable("siteSlogan", new NFTM::Text("moss grows fat on a static stone")));
+    symtab->Add(new NFTM::Variable("cssDir"    , new NFTM::Text("css/")));
     
     // let us assume a default template directory
     //
@@ -169,6 +170,7 @@ int main(int argc, char *argv[]) {
     //
     NFTM::Text *inputVariables = input->PullVariables();
     NFTM::Text *inputText      = input->PullText();
+    symtab->Add(new NFTM::Variable("articleText", inputText));
 
     // add the variables from the input file to our symbol table
     //
@@ -217,6 +219,7 @@ int main(int argc, char *argv[]) {
     NFTM::Stack *stack = new NFTM::Stack;
     if (!controller->Handle(symtab, stack)) {
         oerr->Write("\nerror:\tcontroller failed to load and execute request\n\n");
+        symtab->Dump(olog, true, true);
         return 2;
     }
 

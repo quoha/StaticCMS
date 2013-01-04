@@ -1,0 +1,5 @@
+<div class="container showgrid">
+<billy 'template/banner' include />
+<billy 'template/content' include />
+<billy 'template/footer' include />
+</div><!-- container -->

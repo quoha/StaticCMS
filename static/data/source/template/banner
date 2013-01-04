@@ -1,0 +1,9 @@
+  <div id="banner" class="span-24 last">
+    <div class="box">
+      <h1><a href="/index.html">downtroddenville</a></h1>
+    </div><!-- box -->
+  </div><!-- banner -->
+  <hr />
+
+<billy 'template/thisStrip' include />
+

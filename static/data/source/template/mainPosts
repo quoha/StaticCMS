@@ -1,0 +1,3 @@
+    <div id="mainPosts" class="span-17 colborder">
+<billy 'template/singlePost' include />
+    </div><!-- mainPosts -->

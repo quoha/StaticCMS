@@ -61,7 +61,7 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             //   text
             //   missing
             //
-            if (!ast->variable && !ast->function) {
+            if (!ast->variable && !ast->function && !ast->text) {
                 NFTM::SymbolTableEntry *entry = symtab->Lookup(ast->data);
                 if (entry && entry->kind == steFunction) {
                     ast->function = entry->u.function;
@@ -100,7 +100,7 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
             } else {
                 if (errlog) {
                     errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-                    errlog->Write("\tword '%s' is not defined\n", ast->data);
+                    errlog->Write("\tword '%s' is not defined - %d\n", ast->data, ast->kind);
                 }
                 return false;
             }

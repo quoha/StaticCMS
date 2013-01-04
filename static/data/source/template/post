@@ -1,0 +1,6 @@
+        <h3 class="loud"><billy articleTitle /></h3>
+          <div class="quiet"><abbr><billy publishDate /></abbr></div>
+
+<billy articleText />
+
+          <p><center><a href="/index.html"><img src="/img/thumb00001.png" width="152" height="114" alt="StaticCMS" /></a></center></p>      

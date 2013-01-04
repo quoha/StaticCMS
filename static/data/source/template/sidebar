@@ -1,0 +1,38 @@
+    <div id="sidebar" class="span-6 last">
+
+      <div id="navigation" class="prepend-top">
+        <h3 class="caps">navigation</h3>
+          <ul>
+            <li><a href="/index.html">home</a></li>
+          </ul>
+      </div><!-- navigation -->
+
+      <div id="recent-posts" class="prepend-top">
+        <h3 class="caps">recent posts</h3>
+          <ul>
+<li><a href="/2011/01/31/no-fishing/index.html" title="No Fishing">No Fishing</a></li><li><a href="/2010/09/16/move-over-beethoven/index.html" title="move over, beethoven">move over, beethoven</a></li><li><a href="/2010/09/15/the-book-of-eli/index.html" title="the book of eli">the book of eli</a></li>          </ul>
+      </div><!-- recent-posts -->
+
+      <div id="archives" class="prepend-top">
+        <h3 class="caps">archives</h3>
+          <ul>
+            	<li><a href='/2011/01/index.html' title='January 2011'>January 2011</a>&nbsp;(1)</li>
+	<li><a href='/2010/09/index.html' title='September 2010'>September 2010</a>&nbsp;(2)</li>
+	<li><a href='/2010/07/index.html' title='July 2010'>July 2010</a>&nbsp;(1)</li>
+	<li><a href='/2010/06/index.html' title='June 2010'>June 2010</a>&nbsp;(4)</li>
+	<li><a href='/2010/05/index.html' title='May 2010'>May 2010</a>&nbsp;(4)</li>
+	<li><a href='/2010/04/index.html' title='April 2010'>April 2010</a>&nbsp;(5)</li>
+	<li><a href='/2010/03/index.html' title='March 2010'>March 2010</a>&nbsp;(7)</li>
+          </ul>
+      </div><!-- archives -->
+
+      <div id="pages" class="prepend-top">
+        <h3 class="caps">pages</h3>
+          <ul>
+            <li class="page_item page-item-2"><a href="/about/index.html">About</a></li>
+<li class="page_item page-item-23"><a href="/archives/index.html">Archives</a></li>
+<li class="page_item page-item-26"><a href="/privacy-policy/index.html">Privacy Policy</a></li>
+          </ul>
+      </div><!-- pages -->
+
+    </div><!-- sidebar -->

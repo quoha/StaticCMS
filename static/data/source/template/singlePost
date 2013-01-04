@@ -1,0 +1,12 @@
+      <!-- single posts go here. format is +span-1+gutter+span-15+text+hr+ -->
+      <div id="gutter-3" class="span-1 colborder">
+        <p><br /></p>
+      </div><!-- gutter-3 -->
+
+      <div id="post-3" class="span-15 last">
+<billy 'template/post' include />
+      </div><!-- post-3 -->
+
+      <hr />
+
+      <!-- end of single posts -->
