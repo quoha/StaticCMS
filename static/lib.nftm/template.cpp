@@ -1,7 +1,9 @@
 #include "Template.hpp"
 #include "AST.hpp"
+#include "Stream.hpp"
 #include "Text.hpp"
 #include "Util.hpp"
+#include <stdio.h>
 
 //---------------------------------------------------------------------------
 //
@@ -33,11 +35,20 @@ NFTM::TemplateFile::~TemplateFile() {
 //---------------------------------------------------------------------------
 // Load()
 //
-NFTM::AST *NFTM::TemplateFile::Load(void) {
+NFTM::AST *NFTM::TemplateFile::Load(NFTM::OutputStream *os) {
     delete data;
     data = new NFTM::Text(fileName, true, true);
+    if (!data || data->text == 0) {
+        perror(fileName->text);
+        if (os) {
+            os->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
+            os->Write("\tunable to open template file for reading\n");
+            os->Write("\t%-20s == '%s'\n\n", "templateFile", fileName->text);
+        }
+        return 0;
+    }
     
-    NFTM::AST *ast = AST::Parse(data);
+    NFTM::AST *ast = AST::Parse(data, os);
     
     delete data;
     data = 0;
@@ -62,6 +73,6 @@ NFTM::TemplateText::~TemplateText() {
 //---------------------------------------------------------------------------
 // Load()
 //
-NFTM::AST *NFTM::TemplateText::Load(void) {
-    return AST::Parse(text);
+NFTM::AST *NFTM::TemplateText::Load(NFTM::OutputStream *os) {
+    return AST::Parse(text, os);
 }

@@ -20,7 +20,7 @@ namespace NFTM {
         Model(class SymbolTable *symtab);
         ~Model();
 
-        virtual bool Pull(class Request *request);
+        virtual bool Pull(void);
         virtual bool Push(class Stack *stack, const char *word);
         
         class SymbolTable *symtab;

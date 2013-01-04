@@ -3,6 +3,6 @@
 //============================================================================
 // Pull(request)
 //
-bool NFTM::Model::Pull(NFTM::Request *request) {
+bool NFTM::Model::Pull(void) {
 	return false;
 }

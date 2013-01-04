@@ -32,6 +32,7 @@ public:
 	bool        Open(class Text *fileName);
 	bool        Redirect(class Text *fileName);
 	bool        Write(const char *fmt, ...);
+    bool        Write(class Text *text);
 
     class Text *fileName;
 	void       *data;

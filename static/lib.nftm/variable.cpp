@@ -114,6 +114,22 @@ NFTM::Variable::Variable(const char *name_, NFTM::VarNumber *varNumber) {
 }
 
 //============================================================================
+//
+NFTM::Variable::Variable(const char *name_, NFTM::Variable *variable) {
+    if (name_) {
+        StrCopy(name, name_, maxNameLength);
+    } else {
+        sprintf(name, ".%p", this);
+    }
+
+    isNull    = variable->isNull;
+    isTainted = variable->isTainted;
+    kind      = variable->kind;
+    u.null    = variable->u.null;
+}
+
+
+//============================================================================
 // ~Variable()
 //   deletes object
 //

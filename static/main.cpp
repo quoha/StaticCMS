@@ -12,12 +12,10 @@
 //  3. recursive template references
 //  4. "map" operator
 
-// TODO
-//  * subclass Variables instead of using union
-
 #include "local.hpp"
 #include "lib.nftm/Stack.hpp"
 #include "lib.nftm/SymbolTable.hpp"
+#include "ArticleController.hpp"
 #include <stdio.h>
 
 #define DNL fprintf(stderr, "%s: %d\n", __FILE__, __LINE__);
@@ -25,14 +23,8 @@
 int main(int argc, char *argv[]) {
 	stderr = stdout;
 
-    // must be very careful about stdout when using CGI
-    //
-    bool        useCGI     = true;
-
-    NFTM::CGI  *cgi          = 0;
     NFTM::Text *inputFile    = 0;
     NFTM::Text *outputFile   = 0;
-    NFTM::Text *pathInfo     = 0;
     NFTM::Text *rootInput    = new NFTM::Text("./");
     NFTM::Text *rootOutput   = new NFTM::Text("./");
     NFTM::OutputStream *obuf = 0;
@@ -58,34 +50,15 @@ int main(int argc, char *argv[]) {
 
 		if (NFTM::StrCmp(opt, "--help")) {
 			return 2;
-        } else if (NFTM::StrCmp(opt, "--cgi")) {
-            if (!val || !*val) {
-                useCGI = true;
-            } else if (NFTM::StrCmp(val, "no") || NFTM::StrCmp(val, "false")) {
-                useCGI = false;
-            } else if (NFTM::StrCmp(val, "yes") || NFTM::StrCmp(val, "true")) {
-                useCGI = true;
-            } else {
-                oerr->Write("\nerror:\tflag for %s must be yes, no, true or false\n\n", opt);
-                return 2;
-            }
-            olog->Write(" info:\tturning CGI mode %s\n", useCGI ? "on" : "off");
 		} else if (NFTM::StrCmp(opt, "--dump-env")) {
 			symtab->Dump(olog, true, true);
 		} else if (NFTM::StrCmp(opt, "--input") && val && *val) {
-            if (useCGI) {
-                oerr->Write("\nerror:\tyou may not specify an input file when using CGI\n\n");
-                return 2;
-            }
             if (inputFile) {
                 oerr->Write("\nerror:\tyou may only specify one input file\n\n");
                 return 2;
             }
             inputFile = new NFTM::Text(val);
             olog->Write(" info:\t%-20s == '%s'\n", "inputFile", val);
-        } else if (NFTM::StrCmp(opt, "--no-cgi")) {
-            useCGI = false;
-            olog->Write(" info:\tturning CGI mode off\n");
 		} else if (NFTM::StrCmp(opt, "--output") && val && *val) {
             if (outputFile) {
                 oerr->Write("\nerror:\tyou may only specify one output file\n\n");
@@ -93,9 +66,6 @@ int main(int argc, char *argv[]) {
             }
             outputFile = new NFTM::Text(val);
             olog->Write(" info:\t%-20s == '%s'\n", "outputFile", val);
-		} else if (NFTM::StrCmp(opt, "--path-info")) {
-            delete pathInfo;
-            pathInfo = new NFTM::Text(val);
 		} else if (NFTM::StrCmp(opt, "--root-input") && val && *val) {
             olog->Write(" info:\t%-20s == '%s'\n", "rootInput", val);
             delete rootInput;
@@ -104,9 +74,6 @@ int main(int argc, char *argv[]) {
             olog->Write(" info:\t%-20s == '%s'\n", "rootOutput", val);
             delete rootOutput;
             rootOutput = new NFTM::Text(val);
-        } else if (NFTM::StrCmp(opt, "--variable") && useCGI) {
-            oerr->Write("\nerror:\tyou can't override variables in CGI mode\n\n");
-            return 2;
 		} else if (NFTM::StrCmp(opt, "--variable") && val && *val) {
 			char *name  = val;
 			char *value = val;
@@ -163,58 +130,95 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-    if (useCGI) {
-        // do something when running on the web
-        //
-        cgi = new NFTM::CGI();
-        cgi->GetEnv("/", argv[0]);
-        cgi->ExportToSymTab(symtab);
-        pathInfo = cgi->PATH_INFO();
-        olog->Write("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
-        olog->Write("\n");
-    } else {
-        // do something when running from the command line
-        //
-        if (!outputFile) {
-            outputFile = new NFTM::Text("stdout");
-        }
-    }
-
-    obuf = new NFTM::OutputStream(outputFile);
-
-    // start using the library code to do something useful
-    //
-	NFTM::Router         router;
-	NFTM::PostController post;
-
-	// default is used if no other controllers accept the route
-	//
-	router.DefaultController(new NFTM::DefaultController);
-
-	// add the controllers in FIFO order
-	//
-	router.AddController(&post);
-
-	NFTM::Request    *request  = new NFTM::Request(pathInfo);
-	NFTM::Controller *c        = router.Route(request);
-
-    if (!c) {
-        oerr->Write("\nerror:\tunable to find controller for route\n");
-        oerr->Write("\t%-20s == '%s'\n", "PATH_INFO", pathInfo->text);
-        oerr->Write("\n");
+    if (!inputFile) {
+        oerr->Write("\nerror:\tyou must specify an input file to process\n\n");
         return 2;
     }
+
+    // add site variables
+    //
+    symtab->Add(new NFTM::Variable("siteTitle" , new NFTM::Text("StaticCMS")));
+    symtab->Add(new NFTM::Variable("siteSlogan", new NFTM::Text("moss grows fat on a static stone")));
+    
+    // let us assume a default template directory
+    //
+    symtab->Add(new NFTM::Variable("templatePath", rootInput));
+    
+    // let us assume a default controller
+    //
+    symtab->Add(new NFTM::Variable("controller", new NFTM::Text("default")));
+
+    NFTM::Text *fileName = new NFTM::Text(rootInput, inputFile);
+    olog->Write(" info:\t%-20s == '%s'\n", "inputFileName", fileName->text);
+    
+    // read the file
+    //
+    NFTM::Text *input = new NFTM::Text(fileName, true, false);
+    if (!input || !input->text) {
+        perror(fileName->text);
+        return 2;
+    }
+
+    // file format is
+    //  ~~~
+    //    variables
+    //  ~~~
+    //    text
+    //
+    // split the text file into the two sections
+    //
+    NFTM::Text *inputVariables = input->PullVariables();
+    NFTM::Text *inputText      = input->PullText();
+
+    // add the variables from the input file to our symbol table
+    //
+    symtab->AddVariables(inputVariables);
+
+    NFTM::SymbolTableEntry *inputControllerName = symtab->Lookup("controller");
+    if (!inputControllerName) {
+        oerr->Write("\nerror:\tunable to determine controller\n\n");
+        return 2;
+    } else if (inputControllerName->kind != NFTM::steVariable) {
+        oerr->Write("\nerror:\tcontroller is wrong type - %d\n\n", inputControllerName->kind);
+        return 2;
+    }
+
+    NFTM::Variable *varController = inputControllerName->u.variable;
+    if (!varController->IsText()) {
+        oerr->Write("\nerror:\tcontroller is not a text variable - %d\n", varController->kind);
+        oerr->Write("\t%-20s == '%s'\n\n", "variableType", varController->Kind());
+        return 2;
+    }
+
+    // this switch statement has to be changed for every install
+    //
+    NFTM::Controller *controller = 0;
+    if (varController->u.text->Equals("article")) {
+        controller = new NFTM::ArticleController(rootInput);
+    }
+
+    if (!controller) {
+        oerr->Write("\nerror:\tunknown controller type '%s'\n\n", varController->u.text->text);
+        return 2;
+    }
+    
+    obuf = new NFTM::OutputStream(new NFTM::Text(rootOutput, outputFile));
+    if (obuf->errmsg) {
+        oerr->Write("\nerror:\tunable to create output file\n");
+        oerr->Write("\t%-20s == '%s'\n", "fileName", obuf->fileName->text);
+        oerr->Write("\t%-20s == '%s'\n", "errorMessage", obuf->errmsg->text);
+        return 2;
+    }
+    oerr->Write("\t%-20s == '%s'\n", "fileName", obuf->fileName->text);
 
     // Handle processes the view and returns a Stack with
     // the output
     //
     NFTM::Stack *stack = new NFTM::Stack;
-    //stack->PushText("**** bottom of stack ***\n");
-    if (!c->Handle(symtab, request, stack)) {
+    if (!controller->Handle(symtab, stack)) {
         oerr->Write("\nerror:\tcontroller failed to load and execute request\n\n");
         return 2;
     }
-    //stack->PushText("**** top--- of stack ***\n");
 
     if (stack->Render(obuf, oerr)) {
         olog->Write("\n info:\tsuccessfully rendered the stack\n\n");
@@ -222,7 +226,7 @@ int main(int argc, char *argv[]) {
         oerr->Write("\nerror:\tunable to render the stack\n\n");
         return 2;
     }
-
+    
     delete obuf;
     delete olog;
     delete oerr;

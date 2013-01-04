@@ -1,8 +1,10 @@
 #include "SymbolTable.hpp"
 #include "Function.hpp"
 #include "Stream.hpp"
+#include "Text.hpp"
 #include "Util.hpp"
 #include "Variable.hpp"
+#include <ctype.h>
 #include <cstring>
 
 //============================================================================
@@ -105,6 +107,53 @@ NFTM::SymbolTableEntry *NFTM::SymbolTable::Add(NFTM::Variable *variable) {
 }
 
 //============================================================================
+// AddVariables(text)
+//
+// NOTE - overwrites data in the input text
+//
+void NFTM::SymbolTable::AddVariables(NFTM::Text *text) {
+    char *s = text->text;
+
+    while (*s) {
+        // skip leading spaces on the current line
+        //
+        while (*s && isspace(*s)) {
+            *(s++) = 0;
+        }
+
+        char *name = s;
+
+        // advance to end of name
+        //
+        while (*s && !isspace(*s)) {
+            s++;
+        }
+
+        // advance to start of value
+        //
+        while (*s && *s != '\n' && isspace(*s)) {
+            *(s++) = 0;
+        }
+
+        char *value = s;
+        
+        // advance to end of value
+        //
+        while (*s && *s != '\n') {
+            s++;
+        }
+
+        if (*s) {
+            *(s++) = 0;
+        }
+        
+        if (*name) {
+            Add(new NFTM::Variable(name, new NFTM::Text(value)));
+        }
+    }
+}
+
+//============================================================================
 // Dump()
 //
 void NFTM::SymbolTable::Dump(NFTM::OutputStream *os, bool showHash, bool showVar) const {
@@ -121,7 +170,7 @@ void NFTM::SymbolTable::Dump(NFTM::OutputStream *os, bool showHash, bool showVar
             }
             if (showHash) {
                 if (showVar) {
-                    os->Write("\thash value %16x\n", b->hashValue);
+                    os->Write("\thash value %16x %8d\n", b->hashValue, b->entry->kind);
                 } else {
                     os->Write("\thash value %16x %s\n", b->hashValue, b->entry->name);
                 }

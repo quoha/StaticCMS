@@ -23,6 +23,9 @@ namespace NFTM {
             return isTainted;
         }
 
+        Text *PullText(void) const;
+        Text *PullVariables(void) const;
+
         bool  isNull;
         bool  isTainted;
         char *text;

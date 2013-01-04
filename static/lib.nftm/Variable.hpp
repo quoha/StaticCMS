@@ -22,6 +22,7 @@ namespace NFTM {
         Variable(const char *name, class Text       *text);
         Variable(const char *name, class VarBoolean *varBoolean);
         Variable(const char *name, class VarNumber  *varNumber);
+        Variable(const char *name, Variable         *variable);
         ~Variable();
 
         bool Execute(class SymbolTable *symtab, class Stack *stack);

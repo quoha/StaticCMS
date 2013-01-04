@@ -41,6 +41,8 @@ namespace NFTM {
         SymbolTableEntry *Add(const char     *name    , class Text *text);
         SymbolTableEntry *Add(class Variable *variable);
         
+        void AddVariables(class Text *text);
+
         // find items in the table
         //
         SymbolTableEntry *Lookup(const char *name) const;

@@ -25,7 +25,7 @@ namespace NFTM {
 
         virtual bool Execute(class SymbolTable *symtab, class Stack *stack);
 
-        static AST *Parse(class Text *code);
+        static AST *Parse(class Text *code, class OutputStream *os);
     }; // class AST
     
 } // namespace NFTM

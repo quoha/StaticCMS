@@ -75,6 +75,7 @@ namespace NFTM {
         void       PushTop(StackItem *item);
 
         bool       CreateStack(void);
+        void       Dump(class OutputStream *os);
         
         int        height;
         StackItem *bottom;

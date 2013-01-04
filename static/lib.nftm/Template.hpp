@@ -14,7 +14,7 @@ namespace NFTM {
         Template(void);
         virtual ~Template();
 
-        virtual class AST *Load(void) = 0;
+        virtual class AST *Load(class OutputStream *os) = 0;
 
         class Text *data;
     }; // class Template
@@ -24,7 +24,7 @@ namespace NFTM {
         TemplateFile(class Text *fileName);
         ~TemplateFile();
 
-        class AST *Load(void);
+        class AST *Load(class OutputStream *os);
 
         class Text *fileName;
     }; // class TemplateFile
@@ -34,7 +34,7 @@ namespace NFTM {
         TemplateText(class Text *text);
         ~TemplateText();
         
-        class AST *Load(void);
+        class AST *Load(class OutputStream *os);
 
         class Text *text;
     }; // class TemplateText

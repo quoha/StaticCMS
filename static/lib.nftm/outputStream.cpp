@@ -29,9 +29,12 @@ NFTM::OutputStream::OutputStream(NFTM::Text *fileName_) {
 //============================================================================
 //
 NFTM::OutputStream::~OutputStream() {
-    delete errmsg;
-    delete fileName;
 	Close();
+
+    delete errmsg;
+    errmsg = 0;
+    delete fileName;
+    fileName = 0;
 }
 
 //============================================================================
@@ -148,6 +151,21 @@ bool NFTM::OutputStream::Write(const char *fmt, ...) {
 		va_start(ap, fmt);
 		vfprintf((FILE *)data, fmt, ap);
 		va_end(ap);
+	}
+    
+	return true;
+}
+
+//============================================================================
+// Write(fmt, ...)
+//
+bool NFTM::OutputStream::Write(NFTM::Text *text) {
+	if (!data) {
+		return false;
+	}
+
+	if (text && text->text && text->text[0]) {
+        fprintf((FILE *)data, "%s", text->text);
 	}
     
 	return true;

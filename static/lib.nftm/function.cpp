@@ -113,11 +113,12 @@ bool NFTM::Func_False::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 // that is pushed onto the current stack
 //
 bool NFTM::Func_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
+    NFTM::OutputStream *errlog = symtab->ErrorLog();
+
     if (stack) {
         NFTM::StackItem *t = stack->Pop();
         
         if (!t) {
-            NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
                 errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
                 errlog->Write("\tinclude requires at least one text item on the stack\n");
@@ -126,29 +127,43 @@ bool NFTM::Func_Include::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) 
         }
         
         if (!stack->IsText(t)) {
-            NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
                 errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
                 errlog->Write("\tinclude text item on the stack, not %s\n", "fix this reference to t->Kind()");
             }
             return false;
         }
-        
-        NFTM::TemplateFile *tmplt = new NFTM::TemplateFile(t->u.text);
-        NFTM::AST *ast = tmplt->Load();
+
+        // we may have to prefix the template path
+        //
+        NFTM::Text *fileName = 0;
+        NFTM::SymbolTableEntry *tp = symtab->Lookup("templatePath");
+        if (tp && tp->kind == steVariable) {
+            NFTM::Variable *v = tp->u.variable;
+            if (v->IsText()) {
+                // prefix it
+                fileName = new NFTM::Text(v->u.text, t->u.text);
+            }
+        }
+        if (!fileName) {
+            fileName = new NFTM::Text(t->u.text);
+        }
+
+        NFTM::TemplateFile *tmplt = new NFTM::TemplateFile(fileName);
+        NFTM::AST *ast = tmplt->Load(errlog);
         if (!ast) {
-            NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
                 errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
-                errlog->Write("\tinclude failed to load '%s'\n", t->u.text);
+                errlog->Write("\tinclude failed to load '%s'\n", fileName->text);
+                stack->Dump(errlog);
             }
             return false;
         }
         delete tmplt;
+        delete fileName;
         
         NFTM::Stack *includeStack = new NFTM::Stack;
         if (!ast->Execute(symtab, includeStack)) {
-            NFTM::OutputStream *errlog = symtab->ErrorLog();
             if (errlog) {
                 errlog->Write("\nerror:\t%s %s %d\n", __FILE__, __FUNCTION__, __LINE__);
                 errlog->Write("\tinclude failed to execute '%s'\n", t->u.text);

@@ -249,3 +249,47 @@ bool NFTM::Text::Equals(const char *str) const {
 
     return true;
 }
+
+//============================================================================
+// PullText()
+//
+NFTM::Text *NFTM::Text::PullText(void) const {
+    const char *startOfText = text;
+
+    if (text) {
+        const char *startOfVars  = std::strstr(text, "~~~\n");
+        if (startOfVars == text) {
+            startOfVars += 4;
+            
+            startOfText = std::strstr(startOfVars, "~~~\n");
+            if (startOfText) {
+                startOfText += 4;
+            } else {
+                startOfText = startOfVars;
+            }
+        }
+    }
+    
+    return new Text(startOfText);
+}
+
+//============================================================================
+// PullVariables()
+//
+NFTM::Text *NFTM::Text::PullVariables(void) const {
+    if (text) {
+        const char *startOfVars  = std::strstr(text, "~~~\n");
+        if (startOfVars == text) {
+            startOfVars += 4;
+
+            const char *startOfText = std::strstr(startOfVars, "~~~\n");
+            if (startOfText) {
+                return new Text(startOfVars, (int)(startOfText - startOfVars));
+            }
+        }
+    }
+
+    // no variables
+    //
+    return new Text("");
+}

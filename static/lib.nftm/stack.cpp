@@ -71,6 +71,44 @@ bool NFTM::Stack::CreateStack(void) {
 }
 
 //============================================================================
+// Dump(os)
+//
+void NFTM::Stack::Dump(NFTM::OutputStream *os) {
+    if (!os) {
+        return;
+    }
+    
+    NFTM::StackItem *curr = top;
+    while (curr) {
+        switch (curr->kind) {
+            case siBoolean:
+                os->Write("boolean %s\n", curr->u.boolean ? "true" : "false");
+                break;
+            case siFunction:
+                os->Write("function ?\n");
+                break;
+            case siNull:
+                break;
+            case siStack:
+                os->Write("stack ?\n");
+                break;
+            case siStackMarker:
+                os->Write("stack marker\n");
+                break;
+            case siText:
+                os->Write("text %s\n", curr->u.text->text);
+                break;
+            case siVariable:
+                os->Write("variable %s\n", curr->u.variable->Name(), curr->u.variable->Kind());
+                break;
+        }
+        
+        curr = curr->prev;
+    }
+}
+
+
+//============================================================================
 //
 NFTM::StackItem *NFTM::Stack::PopBottom(void) {
     NFTM::StackItem *item = bottom;

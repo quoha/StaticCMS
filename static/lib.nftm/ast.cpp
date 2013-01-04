@@ -178,11 +178,12 @@ bool NFTM::AST::Execute(NFTM::SymbolTable *symtab, NFTM::Stack *stack) {
 //---------------------------------------------------------------------------
 // Parse(code)
 //
-NFTM::AST *NFTM::AST::Parse(NFTM::Text *code) {
+NFTM::AST *NFTM::AST::Parse(NFTM::Text *code, NFTM::OutputStream *os) {
     AST *root       = new AST(astNOOP, 0, 0);
     AST *tail       = root;
 
     const char *nextChunk = code ? code->text : "";
+    nextChunk = nextChunk ? nextChunk : "";
 
     // enclosingIF will hold the most current IF statement. the "next"
     // pointer will be abused as the pointer to the enclosing IF statement.
