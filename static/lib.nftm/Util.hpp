@@ -16,4 +16,10 @@ namespace NFTM {
     
 } // namespace NFTM
 
+namespace StaticCMS {
+
+    bool OptIs(const char *opt, const char *is);
+
+} // namespace StaticCMS
+
 #endif // NFTM_static_src_bin_static_lib_nftm_Util_HPP

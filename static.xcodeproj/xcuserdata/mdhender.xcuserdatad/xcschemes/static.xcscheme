@@ -59,19 +59,19 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--root-input=/Users/mdhender/Software/xcode/static/static/static/data/source/"
+            argument = "--search-path=/Users/mdhender/Software/xcode/static/static/data/source/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--input=2013/01/03/inaugural-article"
+            argument = "--search-path=/tmp/StaticCMS/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--root-output=/Users/mdhender/Software/xcode/static/static/static/data/public/"
+            argument = "--output-file=/tmp/2013/01/03/inaugural-article.html"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--output=2013/01/03/inaugural-article.html"
+            argument = "--view-file=theArticle.tpl"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

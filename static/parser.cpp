@@ -2,7 +2,7 @@
 #include <cstring>
 #include <ctype.h>
 
-//
+//============================================================================
 // from the lexer's perspective
 //    view := (text | ("<cms" text "/>)*
 //
@@ -13,6 +13,9 @@
 //    if   := IF word* ( ELSE word* )? ENDIF
 //
 
+
+//============================================================================
+//
 enum lxKind {
     lxEOF = -1,
     lxUnknown,
@@ -24,6 +27,26 @@ enum lxKind {
     lxEndIf
 };
 
+
+//============================================================================
+//
+struct PState {
+    class LexemeFactory *lf;
+    NFTM::AST           *root;
+    NFTM::AST           *tail;
+};
+
+
+//============================================================================
+//
+NFTM::AST *ParseView(const char *sourceName, const char *data);
+bool       ParseWord(PState *ps);
+bool       ParseIf(PState *ps);
+bool       ParseElse(PState *ps);
+
+
+//============================================================================
+//
 class Lexeme {
 public:
     Lexeme(void);
@@ -50,16 +73,25 @@ public:
     char  *data;
 };
 
+
+//============================================================================
+//
 Lexeme::Lexeme(void) {
     kind = lxUnknown;
     line = 0;
     data = 0;
 }
 
+
+//============================================================================
+//
 Lexeme::~Lexeme() {
     delete [] data;
 }
 
+
+//============================================================================
+//
 void Lexeme::Data(const char *src, int length) {
     delete [] data;
     data = new char[length + 1];
@@ -71,32 +103,53 @@ void Lexeme::Data(const char *src, int length) {
     data[length] = 0;
 }
 
+
+//============================================================================
+//
 const char *Lexeme::Data(void) const {
     return data ? data : "";
 }
 
+
+//============================================================================
+//
 lxKind Lexeme::Kind(void) const {
     return kind;
 }
 
+
+//============================================================================
+//
 void Lexeme::Kind(lxKind kind_) {
     kind = kind;
 }
 
+
+//============================================================================
+//
 int Lexeme::Line(void) const {
     return line;
 }
 
+
+//============================================================================
+//
 void Lexeme::Line(int line_) {
     line = line_;
 }
 
+
+//============================================================================
+//
 void Lexeme::Set(lxKind kind_, int line_, const char *src_, int length) {
     Data(src_, length);
     Kind(kind_);
     Line(line_);
 }
 
+
+//============================================================================
+//
 class LexemeFactory {
 public:
     LexemeFactory(const char *src, const char *data);
@@ -122,6 +175,9 @@ private:
     Lexeme     *peek;
 };
 
+
+//============================================================================
+//
 LexemeFactory::LexemeFactory(const char *src_, const char *data_) {
     isText = true;
     line   = 1;
@@ -131,18 +187,30 @@ LexemeFactory::LexemeFactory(const char *src_, const char *data_) {
     peek   = 0;
 }
 
+
+//============================================================================
+//
 LexemeFactory::~LexemeFactory() {
     // nothing to destroy
 }
 
+
+//============================================================================
+//
 Lexeme *LexemeFactory::Curr(void) {
     return curr;
 }
 
+
+//============================================================================
+//
 bool LexemeFactory::IsEOF(void) const {
     return curr ? curr->IsEOF() : true;
 }
 
+
+//============================================================================
+//
 Lexeme *LexemeFactory::Next(void) {
     if (peek) {
         curr = peek;
@@ -153,6 +221,9 @@ Lexeme *LexemeFactory::Next(void) {
     return curr;
 }
 
+
+//============================================================================
+//
 Lexeme *LexemeFactory::Peek(void) {
     if (!peek) {
         peek = isText ? Text() : Word();
@@ -160,12 +231,18 @@ Lexeme *LexemeFactory::Peek(void) {
     return peek;
 }
 
+
+//============================================================================
+//
 Lexeme *LexemeFactory::Pop(void) {
     Lexeme *l = Curr();
     Next();
     return l;
 }
 
+
+//============================================================================
+//
 Lexeme *LexemeFactory::Text(void) {
     Lexeme *l = new Lexeme();
     
@@ -194,6 +271,9 @@ Lexeme *LexemeFactory::Text(void) {
     return l;
 }
 
+
+//============================================================================
+//
 Lexeme *LexemeFactory::Word(void) {
     Lexeme *l = new Lexeme();
     
@@ -230,36 +310,18 @@ Lexeme *LexemeFactory::Word(void) {
     return l;
 }
 
-struct AST {
-    int x;
-};
 
-struct PState {
-    LexemeFactory *lf;
-    Lexeme        *l;
-    AST           *root;
-    AST           *tail;
-};
-
-AST *ParseView(const char *input);
-
-bool ParseWord(PState *ps);
-bool ParseIf(PState *ps);
-bool ParseElse(PState *ps);
-
+//============================================================================
 //
 //    view := word* END_OF_INPUT
 //    word := TEXT | WORD | if
 //    if   := IF word* ( ELSE word* )? ENDIF
 //
-AST *ParseView(const char *sourceName, const char *data) {
-    AST *root = 0;
-
+NFTM::AST *ParseView(const char *sourceName, const char *data) {
     PState ps;
     ps.lf   = new LexemeFactory(sourceName, data);
-    ps.l    = 0;
-    ps.root = root;
-    ps.tail = root;
+    ps.root = 0;
+    ps.tail = 0;
 
     // prime the pump
     ps.lf->Next();
@@ -281,19 +343,24 @@ AST *ParseView(const char *sourceName, const char *data) {
 
     delete ps.lf;
 
-    return root;
+    return ps.root;
 }
 
+
+//============================================================================
+//
 //    word := TEXT | WORD | if
 //
 bool ParseWord(PState *ps) {
-    Lexeme *l = ps->lf->Pop();
+    Lexeme *l = ps->lf->Peek();
 
     if (l->IsText()) {
+        ps->lf->Pop();
         return true;
     }
     
     if (l->IsWord()) {
+        ps->lf->Pop();
         return true;
     }
 
@@ -306,12 +373,13 @@ bool ParseWord(PState *ps) {
     return false;
 }
 
+//============================================================================
+//
 //    if   := IF word* ( ELSE word* )? ENDIF
 //
 bool ParseIf(PState *ps) {
     Lexeme *lIF = ps->lf->Pop();
-
-    Lexeme *l = ps->lf->Peek();
+    Lexeme *l   = ps->lf->Peek();
 
     // process the optional then branch
     //
@@ -355,6 +423,9 @@ bool ParseIf(PState *ps) {
     return true;
 }
 
+
+//============================================================================
+//
 //    text := text | quotedText
 //
 bool ParseText(PState *ps) {
