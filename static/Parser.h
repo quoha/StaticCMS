@@ -75,10 +75,10 @@ namespace StaticCMS {
             char  *data;
         };
 
-        class LexemeFactory {
+        class Lexer {
         public:
-            LexemeFactory(const char *src, const char *data);
-            ~LexemeFactory();
+            Lexer(const char *src, const char *data);
+            ~Lexer();
             
             Lexeme *Curr(void) {
                 return curr;
@@ -122,11 +122,14 @@ namespace StaticCMS {
         };
 
         struct PState {
-            class LexemeFactory *lf;
+            class Lexer *lf;
             StaticCMS::AST      *root;
             StaticCMS::AST      *tail;
         };
 
+        bool ParseIf(PState *ps);
+        bool ParseWord(PState *ps);
+        bool ParseText(PState *ps);
     }; // class Parser_Blog
 
 }
