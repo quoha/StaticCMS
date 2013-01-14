@@ -34,6 +34,7 @@
 #include "local.hpp"
 #include "AST.h"
 #include "Model.h"
+#include "Parser.h"
 #include "SearchPath.h"
 #include <stdio.h>
 
@@ -116,9 +117,13 @@ int main(int argc, char *argv[]) {
     sprintf(firstView, ourInclude, viewFile);
     printf(" info:\t%s\n", firstView);
 
+    // we'll use the blog parser
+    //
+    StaticCMS::Parser_Blog parser;
+    
     // generate an AST from that view
     //
-    StaticCMS::AST *ast = new StaticCMS::AST(firstView);
+    StaticCMS::AST *ast = parser.Parse("firstView", firstView);
 
     // execute that AST
     //

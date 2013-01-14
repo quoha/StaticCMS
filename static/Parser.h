@@ -45,6 +45,88 @@ namespace StaticCMS {
         ~Parser_Blog();
         
         AST *Parse(const char *sourceName, const char *data);
+
+    private:
+        enum lxKind {lxEOF = -1, lxUnknown, lxText, lxQuotedText, lxWord, lxIf, lxElse, lxEndIf};
+
+        class Lexeme {
+        public:
+            Lexeme(void);
+            ~Lexeme();
+            
+            const char *Data(void) const;
+            void        Data(const char *src, int length);
+            lxKind      Kind(void) const;
+            void        Kind(lxKind kind);
+            int         Line(void) const;
+            void        Line(int line);
+            void        Set(lxKind kind, int line, const char *src_, int length);
+            
+            bool IsELSE(void) const { return kind == lxElse; }
+            bool IsENDIF(void) const { return kind == lxEndIf; }
+            bool IsEOF(void) const { return kind == lxEOF; }
+            bool IsIF(void) const { return kind == lxIf; }
+            bool IsQuotedText(void) const { return kind == lxQuotedText; }
+            bool IsText(void) const { return kind == lxText || kind == lxQuotedText; }
+            bool IsWord(void) const { return kind == lxWord; }
+            
+            lxKind kind;
+            int    line;
+            char  *data;
+        };
+
+        class LexemeFactory {
+        public:
+            LexemeFactory(const char *src, const char *data);
+            ~LexemeFactory();
+            
+            Lexeme *Curr(void) {
+                return curr;
+            }
+            Lexeme *Next(void) {
+                if (peek) {
+                    curr = peek;
+                    peek = 0;
+                } else {
+                    curr = isText ? Text() : Word();
+                }
+                return curr;
+            }
+            Lexeme *Peek(void) {
+                if (!peek) {
+                    peek = isText ? Text() : Word();
+                }
+                return peek;
+            }
+            Lexeme *Pop(void) {
+                Lexeme *l = Curr();
+                Next();
+                return l;
+            }
+            
+            bool IsEOF(void) const {
+                return curr ? curr->IsEOF() : true;
+            }
+            
+        private:
+            Lexeme *Text(void);
+            Lexeme *Word(void);
+            
+            bool        isText;
+            int         line;
+            const char *src;
+            const char *data;
+            
+            Lexeme     *curr;
+            Lexeme     *peek;
+        };
+
+        struct PState {
+            class LexemeFactory *lf;
+            StaticCMS::AST      *root;
+            StaticCMS::AST      *tail;
+        };
+
     }; // class Parser_Blog
 
 }
