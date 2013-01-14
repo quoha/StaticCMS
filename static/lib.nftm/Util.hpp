@@ -18,7 +18,8 @@ namespace NFTM {
 
 namespace StaticCMS {
 
-    bool OptIs(const char *opt, const char *is);
+    char *LoadFile(const char *fileName);
+    bool  OptIs(const char *opt, const char *is);
 
 } // namespace StaticCMS
 

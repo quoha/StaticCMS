@@ -25,34 +25,28 @@
  * This file is part of StaticCMS (http://github.com/quoha/StaticCMS).
  *************************************************************************/
 
-#ifndef __static__Dictionary__
-#define __static__Dictionary__
+#ifndef __static__Parser__
+#define __static__Parser__
+
+#include "AST.h"
 
 namespace StaticCMS {
-    
-    class Dictionary {
+    class Parser {
     public:
-        Dictionary(void);
-        ~Dictionary();
+        Parser(void);
+        ~Parser();
 
-        void        Dump(void);
-        bool        Entry(const char *key, const char *value);
-        const char *Entry(const char *key) const;
+        virtual AST *Parse(const char *sourceName, const char *data);
+    }; // class Parser
 
-    private:
-        unsigned int Hash(const char *key) const;
-
-        static const int hashSize = 1024;
+    class Parser_Blog {
+    public:
+        Parser_Blog(void);
+        ~Parser_Blog();
         
-        struct Bucket {
-            struct Bucket *prev;
-            struct Bucket *next;
-            unsigned int   hashValue;
-            const char    *key;
-            const char    *value;
-        } *hash[hashSize];
-    }; // class Dictionary
-    
-} // namespace StaticCMS
+        AST *Parse(const char *sourceName, const char *data);
+    }; // class Parser_Blog
 
-#endif /* defined(__static__Dictionary__) */
+}
+
+#endif /* defined(__static__Parser__) */

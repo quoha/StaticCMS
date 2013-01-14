@@ -59,19 +59,27 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
+            argument = "--search-path=/Users/mdhender/Software/xcode/static/static/data/"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "--search-path=/Users/mdhender/Software/xcode/static/static/data/source/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--search-path=/tmp/StaticCMS/"
+            argument = "--model-file=model/site"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--output-file=/tmp/2013/01/03/inaugural-article.html"
+            argument = "--model-file=model/thePowerOfStatic"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--view-file=theArticle.tpl"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--output-file=/tmp/2013/01/03/inaugural-article.html"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

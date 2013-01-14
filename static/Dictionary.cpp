@@ -26,12 +26,63 @@
  *************************************************************************/
 
 #include "Dictionary.h"
+#include <cstring>
 
 StaticCMS::Dictionary::Dictionary(void) {
-    //
+    for (int idx = 0; idx < hashSize; idx++) {
+        hash[idx] = 0;
+    }
 }
 
 StaticCMS::Dictionary::~Dictionary() {
     //
 }
 
+const char *StaticCMS::Dictionary::Entry(const char *key) const {
+    key = key ? key : "";
+
+    unsigned int hashValue = Hash(key);
+
+	Bucket *b = hash[hashValue % hashSize];
+
+	while (b) {
+		if (b->hashValue == hashValue && std::strcmp(key, b->key) == 0) {
+            return b->value;
+		}
+		b = b->next;
+	}
+
+    return 0;
+}
+
+bool StaticCMS::Dictionary::Entry(const char *key, const char *value) {
+    key   = key   ? key   : "";
+    value = value ? value : "";
+
+	Bucket *b = new Bucket();
+
+	b->hashValue         = Hash(key);
+    b->key               = std::strcpy(new char[std::strlen(key  ) + 1], key  );
+    b->value             = std::strcpy(new char[std::strlen(value) + 1], value);
+    b->prev              = 0;
+	b->next              = hash[b->hashValue % hashSize];
+    if (b->next) {
+        b->next->prev = b;
+    }
+    
+	hash[b->hashValue % hashSize] = b;
+    
+	return true;
+}
+
+unsigned int StaticCMS::Dictionary::Hash(const char *key) const {
+	unsigned int djbHash = 0;
+
+    if (key) {
+        while (*key) {
+            djbHash = djbHash * 32 + djbHash + *(key++);
+        }
+    }
+
+	return djbHash;
+}

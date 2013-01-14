@@ -26,6 +26,10 @@
  *************************************************************************/
 
 #include "Model.h"
+#include "lib.nftm/Util.hpp"
+#include <stdio.h>
+#include <cstring>
+#include <ctype.h>
 
 StaticCMS::Model::Model(void) {
     //
@@ -36,5 +40,83 @@ StaticCMS::Model::~Model() {
 }
 
 bool StaticCMS::Model::AddVariablesFromFile(const char *fileName) {
-    return false;
+    char *data = LoadFile(fileName);
+    if (!data) {
+		perror(fileName);
+        return false;
+	}
+
+    printf("---------\n%s\n-----------------\n", data);
+    
+    char *articleText = 0;
+
+    if (std::strncmp(data, "<@<@>@>\n", 8) == 0) {
+        data[0] = 0;
+        articleText = data + 8;
+    } else {
+        char *separator = std::strstr(data, "\n<@<@>@>\n");
+        if (separator) {
+            *separator = 0;
+            articleText = separator + 9;
+        }
+    }
+
+    if (!AddVariablesFromString(data)) {
+        delete [] data;
+        return false;
+    }
+
+    if (!AddVariable("articleText", articleText)) {
+        delete [] data;
+        return false;
+    }
+
+    delete [] data;
+
+    return true;
+}
+
+bool StaticCMS::Model::AddVariable(const char *name, const char *value) {
+    return dictionary.Entry(name, value);
+}
+
+//
+// format is name value
+//
+bool StaticCMS::Model::AddVariablesFromString(char *data) {
+    // process one line at a time
+    while (*data) {
+        char *lineStart = data;
+        while (*data && *data != '\n') {
+            data++;
+        }
+        if (*data) {
+            *(data++) = 0;
+        }
+
+        char *name = lineStart;
+        while (*name && isspace(*name)) {
+            *(name++) = 0;
+        }
+
+        char *value = name;
+        while (*value && !isspace(*value)) {
+            value++;
+        }
+        while (*value && isspace(*value)) {
+            *(value++) = 0;
+        }
+
+        if (*name) {
+            if (!AddVariable(name, value)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+const char *StaticCMS::Model::GetVariable(const char *name) {
+    return dictionary.Entry(name);
 }

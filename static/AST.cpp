@@ -25,34 +25,12 @@
  * This file is part of StaticCMS (http://github.com/quoha/StaticCMS).
  *************************************************************************/
 
-#ifndef __static__Dictionary__
-#define __static__Dictionary__
+#include "AST.h"
 
-namespace StaticCMS {
-    
-    class Dictionary {
-    public:
-        Dictionary(void);
-        ~Dictionary();
+StaticCMS::AST::AST(const char *string) {
+    //
+}
 
-        void        Dump(void);
-        bool        Entry(const char *key, const char *value);
-        const char *Entry(const char *key) const;
-
-    private:
-        unsigned int Hash(const char *key) const;
-
-        static const int hashSize = 1024;
-        
-        struct Bucket {
-            struct Bucket *prev;
-            struct Bucket *next;
-            unsigned int   hashValue;
-            const char    *key;
-            const char    *value;
-        } *hash[hashSize];
-    }; // class Dictionary
-    
-} // namespace StaticCMS
-
-#endif /* defined(__static__Dictionary__) */
+StaticCMS::AST::~AST() {
+    //
+}

@@ -1,4 +1,4 @@
-#include "lib.nftm/AST.hpp"
+#include "AST.h"
 #include <cstring>
 #include <ctype.h>
 
@@ -32,18 +32,17 @@ enum lxKind {
 //
 struct PState {
     class LexemeFactory *lf;
-    NFTM::AST           *root;
-    NFTM::AST           *tail;
+    StaticCMS::AST           *root;
+    StaticCMS::AST           *tail;
 };
 
 
 //============================================================================
 //
-NFTM::AST *ParseView(const char *sourceName, const char *data);
-bool       ParseWord(PState *ps);
-bool       ParseIf(PState *ps);
-bool       ParseElse(PState *ps);
-
+StaticCMS::AST *ParseView(const char *sourceName, const char *data);
+bool            ParseWord(PState *ps);
+bool            ParseIf(PState *ps);
+bool            ParseElse(PState *ps);
 
 //============================================================================
 //
@@ -317,7 +316,7 @@ Lexeme *LexemeFactory::Word(void) {
 //    word := TEXT | WORD | if
 //    if   := IF word* ( ELSE word* )? ENDIF
 //
-NFTM::AST *ParseView(const char *sourceName, const char *data) {
+StaticCMS::AST *ParseView(const char *sourceName, const char *data) {
     PState ps;
     ps.lf   = new LexemeFactory(sourceName, data);
     ps.root = 0;

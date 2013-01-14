@@ -32,9 +32,7 @@
 //  4. "map" operator
 
 #include "local.hpp"
-#include "lib.nftm/Stack.hpp"
-#include "lib.nftm/SymbolTable.hpp"
-#include "ArticleController.hpp"
+#include "AST.h"
 #include "Model.h"
 #include "SearchPath.h"
 #include <stdio.h>
@@ -108,5 +106,22 @@ int main(int argc, char *argv[]) {
     printf(" info:\t%-20s == '%s'\n", "outputFile", outputFile);
     printf(" info:\t%-20s == '%s'\n", "viewFile", viewFile);
 
+    // we're going to create a view that does nothing but include the first
+    // view. this is to make it look like it will in the rest of the code.
+    // in other words, we don't have to treat the bootstrapping as anything
+    // special
+    //
+    const char *ourInclude = "<cms <%s> include />";
+    char *firstView  = new char [std::strlen(ourInclude) + std::strlen(viewFile) + 1];
+    sprintf(firstView, ourInclude, viewFile);
+    printf(" info:\t%s\n", firstView);
+
+    // generate an AST from that view
+    //
+    StaticCMS::AST *ast = new StaticCMS::AST(firstView);
+
+    // execute that AST
+    //
+    
 	return 0;
 }

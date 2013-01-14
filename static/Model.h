@@ -20,7 +20,7 @@ namespace StaticCMS {
         
         bool AddVariable(const char *name, const char *value);
         bool AddVariablesFromFile(const char *fileName);
-        bool AddVariablesFromString(const char *string);
+        bool AddVariablesFromString(char *string);
         void Dump(void);
         
         const char *GetVariable(const char *name);
